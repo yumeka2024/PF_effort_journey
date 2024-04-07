@@ -1,0 +1,28 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <% if customer_signed_in? %>
+        <!--%= render 'shared/info', user: current_user %>-->
+      <% else %>
+        <div>
+          <p>
+          アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
+          投稿や、記録をするにはアカウントの登録が必要です。<br>
+          気になった方はお気軽にご登録ください！<br>
+          </p>
+          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block rounded btn-custommer' %>
+          <p>
+            すでにアカウントをお持ちの方はこちらから
+          </p>
+          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block rounded btn-custommer' %>
+        </div>
+      <% end %>
+    </div>
+    <div class='col-6 border py-5'>
+      <!--%= render 'shared/post_list', posts: @posts %>-->
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'shared/search', posts: @posts %>-->
+    </div>
+  </div>
+</div>
