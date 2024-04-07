@@ -1,0 +1,62 @@
+<style>
+nav {
+background-color:#E4AB63
+}
+.btn-user{
+  border: none;
+  color: #ab8048;
+  background: #FFF;
+}
+.btn-user:hover{
+  border: none;
+  color: #FFF;
+  background: #ab8048;
+}
+.btn-user:active{
+  border: none;
+  color: #ab8048;
+  background: #FFF;
+}
+.btn-admin{
+  border: none;
+  color: #FFF;
+  background: #ab8048;
+}
+.btn-admin:hover{
+  border: none;
+  color: #ab8048;
+  background: #FFF;
+}
+.btn-admin:active{
+  border: none;
+  color: #FFF;
+  background: #ab8048;
+}
+.img {
+  width: 90%;
+}
+</style>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="col-3 navbar-brand mt-2" href="/"> <img class="img" src="/assets/title.png"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class='mx-3'>
+            <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-block rounded btn-user', method: :delete %>
+          </li>
+        <% else %>
+          <li class='mx-3'>
+            <%= link_to "About", about_path, class: 'btn btn-block rounded btn-user' %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
