@@ -3,12 +3,16 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   has_one_attached :image
 
   validates :name, presence: true, length: { maximum: 30 }
-  validates :custom_identifier, presence: true, uniqueness: true, length: { maximum: 20 },
+  validates :custom_identifier, presence: true, uniqueness: true, length: { in: 5..20 },
     format: { with: /\A[a-zA-Z0-9]+\z/, message: "は英数字のみで設定してください" }
+
+  def to_param
+    custom_identifier
+  end
 
   def get_image(width, height)
     unless image.attached?
@@ -17,5 +21,5 @@ class User < ApplicationRecord
     end
     image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
 end

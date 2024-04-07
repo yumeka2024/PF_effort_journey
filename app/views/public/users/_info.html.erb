@@ -4,5 +4,6 @@
   <p><%= user.custom_identifier %></p>
   <p><%= user.introduction %></p>
   <p><%= user.birthday %></p>
+  <p><%= link_to "自分の投稿/いいね", users_path(user), class:"btn border mt-5" %></p>
   <p><%= link_to "プロフィール編集", users_profile_edit_path(user), class:"btn border mt-5" %></p>
 </div>
