@@ -1,6 +1,6 @@
 <style>
 nav {
-background-color:#E4AB63
+background-color:#FFCC99
 }
 .btn-user{
   border: none;
@@ -44,14 +44,14 @@ background-color:#E4AB63
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="offset-md-7 collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
           <li class='mx-3'>
             <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-block rounded btn-user', method: :delete %>
           </li>
         <% else %>
-          <li class='mx-3'>
+          <li class='mx-5'>
             <%= link_to "About", about_path, class: 'btn btn-block rounded btn-user' %>
           </li>
         <% end %>
