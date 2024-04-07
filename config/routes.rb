@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     patch 'users/withdraw' => 'users#withdraw'
     resources :users, only: :show, param: :custom_identifier
 
+    resources :posts, only: [:new, :show, :create, :destroy] do
+      get "confirm", on: :collection
+    end
+
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
