@@ -7,7 +7,7 @@
           <p>メールアドレスと<br>パスワードを入力してください。</p>
         </div>
         <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= render "public/shared/error_messages", resource: resource %>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
