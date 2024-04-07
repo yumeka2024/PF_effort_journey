@@ -11,7 +11,7 @@ class Public::UsersController < ApplicationController
   def update
   @user = current_user
     if @user.update(user_params)
-      redirect_to users_profile_edit
+      redirect_to users_profile_edit_path
     else
       render :edit
     end
@@ -22,7 +22,7 @@ class Public::UsersController < ApplicationController
 
   def withdraw
     @user = current_user
-    @user.update(deleted: false)
+    @user.update(deleted: true)
     reset_session
     flash[:center_notice] = "退会が完了いたしました"
     redirect_to root_path
@@ -30,8 +30,8 @@ class Public::UsersController < ApplicationController
 
   private
 
-  def customer_params
-    params.require(:customer).permit(:custom_identifier, :name, :introduction, :birthday, :private, :email)
+  def user_params
+    params.require(:user).permit(:custom_identifier, :name, :introduction, :birthday, :private, :email)
   end
 
 end
