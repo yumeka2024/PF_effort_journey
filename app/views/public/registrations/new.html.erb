@@ -1,0 +1,58 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <h5 class="text-dark bg-light py-4 mb-0 text-center">新規登録</h5>
+      <div class="form-body p-4">
+        <div class="mx-auto text-center">
+          <p></p>
+        </div>
+        <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
+        <%= render "public/shared/error_messages", resource: resource %>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-font"></i></i></span>
+          </div>
+          <%= f.text_field :custom_identifier, autofocus: true, class:"form-control", id:"inputCustomIdentifier", placeholder:"ID"%>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
+          </div>
+          <%= f.text_field :name, class:"form-control", id:"inputName", placeholder:"名前"%>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+          </div>
+          <%= f.email_field :email, class:"form-control", id:"inputEmail", placeholder:"メールアドレス" %>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>
+          </div>
+          <%= f.password_field :password, autocomplete: "off", class:"form-control", id:"inputPassword", placeholder:"パスワード" %>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" aria-hidden="true"><i class="fas fa-check-circle"></i></span>
+          </div>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control", id:"inputConfirmPassword", placeholder:"パスワード確認" %>
+        </div>
+        <%= f.submit "サインアップ", class:"btn btn-block btn-info mt-5 mx-auto w-100" %>
+      <% end %>
+      </div>
+      <div class="mx-auto text-center">
+        <p>
+          すでにご登録済みの方は<br>
+          <%= link_to "こちら" , new_user_session_path %> からログインしてください
+        </p>
+      </div>
+    </div>
+    <div class='col-6 border py-5'>
+      <!--%= render 'shared/post_list', posts: @posts %>-->
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'shared/search', posts: @posts %>-->
+    </div>
+  </div>
+</div>
