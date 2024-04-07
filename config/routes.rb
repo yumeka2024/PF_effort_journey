@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  get "users" => redirect("/users/sign_up")
 
   # ユーザー側
   scope module: :public do
