@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
   def show
     @users = User.all
-    @user = current_user
+    @posts = current_user.posts.all
   end
 
   def edit
@@ -9,8 +9,8 @@ class Public::UsersController < ApplicationController
   end
 
   def update
-  @user = current_user
-    if @user.update(user_params)
+  user = current_user
+    if user.update(user_params)
       redirect_to users_profile_edit_path
     else
       render :edit
@@ -21,8 +21,8 @@ class Public::UsersController < ApplicationController
   end
 
   def withdraw
-    @user = current_user
-    @user.update(deleted: true)
+    user = current_user
+    user.update(deleted: true)
     reset_session
     flash[:center_notice] = "退会が完了いたしました"
     redirect_to root_path
