@@ -30,7 +30,23 @@
         </div>
       </div>
       
-      <%= yield %>
+      <div class="container">
+        <div class="row">
+          <% if content_for?(:left_side) %>
+            <div class="col-sm-3 d-none d-sm-block">
+              <%= yield(:left_side) %>
+            </div>
+          <% end %>
+          <div class="col-sm-6">
+            <%= yield %>
+          </div>
+          <% if content_for?(:right_side) %>
+            <div class="col-sm-3 d-none d-sm-block">
+              <%= yield(:right_side) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </main>
   </body>
 </html>

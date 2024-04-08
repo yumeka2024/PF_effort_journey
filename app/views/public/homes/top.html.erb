@@ -1,28 +1,60 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-3 border py-5'>
-      <% if user_signed_in? %>
-        <%= render 'public/users/info', user: current_user %>
-      <% else %>
-        <div>
-          <p>
-          アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
-          投稿や、記録をするにはアカウントの登録が必要です。<br>
-          気になった方はお気軽にご登録ください！<br>
-          </p>
-          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block rounded btn-custommer mb-5' %>
-          <p class='mt-5'>
-            すでにアカウントをお持ちの方はこちらから
-          </p>
-          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block rounded btn-custommer' %>
-        </div>
-      <% end %>
+<%= content_for(:left_side) do %>
+  <% if user_signed_in? %>
+    <%= render 'public/users/info', user: current_user %>
+  <% else %>
+    <div>
+      <p>
+      アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
+      投稿や、記録をするにはアカウントの登録が必要です。<br>
+      気になった方はお気軽にご登録ください！<br>
+      </p>
+      <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block rounded btn-custommer mb-5' %>
+      <p class='mt-5'>
+        すでにアカウントをお持ちの方はこちらから
+      </p>
+      <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block rounded btn-custommer' %>
     </div>
-    <div class='col-6 border py-5'>
-      <%= render 'public/posts/list', posts: @posts %>
+  <% end %>
+<% end %>
+
+<%= render 'public/posts/list', posts: @posts %>
+
+<div class="d-block d-sm-none">
+  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+      aria-controls="offcanvas">
+    <span class="">menu</span>
+  </button>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class='col-3 border py-5'>
-      <!--%= render 'shared/search', xxx: @xxx %>-->
-    </div>
+      <div class="offcanvas-body">
+        <% if user_signed_in? %>
+          <%= render 'public/users/info', user: current_user %>
+        <% else %>
+          <div>
+            <p>
+            アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
+            投稿や、記録をするにはアカウントの登録が必要です。<br>
+            気になった方はお気軽にご登録ください！<br>
+            </p>
+            <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block rounded btn-custommer mb-5' %>
+            <p class='mt-5'>
+              すでにアカウントをお持ちの方はこちらから
+            </p>
+            <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block rounded btn-custommer' %>
+          </div>
+        <% end %>
+      </div>
   </div>
 </div>
+
+<%= content_for(:right_side) do %>
+  <h2>hello</h2>
+<% end %>
+
+
+
+
