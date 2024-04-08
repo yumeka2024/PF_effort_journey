@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
+
   def show
-    @users = User.all
     @posts = current_user.posts.all
   end
 
