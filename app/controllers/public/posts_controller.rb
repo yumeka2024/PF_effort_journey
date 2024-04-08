@@ -1,5 +1,4 @@
 class Public::PostsController < ApplicationController
-  before_action :set_user, only: [ :new, :show, :create, :confirm ]
 
   def new
     @post = Post.new
@@ -10,20 +9,23 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    post = Pst
+    post = Post.new(post_params)
+    post.user_id = current_user.id
+    post.save
+    redirect_to root_path, notice_center: '投稿が完了しました'
   end
 
   def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to root_path, notice_center: '投稿を削除しました'
   end
 
   def confirm
+    @post = Post.new(post_params)
   end
 
   private
-
-  def set_user
-    @user = current_user
-  end
 
   def post_params
     params.require(:post).permit(:posted_on, :body)

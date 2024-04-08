@@ -3,8 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   has_one_attached :image
+
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :custom_identifier, presence: true, uniqueness: true, length: { maximum: 20 },
@@ -17,5 +19,5 @@ class User < ApplicationRecord
     end
     image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
 end
