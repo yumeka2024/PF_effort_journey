@@ -6,6 +6,7 @@ class Public::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
+    @posts = Post.all
     super
   end
 
