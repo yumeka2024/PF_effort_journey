@@ -32,7 +32,9 @@
         <div class="col-3 text-center border-end">
         </div>
         <div class="col-3 text-center mt-2">
+          <% if @post.user == current_user %>
           <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+          <% end %>
         </div>
       </div>
     </div>
