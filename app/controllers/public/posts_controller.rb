@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :is_matching_login_user, only: [:destroy]
+  before_action :set_user, only: [ :new, :show, :confirm ]
 
   def new
     @post = Post.new
@@ -31,15 +32,19 @@ class Public::PostsController < ApplicationController
 
   private
 
-  def post_params
-    params.require(:post).permit(:posted_on, :body)
-  end
-
   def is_matching_login_user
     post = Post.find(params[:id])
     unless post.user_id == current_user.id
       redirect_to root_path
     end
+  end
+
+  def set_user
+    @user = current_user
+  end
+
+  def post_params
+    params.require(:post).permit(:posted_on, :body)
   end
 
 end
