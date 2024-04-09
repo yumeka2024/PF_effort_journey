@@ -1,7 +1,8 @@
 class Public::UsersController < ApplicationController
 
   def show
-    @posts = current_user.posts.all
+    @user = User.find_by!(custom_identifier: params[:custom_identifier])
+    @posts = @user.posts.all
   end
 
   def edit
