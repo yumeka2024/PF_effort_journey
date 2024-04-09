@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :is_matching_login_user, only: [:destroy]
-  before_action :set_user, only: [ :new, :show, :confirm ]
+  before_action :set_current_user, only: [ :new, :show, :confirm ]
 
   def new
     @post = Post.new
@@ -39,7 +39,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def set_user
+  def set_current_user
     @user = current_user
   end
 
