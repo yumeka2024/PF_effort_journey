@@ -1,0 +1,18 @@
+<div class="text-center">
+  <p>
+    <% if user == current_user %>
+    <%= link_to "今日の振り返りを投稿", new_post_path, class:"btn border" %>
+    <% end %>
+  </p>
+  <%= image_tag user.get_image(100,100), class:"rounded-circle" %>
+  <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= user.name %></h5>
+  <p><%= user.custom_identifier %></p>
+  <p><%= user.introduction %></p>
+  <p><%= user.birthday %></p>
+  <p>
+    <% if user == current_user %>
+    <%= link_to "自分の投稿/いいね", user_path(user), class:"btn border mt-5" %>
+    <%= link_to "プロフィール編集", users_profile_edit_path(user), class:"btn border mt-5" %>
+    <% end %>
+  </p>
+</div>

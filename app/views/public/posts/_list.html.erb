@@ -1,0 +1,28 @@
+<div class="card-list-containar">
+  <% posts.order(created_at: :desc).each do |post| %>
+  <div class="card w-100 shadow-sm m-1">
+    <div class="card-body">
+      <%= link_to(user_path(post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+      <div class="row">
+        <div class="col-1">
+          <%= image_tag post.user.get_image(30,30), class:"rounded-circle";  %>
+        </div>
+        <div class="col-11 w-75 text-truncate">
+          <p><%= post.user.name %></p>
+        </div>
+      </div>
+      <% end %>
+      <%= link_to(post_path(post), class:"text-dark link-underline link-underline-opacity-0") do %>
+      <div class="row">
+        <div class="col-12">
+          <p class="card-title">
+            <strong><span><%= post.posted_on %>の振り返り</span></strong>
+          </p>
+          <p class="card-text"><%= post.body %></p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
