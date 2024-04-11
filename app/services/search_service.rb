@@ -4,14 +4,12 @@ class SearchService
   end
 
   def perform_search
-    users = User.where('name LIKE ?', "%#{@query}%")
-    posts = Post.where('body LIKE ?', "%#{@query}%")
-    # labels = Label.where('name LIKE ?', "%#{@query}%")
+    users = User.where('name LIKE ?', "%#{@query}%").to_a
+    posts = Post.where('body LIKE ?', "%#{@query}%").to_a
 
     {
       users: users,
       posts: posts,
-      # labels: labels
     }
   end
 end

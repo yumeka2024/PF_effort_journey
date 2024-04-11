@@ -1,14 +1,22 @@
 <h2>Users</h2>
-<% @user_results.each do |user| %>
-  <p><%= user.name %></p>
+<% if @search_results["users"].present? %>
+  <% @search_results["users"].each do |user| %>
+    <p><%= user["name"] %></p>
+  <% end %>
+<% else %>
+  <p>No users found.</p>
 <% end %>
 
 <h2>Posts</h2>
-<% @post_results.each do |post| %>
-  <p><%= post.body %></p>
+<% if @search_results["posts"].present? %>
+  <% @search_results["posts"].each do |post| %>
+    <p><%= post["body"] %></p>
+  <% end %>
+<% else %>
+  <p>No posts found.</p>
 <% end %>
 
 <!--<h2>Labels</h2>-->
-<!--% @label_results.each do |label| %>-->
+<!--% @search_results[:labels].each do |label| %>-->
 <!--  <p>%= label.name %></p>-->
 <!--% end %>-->
