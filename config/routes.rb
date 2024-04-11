@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'about' => 'homes#about'
 
+    post '/search', to: 'searches#search', as: :search
+
     get 'users/profile/edit' => 'users#edit'
     patch 'users/profile' => 'users#update'
     get  'users/confirm' => 'users#confirm'
