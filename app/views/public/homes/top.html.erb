@@ -23,10 +23,11 @@
     </div>
     <div class='col-3 border py-5'>
       <%= render 'public/searches/form' %>
-      <!--% byebug %>-->
-      <% if @search_results.present? %>
-        <%= render 'public/searches/result' %>
-      <% end %>
+      <div id="search_results">
+        <% if @search_results.present? %>
+          <%= render 'public/searches/result' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
