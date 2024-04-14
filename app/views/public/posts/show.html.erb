@@ -7,7 +7,7 @@
       <div class="row text-end">
         <%= link_to "back", root_path, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
       </div>
-      <%= link_to(user_path(@post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+      <%= link_to(user_custom_id_path(@post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
           <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>

@@ -1,3 +1,4 @@
+<!--app/views/public/registrations/new.html.erb-->
 <div class='container'>
   <div class='row'>
     <div class='col-3 border py-5'>
@@ -7,7 +8,9 @@
           <p></p>
         </div>
         <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
-        <%= render "public/shared/error_messages", resource: resource %>
+        <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
+          <%= render "public/shared/error_messages", resource: resource %>
+        </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-font"></i></i></span>
