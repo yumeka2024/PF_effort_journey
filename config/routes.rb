@@ -1,10 +1,10 @@
+# config/routes.rb
 Rails.application.routes.draw do
 
   devise_for :users,skip: [:passwords], controllers: {
     registrations: 'public/registrations',
     sessions: 'public/sessions'
   }
-  get 'users' => redirect('/users/sign_up')
 
   # ユーザー側
   scope module: :public do
@@ -15,13 +15,17 @@ Rails.application.routes.draw do
     patch 'users/profile' => 'users#update'
     get  'users/confirm' => 'users#confirm'
     patch 'users/withdraw' => 'users#withdraw'
-    resources :users, only: :show, param: :custom_identifier
+    get 'id/:custom_identifier', to: 'users#show', as: 'user_custom_id'
 
     resources :posts, only: [:new, :show, :create, :destroy] do
       get 'confirm', on: :collection
     end
 
   end
+
+  # render後にリロードした時、Routing Errorにならないように設定
+  get 'users' => redirect('/users/sign_up')
+  get 'users/profile' => redirect('users/profile/edit')
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
