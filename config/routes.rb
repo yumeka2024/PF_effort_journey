@@ -1,6 +1,14 @@
 # config/routes.rb
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'posts/index'
+    get 'posts/show'
+  end
+  namespace :admin do
+    get 'users/index'
+    get 'users/show'
+  end
   devise_for :admin,skip: [:passwords], controllers: {
     registrations: 'admin/registrations',
     sessions: "admin/sessions"
