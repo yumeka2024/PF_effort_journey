@@ -3,6 +3,10 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find_by!(custom_identifier: params[:custom_identifier])
+    if @user.nil?
+      redirect_to root_path
+      return
+    end
     @user_identifier = User.find_by!(custom_identifier: params[:custom_identifier])
     @posts = @user.posts.all
   end
