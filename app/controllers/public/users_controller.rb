@@ -3,19 +3,22 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find_by!(custom_identifier: params[:custom_identifier])
+    @user_identifier = User.find_by!(custom_identifier: params[:custom_identifier])
     @posts = @user.posts.all
   end
 
   def edit
     @user = current_user
+    @user_identifier = User.find(current_user.id)
   end
 
   def update
-  @user = current_user
+    @user = current_user
     if @user.update(user_params)
-      flash[:center_notice] = 
+      flash[:center_notice] =
       redirect_to users_profile_edit_path, flash: { center_notice: '編集を保存しました' }
     else
+      @user_identifier = User.find(current_user.id)
       render :edit
     end
   end
