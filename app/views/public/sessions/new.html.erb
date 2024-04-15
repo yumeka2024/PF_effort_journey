@@ -26,7 +26,12 @@
       <div class="mx-auto text-center">
         <p>
           アカウントの登録がお済みでない方は<br>
-           <%= link_to "こちら" , new_user_registration_path %> から新規登録を行なってください
+          <%= link_to "こちら" , new_user_registration_path %> から新規登録を行なってください
+        </p>
+      </div>
+      <div class="mx-auto mt-3 text-center">
+        <p>
+          <!--退会した方への注意-->
         </p>
       </div>
     </div>
@@ -34,7 +39,10 @@
       <%= render 'public/posts/list', posts: @posts %>
     </div>
     <div class='col-3 border py-5'>
-      <!--%= render 'shared/search', xxx: @xxx %>-->
+      <%= render 'public/searches/form' %>
+      <% if @search_results.present? %>
+        <%= render 'public/searches/result' %>
+      <% end %>
     </div>
   </div>
 </div>

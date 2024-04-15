@@ -1,3 +1,4 @@
+<!--app/views/public/users/_info.html.erb-->
 <div class="text-center">
   <p>
     <% if user == current_user %>
@@ -11,8 +12,8 @@
   <p><%= user.birthday %></p>
   <p>
     <% if user == current_user %>
-    <%= link_to "自分の投稿/いいね", user_path(user), class:"btn border mt-5" %>
-    <%= link_to "プロフィール編集", users_profile_edit_path(user), class:"btn border mt-5" %>
+    <%= link_to "自分の投稿/いいね", user_custom_id_path(custom_identifier: user_identifier.custom_identifier), class:"btn border mt-5" %>
+    <%= link_to "プロフィール編集", users_profile_edit_path, class:"btn border mt-5" %>
     <% end %>
   </p>
 </div>

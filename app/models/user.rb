@@ -1,3 +1,4 @@
+# app/models/user.rb
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -9,7 +10,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
-  validates :custom_identifier, presence: true, uniqueness: true, length: { in: 5..20 },
+  validates :custom_identifier, presence: true, uniqueness: true, length: { maximum: 20 },
     format: { with: /\A[a-zA-Z0-9]+\z/, message: "は英数字のみで設定してください" }
 
   def to_param

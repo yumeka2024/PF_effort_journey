@@ -31,8 +31,7 @@ class Public::SessionsController < Devise::SessionsController
     @user = User.find_by(email: params[:user][:email])
     if @user
       if @user.valid_password?(params[:user][:password]) && (@user.deleted == true)
-        flash[:left_notice] = "退会しています"
-        redirect_to new_user_registration_path
+        redirect_to new_user_session_path
       end
     end
   end
