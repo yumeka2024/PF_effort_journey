@@ -22,7 +22,12 @@
       <%= render 'public/posts/list', posts: @posts %>
     </div>
     <div class='col-3 border py-5'>
-      <!--%= render 'shared/search', xxx: @xxx %>-->
+      <%= render 'public/searches/form' %>
+      <div id="search_results">
+        <% if @search_results.present? %>
+          <%= render 'public/searches/result' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
