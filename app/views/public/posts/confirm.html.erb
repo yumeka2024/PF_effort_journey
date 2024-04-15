@@ -1,0 +1,23 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', user: current_user %>
+    </div>
+    <div class='col-6 border py-5'>
+      <h5 class="text-dark bg-light py-4 mb-0 text-center">下記の内容で投稿します</h5>
+      <p class="px-4 pt-4">対象日</p>
+      <p class="px-4"><%= @post.posted_on %></p>
+      <p class="p-4"><%= @post.body %></p>
+      <div class="text-center">
+        <%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :posted_on %>
+          <%= f.hidden_field :body %>
+          <%= f.submit "投稿", class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'public/punch/list', punch: @punch %>-->
+    </div>
+  </div>
+</div>
