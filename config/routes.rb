@@ -1,14 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'posts/index'
-    get 'posts/show'
-  end
-  namespace :admin do
-    get 'users/index'
-    get 'users/show'
-  end
   devise_for :admin,skip: [:passwords], controllers: {
     registrations: 'admin/registrations',
     sessions: "admin/sessions"
@@ -35,7 +27,12 @@ Rails.application.routes.draw do
     resources :posts, only: [:new, :show, :create, :destroy] do
       get 'confirm', on: :collection
     end
+  end
 
+  # 管理者側
+  namespace :admin do
+    resources :users, only: [:index, :show, :update]
+    resources :posts, only: [:index, :show, :destroy]
   end
 
   # render後にリロードした時、Routing Errorにならないように設定
