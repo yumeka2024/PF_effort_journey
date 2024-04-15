@@ -6,7 +6,11 @@ class Public::PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
+    if @post.nil?
+      redirect_to root_path
+      return
+    end
   end
 
   def create
