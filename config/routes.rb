@@ -32,9 +32,6 @@ Rails.application.routes.draw do
   # 管理者側
   namespace :admin do
     resources :users, only: [:index, :show, :update]
-    # get 'id/:custom_identifier', to: 'users#show', as: 'user_custom_id'
-    # patch 'users/:custom_identifier', to: 'users#update', as: 'user'
-
     resources :posts, only: [:index, :show, :destroy]
   end
 
