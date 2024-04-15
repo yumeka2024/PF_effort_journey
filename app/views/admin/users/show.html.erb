@@ -40,6 +40,11 @@
       <table class="table">
         <tbody>
           <tr>
+            <td colspan="2" class="text-center">
+              <%= image_tag @user.get_image(80,80), class:"rounded-circle" %>
+            </td>
+          </tr>
+          <tr>
             <th>作成日時</th>
             <td><%= @user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
           </tr>
@@ -70,6 +75,12 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">ユーザーの投稿一覧</h5>
+      <%= render 'admin/posts/list', posts: @posts %>
     </div>
   </div>
 </div>

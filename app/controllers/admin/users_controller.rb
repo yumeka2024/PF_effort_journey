@@ -10,6 +10,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path
       return
     end
+    @posts = @user.posts.page(params[:page])
   end
 
   def update
