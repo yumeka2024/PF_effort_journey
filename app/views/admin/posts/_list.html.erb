@@ -1,0 +1,32 @@
+<table class="table table-hover text-center">
+  <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>投稿者ID</th>
+      <th>投稿者名</th>
+      <th>対象日</th>
+      <th>本文</th>
+      <th>作成日時</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% posts.order(created_at: :desc).each do |post| %>
+    <tr>
+      <td class="px-0"><%= link_to post.id, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to post.user.custom_identifier, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to post.user.name, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to post.posted_on, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0" style="max-width: 400px;"><%= link_to post.body, admin_post_path(post), class:"text-truncate d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0">
+        <%= link_to post.created_at.strftime('%Y/%m/%d %H:%M'), admin_post_path(post), class:"d-block py-1  text-dark link-underline link-underline-opacity-0" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="row text-center">
+    <span class="mx-auto">
+      <%= paginate posts, theme: 'twitter-bootstrap-4' %>
+    </span>
+</div>
