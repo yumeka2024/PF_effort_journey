@@ -1,0 +1,65 @@
+<!--app/views/public/users/edit.html.erb-->
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', user: @user %>
+    </div>
+    <div class='col-6 border py-5'>
+      <h5 class="text-dark bg-light py-4 mb-0 text-center">プロフィール編集</h5>
+      <%= form_with model: @user, url: users_profile_path, method: :patch do |f| %>
+      <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
+        <%= render "public/shared/error_messages", resource: @user %>
+      </div>
+
+      <div class="form-group mx-5 mt-5">
+        <%= f.file_field :image, class:"form-control rounded w-50", id: "inputImage", accept: 'image/*' %>
+      </div>
+
+      <div class="form-group mx-5 mt-5">
+        <label for="inputID" class="col-form-label">ID</label>
+        <%= f.text_field :custom_identifier, class:"form-control rounded", id: "inputID" %>
+      </div>
+
+      <div class="form-group mx-5 mt-5">
+        <label for="inputID" class="col-form-label">名前</label>
+        <%= f.text_field :name, class:"form-control rounded", id: "inputID"  %>
+      </div>
+
+      <div class="form-group mx-5 mt-5">
+        <label for="inputIntroduction" class="col-form-label">自己紹介</label>
+        <%= f.text_area :introduction, class:"form-control rounded", id: "inputIntroduction"  %>
+      </div>
+
+      <div class="form-group mx-5 mt-5 w-50">
+        <label for="inputBirthday" class="col-form-label">生年月日</label>
+        <%= f.date_field :birthday, class:"form-control rounded", id: "inputBirthday" %>
+      </div>
+
+      <div class="form-group mx-5 mt-5">
+        <label for="inputEmail" class="col-form-label">メールアドレス</label>
+        <%= f.email_field :email, class:"form-control rounded", id: "inputEmail"  %>
+      </div>
+
+      <div class="form-group mx-5 mt-5">
+        <%= f.radio_button :private, "false" %>
+        <%= f.label :private_false, "公開" %>
+      </div>
+      <div class="form-group mx-5">
+        <%= f.radio_button :private, "true" %>
+        <%= f.label :private_true, "非公開" %>
+      </div>
+
+      <div class="text-center">
+      <%= f.submit "保存", class: "btn btn-success mt-5" %>
+      <% end %>
+      </div>
+
+      <div class="text-center m-5">
+      <%= link_to "退会する", users_confirm_path, class: "btn btn-danger mt-5" %>
+      </div>
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'shared/search', xxx: @xxx %>-->
+    </div>
+  </div>
+</div>

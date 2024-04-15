@@ -1,0 +1,18 @@
+<div class="container g-0">
+  <div class="row">
+    <div class="col m-5 text-center">
+      <h1 class="display-1 p-5">本当に退会しますか？</h1>
+      <div class="my-5"><p class="h4">
+        退会すると、会員登録情報や<br>
+        これまでの ”記録” や ”投稿” が<br>
+        閲覧できなくなります。<br>
+        <br>
+        退会する場合は、【退会する】をクリックしてください。
+      </p></div>
+      <div>
+        <%= link_to "マイページに戻る", users_profile_path, class: "btn btn-primary ms-3" %>
+        <%= link_to "退会する", users_withdraw_path, method: :patch, class: "btn btn-danger ms-3"  %>
+      </div>
+    </div>
+  </div>
+</div>
