@@ -4,6 +4,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @user = User
+    @user = User.find_by(id: params[:id])
+    if @user.nil?
+      redirect_to admin_users_path
+      return
+    end
   end
 end
