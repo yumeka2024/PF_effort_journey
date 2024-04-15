@@ -1,17 +1,12 @@
 # config/routes.rb
 Rails.application.routes.draw do
 
-  devise_for :admin,skip: [:passwords], controllers: {
-    registrations: 'admin/registrations',
-    sessions: "admin/sessions"
-  }
-
-  devise_for :users,skip: [:passwords], controllers: {
-    registrations: 'public/registrations',
-    sessions: 'public/sessions'
-  }
-
   # ユーザー側
+  devise_for :users,skip: [:passwords], controllers: {
+  registrations: 'public/registrations',
+  sessions: 'public/sessions'
+  }
+
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
@@ -29,13 +24,20 @@ Rails.application.routes.draw do
     end
   end
 
+
   # 管理者側
+  devise_for :admin,skip: [:passwords], controllers: {
+  registrations: 'admin/registrations',
+  sessions: "admin/sessions"
+  }
+
   namespace :admin do
     resources :users, only: [:index, :show, :update]
     resources :posts, only: [:index, :show, :destroy]
   end
 
-  # render後にリロードした時、Routing Errorにならないように設定
+
+  # render後にブラウザリロードした時、Routing Errorにならないように設定
   get 'users' => redirect('/users/sign_up')
   get 'users/profile' => redirect('users/profile/edit')
 
