@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to root_path, flash: { center_notice: '投稿を削除しました' }
+    redirect_to user_custom_id_path(current_user), flash: { center_notice: '投稿を削除しました' }
   end
 
   def confirm
