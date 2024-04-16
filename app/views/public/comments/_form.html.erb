@@ -1,0 +1,10 @@
+    <div class='col border py-5'>
+      <%= form_with model: @comment, url: post_comments_path, method: :POST do |f| %>
+      <div class="form-group mx-5 mt-5">
+        <%= f.text_area :body, size: "40x10", class:"form-control rounded", id: "inputBody", placeholder:"コメント"  %>
+      </div>
+      <div class="text-center">
+        <%= f.submit "投稿", class: "btn btn-success mt-5" %>
+      </div>
+      <% end %>
+    </div>

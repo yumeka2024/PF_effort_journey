@@ -11,11 +11,11 @@ class Public::PostsController < ApplicationController
       redirect_to root_path
       return
     end
+    @comment = Comment.new
   end
 
   def create
-    post = Post.new(post_params)
-    post.user_id = current_user.id
+    post = current_user.posts.new(post_params)
     post.save
     redirect_to root_path, flash: { center_notice: '投稿が完了しました' }
   end
