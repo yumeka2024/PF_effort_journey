@@ -1,5 +1,5 @@
 <div class='col'>
-  <%= form_with model: [post, comment], local: false do |f| %>
+  <%= form_with model: [post, comment], url: post_comments_path(post), method: :POST, local: false do |f| %>
   <div class="form-group mx-5">
     <%= f.text_area :body, size: "40x5", class:"form-control rounded", id: "inputBody", placeholder:"コメント"  %>
   </div>
