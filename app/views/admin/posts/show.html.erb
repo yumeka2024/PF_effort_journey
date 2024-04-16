@@ -27,7 +27,7 @@
           </tr>
           <tr>
             <th>本文</th>
-            <td><%= @post.body %></td>
+            <td><%= simple_format(h(@post.body)) %></td>
           </tr>
         </tbody>
       </table>

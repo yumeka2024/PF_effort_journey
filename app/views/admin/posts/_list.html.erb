@@ -14,9 +14,9 @@
     <tr>
       <td class="px-0"><%= link_to post.id, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
       <td class="px-0"><%= link_to post.user.custom_identifier, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
-      <td class="px-0"><%= link_to post.user.name, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to post.user.name.truncate(15), admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
       <td class="px-0"><%= link_to post.posted_on, admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
-      <td class="px-0" style="max-width: 400px;"><%= link_to post.body, admin_post_path(post), class:"text-truncate d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0" style="max-width: 400px;"><%= link_to post.body.truncate(60), admin_post_path(post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
       <td class="px-0">
         <%= link_to post.created_at.strftime('%Y/%m/%d %H:%M'), admin_post_path(post), class:"d-block py-1  text-dark link-underline link-underline-opacity-0" %>
       </td>

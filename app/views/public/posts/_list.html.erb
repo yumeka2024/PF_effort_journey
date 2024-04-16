@@ -7,8 +7,8 @@
         <div class="col-1">
           <%= image_tag post.user.get_image(30,30), class:"rounded-circle";  %>
         </div>
-        <div class="col-11 w-75 text-truncate">
-          <p><%= post.user.name %></p>
+        <div class="col-11 w-75">
+          <p><%= post.user.name.truncate(18) %></p>
         </div>
       </div>
       <% end %>
@@ -18,7 +18,7 @@
           <p class="card-title">
             <strong><span><%= post.posted_on %>の振り返り</span></strong>
           </p>
-          <p class="card-text"><%= post.body %></p>
+          <p class="card-text"><%= simple_format(h(post.body)) %></p>
         </div>
       </div>
       <% end %>

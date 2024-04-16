@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
-
     post '/search', to: 'searches#search', as: :search
 
     get 'users/profile/edit' => 'users#edit'
@@ -21,6 +20,7 @@ Rails.application.routes.draw do
 
     resources :posts, only: [:new, :show, :create, :destroy] do
       get 'confirm', on: :collection
+      resources :comments, only: [:create, :update, :destroy, :edit]
     end
   end
 

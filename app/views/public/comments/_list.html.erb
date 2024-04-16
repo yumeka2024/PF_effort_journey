@@ -1,0 +1,77 @@
+<style>
+  .text-tooltip {
+    position: relative;
+  }
+
+  .tooltip-content {
+    opacity: 0;
+    visibility: hidden;
+    font-size: 70%;
+    white-space: nowrap;
+    border-radius: 5px;
+    background-color: #555;
+    color: #fff;
+    padding: 5px 10px;
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .6s ease-in-out;
+  }
+
+  .tooltip-content:before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: calc(50% - 9px);
+    border: 9px solid transparent;
+    border-top: 9px solid #555;
+  }
+
+  .text-tooltip:hover .tooltip-content {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+
+<div class="card-list-containar">
+  <% comments.each do |comment| %>
+  <div class="card w-100 shadow-sm m-1">
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-8">
+        <%= link_to(user_custom_id_path(comment.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+          <div class="row">
+            <div class="col-1">
+              <%= image_tag comment.user.get_image(30,30), class:"rounded-circle";  %>
+            </div>
+            <div class="col-11 w-75">
+              <p><%= comment.user.name.truncate(18) %></p>
+            </div>
+          </div>
+        <% end %>
+        </div>
+        <div class="col-4 text-end">
+        <% if comment.user == current_user %>
+          <%= link_to edit_post_comment_path(post, comment), method: :get, class:"text-dark link-underline link-underline-opacity-0 mx-2" do %>
+          <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+          <%= link_to post_comment_path(post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline link-underline-opacity-0 mx-2" do %>
+          <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        <% end %>
+        <span class="text-tooltip mx-2"><i class="fa-regular fa-clock"></i><span class="tooltip-content"><%= comment.updated_at.strftime('%Y/%m/%d %H:%M') %></span></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 px-5">
+          <p class="card-text"><%= simple_format(h(comment.body)) %></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+</div>

@@ -12,13 +12,13 @@
           <p><%= @post.user.name.truncate(18) %></p>
         </div>
         <div class="col-1 text-end">
-        <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
-      </div>
+          <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+        </div>
       </div>
       <div class="row">
-        <div class="col-12 px-5">
-          <h5 class="text-dark bg-light py-4 mb-0 text-center w-75 mx-auto"><%= @post.posted_on %>の振り返り</h5>
-          <p><%= simple_format(h(@post.body)) %></p>
+        <div class="col-12">
+          <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= @post.posted_on %>の振り返り</h5>
+          <p class="p-4"><%= @post.body %></p>
         </div>
       </div>
       <div class="row">
@@ -38,14 +38,16 @@
         </div>
       </div>
       <div class="row">
-        <div class='col mt-1' style="height: 0px;">
-          <p class="h5 text-center" id="comment_notice"><%= flash[:comment_notice] %></p>
+        <%= form_with model: [@post, @comment], url: post_comment_path(@post, @comment), method: :PATCH, local: false do |f| %>
+        <div class='form-group my-5 d-flex'>
+          <div class='col-10 ms-2'>
+            <%= f.text_area :body, size: "70x3", class:"form-control rounded", id: "inputBody", placeholder:"コメント"  %>
+          </div>
+          <div class='col-2 text-center'>
+            <%= f.submit "編集", class: "btn btn-success mt-5" %>
+          </div>
         </div>
-        <%= render 'public/comments/form', post: @post, comment: @comment %>
-
-      </div>
-      <div class="row">
-        <%= render 'public/comments/list', post: @post, comments: @comments %>
+        <% end %>
       </div>
     </div>
     <div class='col-3 border py-5'>
