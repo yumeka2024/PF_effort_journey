@@ -5,7 +5,7 @@
     </div>
     <div class='col-6 border py-5'>
       <div class="row text-end">
-        <%= link_to "back", root_path, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+        <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
       </div>
       <%= link_to(user_custom_id_path(@post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
@@ -33,7 +33,9 @@
         </div>
         <div class="col-3 text-center mt-2">
           <% if @post.user == current_user %>
-          <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+            <%= link_to post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline link-underline-opacity-0" do %>
+            <i class="fa-solid fa-trash-can"></i>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -41,7 +43,7 @@
         <%= render 'public/comments/form', post: @post, comment: @comment %>
       </div>
       <div class="row">
-        <%= render 'public/comments/list', comments: @comments %>
+        <%= render 'public/comments/list', post: @post, comments: @comments %>
       </div>
     </div>
     <div class='col-3 border py-5'>

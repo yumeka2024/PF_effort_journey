@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
     resources :posts, only: [:new, :show, :create, :destroy] do
       get 'confirm', on: :collection
-      resources :comments, only: [:create, :update, :destroy]
+      resources :comments, only: [:create, :update, :destroy, :edit]
     end
   end
 

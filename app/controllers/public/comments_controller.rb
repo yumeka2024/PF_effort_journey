@@ -12,6 +12,16 @@ class Public::CommentsController < ApplicationController
     end
   end
 
+  def edit
+    @comment = Comment.find_by(id: params[:id])
+    if @comment.nil?
+      redirect_to root_path
+      return
+    end
+    @user_identifier = User.find(current_user.id)
+    @user = current_user
+  end
+
   def update
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
