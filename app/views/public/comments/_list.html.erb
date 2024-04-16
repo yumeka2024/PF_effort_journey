@@ -66,8 +66,8 @@
       </div>
 
       <div class="row">
-        <div class="col-12">
-          <p class="card-text"><%= comment.body %></p>
+        <div class="col-12 px-5">
+          <p class="card-text"><%= simple_format(h(comment.body)) %></p>
         </div>
       </div>
 
