@@ -1,0 +1,57 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user_identifier } %>
+    </div>
+    <div class='col-6 border py-5'>
+      <div class="row">
+        <div class="col-1">
+          <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>
+        </div>
+        <div class="col-9 text-truncate">
+          <p><%= @post.user.name %></p>
+        </div>
+        <div class="col-1 text-end">
+          <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= @post.posted_on %>の振り返り</h5>
+          <p class="p-4"><%= @post.body %></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 text-center border-end">
+          <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+        </div>
+        <div class="col-3 text-center border-end">
+        </div>
+        <div class="col-3 text-center border-end">
+        </div>
+        <div class="col-3 text-center mt-2">
+          <% if @post.user == current_user %>
+            <%= link_to post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline link-underline-opacity-0" do %>
+            <i class="fa-solid fa-trash-can"></i>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <%= form_with model: [@post, @comment], url: post_comment_path(@post, @comment), method: :PATCH, local: false do |f| %>
+        <div class='form-group my-5 d-flex'>
+          <div class='col-10 ms-2'>
+            <%= f.text_area :body, size: "70x3", class:"form-control rounded", id: "inputBody", placeholder:"コメント"  %>
+          </div>
+          <div class='col-2 text-center'>
+            <%= f.submit "編集", class: "btn btn-success mt-5" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'public/punch/list', punch: @punch %>-->
+    </div>
+  </div>
+</div>

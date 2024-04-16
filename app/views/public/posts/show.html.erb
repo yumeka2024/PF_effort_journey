@@ -4,19 +4,17 @@
       <%= render 'public/users/info', { user: @user, user_identifier: @user_identifier } %>
     </div>
     <div class='col-6 border py-5'>
-      <div class="row text-end">
-        <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
-      </div>
-      <%= link_to(user_custom_id_path(@post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
           <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>
         </div>
-        <div class="col-11 text-truncate">
+        <div class="col-9 text-truncate">
           <p><%= @post.user.name %></p>
         </div>
+        <div class="col-1 text-end">
+        <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
       </div>
-      <% end %>
+      </div>
       <div class="row">
         <div class="col-12">
           <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= @post.posted_on %>の振り返り</h5>

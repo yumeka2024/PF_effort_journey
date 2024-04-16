@@ -13,8 +13,8 @@ class Public::PostsController < ApplicationController
       redirect_to root_path
       return
     end
-    @user_identifier = User.find(current_user.id)
-    @user = current_user
+    @user_identifier = User.find(@post.user_id)
+    @user = @post.user
     @comment = Comment.new
     @comments = @post.comments.all
   end

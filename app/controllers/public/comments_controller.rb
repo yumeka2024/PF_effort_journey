@@ -18,8 +18,9 @@ class Public::CommentsController < ApplicationController
       redirect_to root_path
       return
     end
-    @user_identifier = User.find(current_user.id)
-    @user = current_user
+    @post = Post.find_by(id: params[:post_id])
+    @user_identifier = User.find(@post.user_id)
+    @user = @post.user
   end
 
   def update
