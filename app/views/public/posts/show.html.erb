@@ -38,8 +38,10 @@
         </div>
       </div>
       <div class="row">
-        <%= render 'public/comments/list', comments: @comments %>
         <%= render 'public/comments/form', post: @post, comment: @comment %>
+      </div>
+      <div class="row">
+        <%= render 'public/comments/list', comments: @comments %>
       </div>
     </div>
     <div class='col-3 border py-5'>

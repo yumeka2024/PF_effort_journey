@@ -1,10 +1,10 @@
-<div class='col'>
-  <%= form_with model: [post, comment], url: post_comments_path(post), method: :POST, local: false do |f| %>
-  <div class="form-group mx-5">
-    <%= f.text_area :body, size: "40x5", class:"form-control rounded", id: "inputBody", placeholder:"コメント"  %>
+<%= form_with model: [post, comment], url: post_comments_path(post), method: :POST, local: false do |f| %>
+<div class='form-group my-5 d-flex'>
+  <div class='col-10 ms-2'>
+    <%= f.text_area :body, size: "70x3", class:"form-control rounded", id: "inputBody", placeholder:"コメント"  %>
   </div>
-  <div class="text-center">
+  <div class='col-2 text-center'>
     <%= f.submit "投稿", class: "btn btn-success mt-5" %>
   </div>
-  <% end %>
 </div>
+<% end %>
