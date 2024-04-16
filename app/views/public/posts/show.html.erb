@@ -38,7 +38,11 @@
         </div>
       </div>
       <div class="row">
+        <div class='col mt-1' style="height: 0px;">
+          <p class="h5 text-center" id="comment_notice"><%= flash[:comment_notice] %></p>
+        </div>
         <%= render 'public/comments/form', post: @post, comment: @comment %>
+
       </div>
       <div class="row">
         <%= render 'public/comments/list', post: @post, comments: @comments %>
