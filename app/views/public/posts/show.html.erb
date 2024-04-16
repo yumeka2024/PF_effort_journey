@@ -8,8 +8,8 @@
         <div class="col-1">
           <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>
         </div>
-        <div class="col-9 text-truncate">
-          <p><%= @post.user.name %></p>
+        <div class="col-9">
+          <p><%= @post.user.name.truncate(18) %></p>
         </div>
         <div class="col-1 text-end">
         <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-12">
           <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= @post.posted_on %>の振り返り</h5>
-          <p class="p-4"><%= @post.body %></p>
+          <p><%= simple_format(h(@post.body)) %></p>
         </div>
       </div>
       <div class="row">
