@@ -12,6 +12,7 @@ class Public::PostsController < ApplicationController
       return
     end
     @comment = Comment.new
+    @comments = @post.comments.all
   end
 
   def create
