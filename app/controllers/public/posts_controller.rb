@@ -3,6 +3,8 @@ class Public::PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @user_identifier = User.find(current_user.id)
+    @user = current_user
   end
 
   def show
@@ -11,6 +13,8 @@ class Public::PostsController < ApplicationController
       redirect_to root_path
       return
     end
+    @user_identifier = User.find(current_user.id)
+    @user = current_user
     @comment = Comment.new
     @comments = @post.comments.all
   end
@@ -31,7 +35,10 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     if @post.posted_on.blank?||@post.body.blank?
       redirect_to new_post_path, flash: { center_notice: "設定されていない項目があります" }
+      return
     end
+    @user_identifier = User.find(current_user.id)
+    @user = current_user
   end
 
   private

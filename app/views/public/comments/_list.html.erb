@@ -1,0 +1,23 @@
+<div class="card-list-containar py-3">
+  <% comments.each do |comment| %>
+  <div class="card w-100 shadow-sm m-1">
+    <div class="card-body">
+      <%= link_to(user_custom_id_path(comment.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+      <div class="row">
+        <div class="col-1">
+          <%= image_tag comment.user.get_image(30,30), class:"rounded-circle";  %>
+        </div>
+        <div class="col-11 w-75 text-truncate">
+          <p><%= comment.user.name %></p>
+        </div>
+      </div>
+      <% end %>
+      <div class="row">
+        <div class="col-12">
+          <p class="card-text"><%= comment.body %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
