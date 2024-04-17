@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   validates :body, presence: true
 
   def liked_by?(user)
-    favorites.exists?(user_id: user.id)
+    likes.exists?(user_id: user.id)
   end
 
 end

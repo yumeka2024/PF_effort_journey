@@ -1,3 +1,9 @@
+<style>
+.card:hover{
+  background: #e7e9ea;
+}
+</style>
+
 <div class="card-list-containar">
   <% posts.order(created_at: :desc).each do |post| %>
   <div class="card w-100 shadow-sm m-1">
@@ -14,7 +20,7 @@
       <% end %>
       <%= link_to(post_path(post), class:"text-dark link-underline link-underline-opacity-0") do %>
       <div class="row">
-        <div class="col-12">
+        <div class="col">
           <p class="card-title">
             <strong><span><%= post.posted_on %>の振り返り</span></strong>
           </p>
@@ -22,6 +28,11 @@
         </div>
       </div>
       <% end %>
+      <div class="row">
+        <div class="col d-flex justify-content-evenly" id="like_btn_<%= post.id %>">
+          <%= render "public/likes/btn", post: post %>
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
