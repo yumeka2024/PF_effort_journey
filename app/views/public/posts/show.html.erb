@@ -38,6 +38,11 @@
           <% end %>
         </div>
       </div>
+
+
+    <%= link_to("Xへ投稿", "https://twitter.com/intent/tweet?"+URI.encode_www_form(text: @post.user.name+"\n"+@post.posted_on.to_s+"の振り返り\n"+request.url), target: :_blank) %>
+
+
       <div class="row">
         <div class='col mt-1' style="height: 0px;">
           <p class="h5 text-center" id="comment_notice"><%= flash[:comment_notice] %></p>
