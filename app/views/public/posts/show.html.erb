@@ -16,7 +16,7 @@
       </div>
       </div>
       <div class="row">
-        <div class="col-12 px-5">
+        <div class="col-12 px-4">
           <h5 class="text-dark bg-light py-4 mb-0 text-center w-75 mx-auto"><%= @post.posted_on %>の振り返り</h5>
           <p><%= simple_format(h(@post.body)) %></p>
         </div>
@@ -27,7 +27,8 @@
         </div>
         <div class="col-3 text-center border-end">
         </div>
-        <div class="col-3 text-center border-end">
+        <div class="col-3 text-center mt-2 border-end" id="like_btn_<%= @post.id %>">
+          <%= render "public/likes/btn", post: @post %>
         </div>
         <div class="col-3 text-center mt-2">
           <% if @post.user == current_user %>
@@ -42,7 +43,6 @@
           <p class="h5 text-center" id="comment_notice"><%= flash[:comment_notice] %></p>
         </div>
         <%= render 'public/comments/form', post: @post, comment: @comment %>
-
       </div>
       <div class="row">
         <%= render 'public/comments/list', post: @post, comments: @comments %>
