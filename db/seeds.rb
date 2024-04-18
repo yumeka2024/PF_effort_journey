@@ -118,6 +118,6 @@ for i in 1..100 do
     )
   rescue ActiveRecord::RecordInvalid => e
     puts "バリデーションエラーが発生しました: #{e.message}"
-    next  # エラーが発生したら次のループに進む
+    next
   end
 end
