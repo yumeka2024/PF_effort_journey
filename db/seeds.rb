@@ -12,7 +12,7 @@ Admin.create!(
   )
 
 users = {
-  "ベータブレイバー"=>"BetaBrave1",
+  "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ"=>"01234567890123456789",
   "サイバーシンカー"=>"CyberThinker2",
   "デルタドリーマー"=>"DeltaDreamer3",
   "ガンマガーディアン"=>"GammaGuardian4",
@@ -57,8 +57,8 @@ users = {
 users.each do |name, id|
   introduction = "#{name}の自己紹介"
   birthday = "2024-04-01"
-  email = "#{id}@example.com"
-  password = "password"
+  email = "#{id}@aa"
+  password = "123456"
 
   User.create!(
     custom_identifier: id,
@@ -74,22 +74,63 @@ for i in 1..40 do
   Post.create!(
     user_id: i,
     posted_on: "2024-04-01",
-    body: "良かったこと・見直したいこと・次やること"
+    body: "・良かったこと
+色々なことを調べて、新しいことを学べた
+
+・見直したいこと
+新しいことを調べるのに夢中になりすぎて、課題を進めるのが遅くなった
+
+・次やること
+気持ちを切り替えて、課題を進める"
+  )
+end
+
+# for i in 1..40 do
+#   Post.create!(
+#     user_id: i,
+#     posted_on: "2024-04-02",
+#     body: "・良かったこと
+# 集中して課題に取り組めた、かなり進められたと思う
+
+# ・見直したいこと
+# 特になし、この調子でガンガン進めたい！
+
+# ・次やること
+# 引き続き課題！明日終わらせる！"
+#   )
+# end
+
+# for i in 1..40 do
+#   Post.create!(
+#     user_id: i,
+#     posted_on: "2024-04-03",
+#     body: "・良かったこと
+# 課題はほぼ完了、かなりスピード感を持って取り組めた
+
+# ・見直したいこと
+# 課題の終盤で理解不足なところを見つけたので、復習したい
+
+# ・次やること
+# 課題は一度提出して、理解不足な部分の復習をする"
+#   )
+# end
+
+for i in 1..100 do
+  user_id = rand(1..40)
+  post_id = rand(1..40)
+
+  Comment.create!(
+    user_id: user_id,
+    post_id: post_id,
+    body: "頑張っていてステキです！応援しています！"
   )
 end
 
 for i in 1..40 do
-  Post.create!(
-    user_id: i,
-    posted_on: "2024-04-02",
-    body: "良かったこと・見直したいこと・次やること"
-  )
-end
+  post_id = rand(1..40)
 
-for i in 1..40 do
-  Post.create!(
+  Like.create!(
     user_id: i,
-    posted_on: "2024-04-03",
-    body: "良かったこと・見直したいこと・次やること"
+    post_id: post_id
   )
 end

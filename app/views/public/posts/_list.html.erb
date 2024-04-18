@@ -2,10 +2,13 @@
 .card:hover{
   background: #e7e9ea;
 }
+nav.pagination {
+  display: none;
+}
 </style>
 
-<div class="card-list-containar">
-  <% posts.order(created_at: :desc).each do |post| %>
+<div class="card-list-containar scroll-list jscroll">
+  <% posts.each do |post| %>
   <div class="card w-100 shadow-sm m-1">
     <div class="card-body">
       <%= link_to(user_custom_id_path(post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
@@ -49,4 +52,5 @@
     </div>
   </div>
   <% end %>
+  <%= paginate posts %>
 </div>
