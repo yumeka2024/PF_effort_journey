@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
 
   def index
-    @users = User.page(params[:page])
+    @users = User.page(params[:page]).order(created_at: :desc)
   end
 
   def show
@@ -10,7 +10,8 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path
       return
     end
-    @posts = @user.posts.page(params[:page])
+    @posts = @user.posts.page(params[:page]).order(created_at: :desc)
+    @comments = @user.comments.page(params[:page]).order(created_at: :desc)
   end
 
   def update
