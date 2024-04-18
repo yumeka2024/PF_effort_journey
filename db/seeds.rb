@@ -12,46 +12,27 @@ Admin.create!(
   )
 
 users = {
+  "guest"=>"guest",
+  "ぴくせるぱいおにあ"=>"PixelPioneer02",
+  "コードの達人"=>"CodeMaster03",
+  "テクノウィザード"=>"TechWizard04",
+  "デジタル夢想家"=>"DigitalDreamer05",
+  "バイト詩人"=>"ByteBard06",
+  "ウェブの冒険者"=>"WebExplorer07",
+  "データの魔法使い"=>"DataSorcerer08",
+  "仮想世界の探検家"=>"VirtualVoyager09",
+  "ネットの旅人"=>"NetNomad10",
+  "カタカナクリエイター"=>"KatakanaCreator11",
+  "ひらがなの魔法使い"=>"HiraganaMage12",
+  "漢字マスター"=>"KanjiMaster13",
+  "サイバーワンダラー"=>"CyberWonderer14",
+  "テクノロジーの詩人"=>"TechPoet15",
+  "ウェブサーファー"=>"WebSurfer16",
+  "デジタル冒険者"=>"DigitalAdventurer17",
+  "未来のハッカー"=>"FutureHacker18",
+  "仮想現実の冒険者"=>"Virtualrealist19",
   "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ"=>"01234567890123456789",
-  "サイバーシンカー"=>"CyberThinker2",
-  "デルタドリーマー"=>"DeltaDreamer3",
-  "ガンマガーディアン"=>"GammaGuardian4",
-  "ホライズンハッカー"=>"HorizonHacker5",
-  "キロキング"=>"KiloKing6",
-  "メガマスター"=>"MegaMaster7",
-  "ベータブレイズ"=>"BetaBlaze8",
-  "エコーブリンガー"=>"EchoBringer9",
-  "ハーモニーハーツ"=>"HarmonyHearts10",
-  "ラムダレジェンド"=>"LambdaLegend11",
-  "ナイトネオン"=>"NightNeon12",
-  "オメガオラクル"=>"OmegaOracle13",
-  "ピクセルパイロット"=>"PixelPilot14",
-  "クイーンクエリー"=>"QueenQuery15",
-  "レーザーロード"=>"LaserRoad16",
-  "シグマセンチネル"=>"SigmaSentinel17",
-  "テクノタイタン"=>"TechnoTitan18",
-  "ユニバースヒーロー"=>"UniverseHero19",
-  "ヴィジョンボルト"=>"VisionBolt20",
-  "サイバーニンジャ"=>"CyberNinja21",
-  "ぴくせるぱいおにあ"=>"PixelPioneer22",
-  "コードの達人"=>"CodeMaster23",
-  "テクノウィザード"=>"TechWizard24",
-  "デジタル夢想家"=>"DigitalDreamer25",
-  "バイト詩人"=>"ByteBard26",
-  "ウェブの冒険者"=>"WebExplorer27",
-  "データの魔法使い"=>"DataSorcerer28",
-  "仮想世界の探検家"=>"VirtualVoyager29",
-  "ネットの旅人"=>"NetNomad30",
-  "カタカナクリエイター"=>"KatakanaCreator31",
-  "ひらがなの魔法使い"=>"HiraganaMage32",
-  "漢字マスター"=>"KanjiMaster33",
-  "サイバーワンダラー"=>"CyberWonderer34",
-  "テクノロジーの詩人"=>"TechPoet35",
-  "ウェブサーファー"=>"WebSurfer36",
-  "デジタル冒険者"=>"DigitalAdventurer37",
-  "未来のハッカー"=>"FutureHacker38",
-  "仮想現実の冒険者"=>"Virtualrealist39",
-  "データエクスプローラー"=>"DataExplorer40"
+  "ああ"=>"aa"
 }
 
 users.each do |name, id|
@@ -70,7 +51,7 @@ users.each do |name, id|
   )
 end
 
-for i in 1..40 do
+for i in 1..20 do
   Post.create!(
     user_id: i,
     posted_on: "2024-04-01",
@@ -85,39 +66,39 @@ for i in 1..40 do
   )
 end
 
-# for i in 1..40 do
-#   Post.create!(
-#     user_id: i,
-#     posted_on: "2024-04-02",
-#     body: "・良かったこと
-# 集中して課題に取り組めた、かなり進められたと思う
+for i in 1..20 do
+  Post.create!(
+    user_id: i,
+    posted_on: "2024-04-02",
+    body: "・良かったこと
+集中して課題に取り組めた、かなり進められたと思う
 
-# ・見直したいこと
-# 特になし、この調子でガンガン進めたい！
+・見直したいこと
+特になし、この調子でガンガン進めたい！
 
-# ・次やること
-# 引き続き課題！明日終わらせる！"
-#   )
-# end
+・次やること
+引き続き課題！明日終わらせる！"
+  )
+end
 
-# for i in 1..40 do
-#   Post.create!(
-#     user_id: i,
-#     posted_on: "2024-04-03",
-#     body: "・良かったこと
-# 課題はほぼ完了、かなりスピード感を持って取り組めた
+for i in 1..20 do
+  Post.create!(
+    user_id: i,
+    posted_on: "2024-04-03",
+    body: "・良かったこと
+課題はほぼ完了、かなりスピード感を持って取り組めた
 
-# ・見直したいこと
-# 課題の終盤で理解不足なところを見つけたので、復習したい
+・見直したいこと
+課題の終盤で理解不足なところを見つけたので、復習したい
 
-# ・次やること
-# 課題は一度提出して、理解不足な部分の復習をする"
-#   )
-# end
+・次やること
+課題は一度提出して、理解不足な部分の復習をする"
+  )
+end
 
 for i in 1..100 do
-  user_id = rand(1..40)
-  post_id = rand(1..40)
+  user_id = rand(1..20)
+  post_id = rand(1..60)
 
   Comment.create!(
     user_id: user_id,
@@ -126,11 +107,17 @@ for i in 1..100 do
   )
 end
 
-for i in 1..40 do
-  post_id = rand(1..40)
+for i in 1..100 do
+  user_id = rand(1..20)
+  post_id = rand(1..60)
 
-  Like.create!(
-    user_id: i,
-    post_id: post_id
-  )
+  begin
+    Like.create(
+      user_id: user_id,
+      post_id: post_id
+    )
+  rescue ActiveRecord::RecordInvalid => e
+    puts "バリデーションエラーが発生しました: #{e.message}"
+    next  # エラーが発生したら次のループに進む
+  end
 end

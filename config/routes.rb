@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get 'users' => redirect('/users/sign_up')
   get 'users/profile' => redirect('users/profile/edit')
 
-  match '*path', to: redirect('/'), via: :all
+  #match '*path', to: redirect('/'), via: :all
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

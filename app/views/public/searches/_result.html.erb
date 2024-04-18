@@ -1,7 +1,7 @@
 <h2>Users</h2>
 <% if search_results[:users].present? %>
   <% search_results[:users].each do |user| %>
-    <p><%= user[:name] %></p>
+    <p><%= link_to user[:name], user_custom_id_path(custom_identifier: user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
   <% end %>
 <% else %>
   <p>No users found.</p>
@@ -10,7 +10,7 @@
 <h2>Posts</h2>
 <% if search_results[:posts].present? %>
   <% search_results[:posts].each do |post| %>
-    <p><%= post[:body] %></p>
+    <p><%= link_to post[:body], post_path(post), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
   <% end %>
 <% else %>
   <p>No posts found.</p>
