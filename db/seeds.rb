@@ -6,23 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# 3.times do |n|
-#   custom_identifier  = "customID#{n+1}"
-#   name  = "name#{n+1}"
-#   introduction = "#{name}の自己紹介"
-#   birthday = "2024-04-01"
-#   email = "#{name}@example.com"
-#   password = "password"
-
-#   User.create!(
-#     custom_identifier: custom_identifier,
-#     name: name+n,
-#     introduction: introduction,
-#     birthday: birthday,
-#     email: email,
-#     password: password,
-#   )
-# end
+Admin.create!(
+    email: "aa@aa",
+    password: "123456",
+  )
 
 users = {
   "ベータブレイバー"=>"BetaBrave1",
@@ -83,3 +70,26 @@ users.each do |name, id|
   )
 end
 
+for i in 1..40 do
+  Post.create!(
+    user_id: i,
+    posted_on: "2024-04-01",
+    body: "良かったこと・見直したいこと・次やること"
+  )
+end
+
+for i in 1..40 do
+  Post.create!(
+    user_id: i,
+    posted_on: "2024-04-02",
+    body: "良かったこと・見直したいこと・次やること"
+  )
+end
+
+for i in 1..40 do
+  Post.create!(
+    user_id: i,
+    posted_on: "2024-04-03",
+    body: "良かったこと・見直したいこと・次やること"
+  )
+end
