@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PFEffortJourney</title>
+    <title>EffortJourney</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,7 +14,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
   </head>
-
+<style>
+/*  .loading{*/
+/*    position: fixed;*/
+/*    top: 50vh;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    color: red;*/
+/*    text-align: center;*/
+/*    font-size: 48px;*/
+/*  }*/
+</style>
   <body>
     <%= render 'layouts/header' %>
     <main>
@@ -39,9 +49,10 @@
 
     <script>
       var jscrollOption = {
-          loadingHtml: '<i class="fa-duotone fa-spinner fa-spin-pulse"></i>Now Loading...', //記事読み込み中の表示
-          autoTrigger: true, // 自動で読み込むか否か、trueで自動、falseでボタンクリックとなる。
-          contentSelector: '.jscroll' // 読み込む範囲の指定
+          loadingHtml: '<div class="d-flex justify-content-evenly m-2"><i class="fa-solid fa-shoe-prints fa-beat"></i><i class="fa-solid fa-shoe-prints fa-beat"></i><i class="fa-solid fa-shoe-prints fa-beat"></i></div>', //記事読み込み中の表示
+          autoTrigger: true,
+          padding: 100,
+          contentSelector: '.jscroll'
       };
       $('.jscroll').jscroll(jscrollOption);
     </script>
