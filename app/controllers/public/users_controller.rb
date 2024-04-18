@@ -8,7 +8,7 @@ class Public::UsersController < ApplicationController
       return
     end
     @user_identifier = User.find_by!(custom_identifier: params[:custom_identifier])
-    @posts = @user.posts.all
+    @posts = @user.posts.all.includes(user: {image_attachment: :blob}).page(params[:page]).per(5).order(created_at: :desc)
   end
 
   def edit
