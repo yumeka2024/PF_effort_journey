@@ -1,2 +1,51 @@
-<h1>Public::Relationships#followers</h1>
-<p>Find me in app/views/public/relationships/followers.html.erb</p>
+<style>
+.bg-hover:hover{
+  background: #e7e9ea;
+}
+nav.pagination {
+  display: none;
+}
+</style>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+        <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+      <div class="row">
+        <div class="col-6 text-center">
+        <%= link_to(user_followers_path(@user), class:"text-dark link-underline link-underline-opacity-0") do %>
+          <div class="row pt-2 rounded-top-4 bg-secondary">
+              <p>フォロワー</p>
+          </div>
+        <% end %>
+        </div>
+        <div class="col-6 text-center">
+        <%= link_to(user_following_path(@user), class:"text-dark link-underline link-underline-opacity-0") do %>
+          <div class="row pt-2 rounded-top-4 bg-hover">
+              <p>フォロー中</p>
+          </div>
+        <% end %>
+        </div>
+      </div>
+      <div class="row border-bottom">
+      <% if @user == current_user %>
+        <h5 class="text-dark bg-light py-4 mb-0 text-center">フォローリクエスト</h5>
+        <%= render 'public/users/list', users: @pending_followers %>
+      <% end %>
+      </div>
+      <div class="row">
+        <%= render 'public/users/list', users: @approved_followers %>
+      </div>
+    </div>
+    <div class='col-3 border py-5'>
+      <%= render 'public/searches/form' %>
+      <div id="search_results">
+        <% if @search_results.present? %>
+          <%= render 'public/searches/result' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

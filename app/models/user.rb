@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  has_many :following, through: :active_relationships, source: :followed
+  has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
 # バリデーション
@@ -57,6 +57,11 @@ class User < ApplicationRecord
   # フォローしているか判定
   def following?(user)
     active_relationships.exists?(followed_id: user.id)
+  end
+
+  # フォローされているか判定
+  def followed?(user)
+    passive_relationships.exists?(follower_id: user.id)
   end
 
 end

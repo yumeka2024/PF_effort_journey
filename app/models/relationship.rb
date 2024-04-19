@@ -1,3 +1,4 @@
+# app/models/relationship.rb
 class Relationship < ApplicationRecord
 
   belongs_to :follower, class_name: "User"

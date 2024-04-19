@@ -1,0 +1,53 @@
+<!--app/views/public/users/_list.html.erb-->
+<style>
+.card:hover{
+  background: #e7e9ea;
+}
+nav.pagination {
+  display: none;
+}
+</style>
+
+<div class="card-list-containar scroll-list jscroll">
+  <% users.each do |user| %>
+  <div class="card w-100 shadow-sm m-1">
+    <div class="card-body">
+      <%= link_to(user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag user.get_image(60,60), class:"rounded-circle";  %>
+        </div>
+        <div class="col-10 w-75">
+          <p><%= user.name.truncate(30) %></p>
+          <p><%= user.custom_identifier.truncate(20) %></p>
+          <p><%= user.introduction.truncate(40) %></p>
+        </div>
+      </div>
+      <% end %>
+      <div class="row">
+        <div class="col d-flex justify-content-evenly">
+          <div class="rounded-pill bg-light px-2 pt-3">
+          <% if current_user.followed?(user) %>
+            <p class="text-success">フォローされています</p>
+          <% else %>
+            <p class="text-dark">フォローされていません</p>
+          <% end %>
+          </div>
+          <div class: "follow-btn">
+            <%= render "public/relationships/btn", user: user %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-evenly approved-btn">
+          <% if current_user.followed?(user) && !current_user.active_relationships.find_by(followed_id: user.id).approved %>
+            <%= link_to "承認する", user_relationship_path(user.custom_identifier), method: :patch, class: "btn btn-success" %>
+            <%= link_to "拒否する", user_relationship_path(user.custom_identifier), method: :delete, class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <%= paginate users %>
+</div>
