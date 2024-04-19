@@ -20,11 +20,9 @@ Rails.application.routes.draw do
     end
 
     resources :users, only: :show, param: :custom_identifier do
-      resource :relationships, only: [:create, :destroy]
+      resource :relationships, only: [:create, :update, :destroy]
     	get "following"
     	get "followers"
-    	patch "approve"
-    	patch "reject"
     end
 
     resources :posts, only: [:new, :show, :create, :destroy] do
