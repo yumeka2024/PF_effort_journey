@@ -29,7 +29,7 @@ class Public::UsersController < ApplicationController
   def confirm
   end
 
-  def withdraw
+  def deactivate
     user = current_user
     user.update(deleted: true)
     reset_session

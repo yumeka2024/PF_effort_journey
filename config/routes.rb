@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get 'profile' => 'users#edit'
       patch 'profile' => 'users#update'
       get  'deactivate' => 'users#confirm'
-      patch 'deactivate' => 'users#withdraw'
+      patch 'deactivate' => 'users#deactivate'
     end
 
     resources :users, only: :show, param: :custom_identifier do
