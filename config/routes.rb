@@ -1,10 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'relationships/followers'
-    get 'relationships/following'
-  end
   # ユーザー側
   devise_for :users,skip: [:passwords], controllers: {
   registrations: 'public/registrations',
@@ -14,13 +10,22 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
-    post '/search', to: 'searches#search', as: :search
+    post '/search', to: 'searches#search'
 
-    get 'users/profile/edit' => 'users#edit'
-    patch 'users/profile' => 'users#update'
-    get  'users/confirm' => 'users#confirm'
-    patch 'users/withdraw' => 'users#withdraw'
-    get 'id/:custom_identifier', to: 'users#show', as: 'user_custom_id'
+    scope :settings do
+      get 'profile' => 'users#edit'
+      patch 'profile' => 'users#update'
+      get  'deactivate' => 'users#confirm'
+      patch 'deactivate' => 'users#withdraw'
+    end
+
+    resources :users, only: :show, param: :custom_identifier do
+      resource :relationships, only: [:create, :destroy]
+    	get "following"
+    	get "followers"
+    	patch "approve"
+    	patch "reject"
+    end
 
     resources :posts, only: [:new, :show, :create, :destroy] do
       get 'confirm', on: :collection
