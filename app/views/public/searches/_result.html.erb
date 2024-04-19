@@ -1,7 +1,7 @@
 <h2>Users</h2>
 <% if search_results[:users].present? %>
   <% search_results[:users].each do |user| %>
-    <p><%= link_to user[:name], user_custom_id_path(custom_identifier: user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
+    <p><%= link_to user[:name], user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
   <% end %>
 <% else %>
   <p>No users found.</p>

@@ -50,7 +50,6 @@ Rails.application.routes.draw do
 
   # render後にブラウザリロードした時、Routing Errorにならないように設定
   get 'users' => redirect('/users/sign_up')
-  get 'users/profile' => redirect('users/profile/edit')
 
   #match '*path', to: redirect('/'), via: :all
 
