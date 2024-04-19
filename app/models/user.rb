@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  has_many :followings, through: :active_relationships, source: :followed
+  has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
 # バリデーション
@@ -35,9 +35,18 @@ class User < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
 
-  # フォローする
+  # フォローする（非公開ならばフォロリクを送る）
   def follow(user)
-    active_relationships.create(followed_id: user.id)
+    if user.private == true
+      active_relationships.create(followed_id: user.id, approved: false)
+    else
+      active_relationships.create(followed_id: user.id, approved: true)
+    end
+  end
+
+  # フォロリクを承認する
+  def approved(user)
+    active_relationships.find_by(follower_id: user.id).update(approved: true)
   end
 
   # フォローを解除する

@@ -8,7 +8,7 @@ class Public::RelationshipsController < ApplicationController
 
   def update
     user = User.find_by!(custom_identifier: params[:custom_identifier])
-    current_user.follow(user)
+    current_user.approved(user)
     redirect_to request.referer
   end
 
@@ -34,14 +34,8 @@ class Public::RelationshipsController < ApplicationController
       redirect_to root_path
       return
     end
-    @users = user.followings
+    @users = user.following
     @user_identifier = User.find_by!(custom_identifier: params[:custom_identifier])
-  end
-
-  private
-
-  def relationship_params
-    params.require(:relationship).permit(:approved)
   end
 
 end
