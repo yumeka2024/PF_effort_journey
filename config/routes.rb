@@ -21,8 +21,8 @@ Rails.application.routes.draw do
 
     resources :users, only: :show, param: :custom_identifier do
       resource :relationships, only: [:create, :update, :destroy]
-    	get "following"
-    	get "followers"
+    	get "following" => 'relationships#following'
+    	get "followers" => 'relationships#followers'
     end
 
     resources :posts, only: [:new, :show, :create, :destroy] do
