@@ -2,11 +2,11 @@
 <div class='container'>
   <div class='row'>
     <div class='col-3 border py-5'>
-      <%= render 'public/users/info', { user: @user, user_identifier: @user_identifier } %>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
     </div>
     <div class='col-6 border py-5'>
       <h5 class="text-dark bg-light py-4 mb-0 text-center">プロフィール編集</h5>
-      <%= form_with model: @user, url: users_profile_path, method: :patch do |f| %>
+      <%= form_with model: @user, url: profile_path, method: :patch do |f| %>
       <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
         <%= render "public/shared/error_messages", resource: @user %>
       </div>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="text-center m-5">
-      <%= link_to "退会する", users_confirm_path, class: "btn btn-danger mt-5" %>
+      <%= link_to "退会する", deactivate_path, class: "btn btn-danger mt-5" %>
       </div>
     </div>
     <div class='col-3 border py-5'>

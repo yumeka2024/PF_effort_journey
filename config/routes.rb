@@ -10,13 +10,20 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
-    post '/search', to: 'searches#search', as: :search
+    post '/search', to: 'searches#search'
 
-    get 'users/profile/edit' => 'users#edit'
-    patch 'users/profile' => 'users#update'
-    get  'users/confirm' => 'users#confirm'
-    patch 'users/withdraw' => 'users#withdraw'
-    get 'id/:custom_identifier', to: 'users#show', as: 'user_custom_id'
+    scope :settings do
+      get 'profile' => 'users#edit'
+      patch 'profile' => 'users#update'
+      get  'deactivate' => 'users#confirm'
+      patch 'deactivate' => 'users#deactivate'
+    end
+
+    resources :users, only: :show, param: :custom_identifier do
+      resource :relationships, only: [:create, :update, :destroy]
+    	get "following" => 'relationships#following'
+    	get "followers" => 'relationships#followers'
+    end
 
     resources :posts, only: [:new, :show, :create, :destroy] do
       get 'confirm', on: :collection
@@ -41,7 +48,6 @@ Rails.application.routes.draw do
 
   # render後にブラウザリロードした時、Routing Errorにならないように設定
   get 'users' => redirect('/users/sign_up')
-  get 'users/profile' => redirect('users/profile/edit')
 
   #match '*path', to: redirect('/'), via: :all
 

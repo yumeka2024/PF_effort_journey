@@ -41,7 +41,7 @@
 
       <div class="row">
         <div class="col-8">
-        <%= link_to(user_custom_id_path(comment.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+        <%= link_to(user_path(comment.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
           <div class="row">
             <div class="col-1">
               <%= image_tag comment.user.get_image(30,30), class:"rounded-circle";  %>
