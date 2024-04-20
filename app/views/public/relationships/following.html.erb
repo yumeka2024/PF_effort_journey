@@ -1,3 +1,9 @@
+<style>
+.bg-hover:hover{
+  background: #e7e9ea;
+}
+</style>
+
 <div class='container'>
   <div class='row'>
     <div class='col-3 border py-5'>
@@ -14,16 +20,16 @@
         </div>
         <div class="col-6 text-center">
         <%= link_to(user_following_path(@user), class:"text-dark link-underline link-underline-opacity-0") do %>
-          <div class="row pt-2 rounded-top-4 bg-secondary">
+          <div class="row pt-2 rounded-top-4 bg-secondary text-white">
               <p>フォロー中</p>
           </div>
         <% end %>
         </div>
       </div>
-      <div class="row border">
+      <div class="row bg-secondary pb-2 mb-2">
       <% if @user == current_user %>
         <% if @pending_following.present? %>
-        <h5 class="text-dark bg-light py-4 mb-0 text-center">フォローリクエスト中</h5>
+        <h5 class="text-dark py-2 mb-0 text-center text-white">フォローリクエスト中</h5>
         <%= render 'public/users/list', users: @pending_following %>
         <% end %>
       <% end %>
