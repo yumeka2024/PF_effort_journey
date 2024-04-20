@@ -37,9 +37,11 @@
       </div>
       <div class="row">
         <div class="col d-flex justify-content-evenly approved-btn">
-          <% if user && current_user.followed?(user) && !user.active_relationships.find_by(followed_id: current_user.id).approved %>
-            <%= link_to "承認する", user_relationships_path(user.custom_identifier), method: :patch, class: "btn btn-success" %>
-            <%= link_to "拒否する", user_relationships_path(user.custom_identifier), method: :delete, class: "btn btn-danger" %>
+          <% if current_page?(action: "followers") %>
+            <% if user && current_user.followed?(user) && !user.active_relationships.find_by(followed_id: current_user.id).approved %>
+              <%= link_to "承認する", user_relationships_path(user.custom_identifier), method: :patch, class: "btn btn-success" %>
+              <%= link_to "拒否する", user_relationships_path(user.custom_identifier), method: :delete, class: "btn btn-danger" %>
+            <% end %>
           <% end %>
         </div>
       </div>
