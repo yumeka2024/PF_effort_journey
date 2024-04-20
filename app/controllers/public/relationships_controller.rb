@@ -2,19 +2,19 @@
 class Public::RelationshipsController < ApplicationController
 
   def create
-    user = User.find_by!(id: params[:user_custom_identifier])
+    @user = User.find_by!(id: params[:user_custom_identifier])
     current_user.follow(user)
     redirect_to request.referer
   end
 
   def update
-    user = User.find_by!(custom_identifier: params[:user_custom_identifier])
+    @user = User.find_by!(custom_identifier: params[:user_custom_identifier])
     current_user.approved(user)
     redirect_to request.referer
   end
 
   def destroy
-    user = User.find_by!(id: params[:user_custom_identifier])
+    @user = User.find_by!(id: params[:user_custom_identifier])
     current_user.unfollow(user)
     redirect_to  request.referer
   end
