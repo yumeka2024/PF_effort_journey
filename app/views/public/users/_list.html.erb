@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col d-flex justify-content-evenly">
           <div>
-          <% if current_user.followed?(user) %>
+          <% if current_user.passive_relationships.exists?(follower_id: user.id, approved: true) %>
             <p class="border border-success rounded text-success p-2">フォローされています</p>
           <% else %>
             <p class="border border-secondary rounded text-secondary p-2">フォローされていません</p>
