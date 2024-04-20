@@ -49,7 +49,7 @@ class User < ApplicationRecord
     passive_relationships.find_by(follower_id: user.id).update(approved: true)
   end
 
-  # フォローを解除する（フォロリク）
+  # フォローを解除する（フォロリクを拒否する）
   def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end
