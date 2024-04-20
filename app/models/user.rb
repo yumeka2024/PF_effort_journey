@@ -46,10 +46,10 @@ class User < ApplicationRecord
 
   # フォロリクを承認する
   def approved(user)
-    active_relationships.find_by(follower_id: user.id).update(approved: true)
+    passive_relationships.find_by(follower_id: user.id).update(approved: true)
   end
 
-  # フォローを解除する
+  # フォローを解除する（フォロリク）
   def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end

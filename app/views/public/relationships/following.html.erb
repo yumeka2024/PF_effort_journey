@@ -1,12 +1,3 @@
-<style>
-.bg-hover:hover{
-  background: #e7e9ea;
-}
-nav.pagination {
-  display: none;
-}
-</style>
-
 <div class='container'>
   <div class='row'>
     <div class='col-3 border py-5'>
@@ -29,14 +20,20 @@ nav.pagination {
         <% end %>
         </div>
       </div>
-      <div class="row border-bottom">
+      <div class="row border">
       <% if @user == current_user %>
+        <% if @pending_following.present? %>
         <h5 class="text-dark bg-light py-4 mb-0 text-center">フォローリクエスト中</h5>
         <%= render 'public/users/list', users: @pending_following %>
+        <% end %>
       <% end %>
       </div>
       <div class="row">
+        <% if @approved_following.present? %>
         <%= render 'public/users/list', users: @approved_following %>
+        <% else %>
+        <h5 class="text-dark bg-light py-4 mb-0 text-center">フォローはありません</h5>
+        <% end %>
       </div>
     </div>
     <div class='col-3 border py-5'>

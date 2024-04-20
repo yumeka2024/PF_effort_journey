@@ -3,12 +3,9 @@
 .card:hover{
   background: #e7e9ea;
 }
-nav.pagination {
-  display: none;
-}
 </style>
 
-<div class="card-list-containar scroll-list jscroll">
+<div class="card-list-containar">
   <% users.each do |user| %>
   <div class="card w-100 shadow-sm m-1">
     <div class="card-body">
@@ -26,28 +23,27 @@ nav.pagination {
       <% end %>
       <div class="row">
         <div class="col d-flex justify-content-evenly">
-          <div class="rounded-pill bg-light px-2 pt-3">
+          <div>
           <% if current_user.followed?(user) %>
-            <p class="text-success">フォローされています</p>
+            <p class="border border-success rounded text-success p-2">フォローされています</p>
           <% else %>
-            <p class="text-dark">フォローされていません</p>
+            <p class="border border-secondary rounded text-secondary p-2">フォローされていません</p>
           <% end %>
           </div>
-          <div class: "follow-btn">
+          <div class="follow-btn">
             <%= render "public/relationships/btn", user: user %>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col d-flex justify-content-evenly approved-btn">
-          <% if current_user.followed?(user) && !current_user.active_relationships.find_by(followed_id: user.id).approved %>
-            <%= link_to "承認する", user_relationship_path(user.custom_identifier), method: :patch, class: "btn btn-success" %>
-            <%= link_to "拒否する", user_relationship_path(user.custom_identifier), method: :delete, class: "btn btn-danger" %>
+          <% if user && current_user.followed?(user) && !user.active_relationships.find_by(followed_id: current_user.id).approved %>
+            <%= link_to "承認する", user_relationships_path(user.custom_identifier), method: :patch, class: "btn btn-success" %>
+            <%= link_to "拒否する", user_relationships_path(user.custom_identifier), method: :delete, class: "btn btn-danger" %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
   <% end %>
-  <%= paginate users %>
 </div>

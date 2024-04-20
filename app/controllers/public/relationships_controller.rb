@@ -8,7 +8,7 @@ class Public::RelationshipsController < ApplicationController
   end
 
   def update
-    user = User.find_by!(id: params[:user_custom_identifier])
+    user = User.find_by!(custom_identifier: params[:user_custom_identifier])
     current_user.approved(user)
     redirect_to request.referer
   end
@@ -25,8 +25,8 @@ class Public::RelationshipsController < ApplicationController
       redirect_to root_path
       return
     end
-    @approved_followers = @user.followers.where('relationships.approved = ?', true).page(params[:page]).per(30).order(created_at: :desc)
-    @pending_followers = @user.followers.where('relationships.approved = ?', false).page(params[:page]).per(30).order(created_at: :desc)
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @pending_followers = @user.followers.where('relationships.approved = ?', false)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
@@ -36,8 +36,8 @@ class Public::RelationshipsController < ApplicationController
       redirect_to root_path
       return
     end
-    @approved_following = @user.followings.where('relationships.approved = ?', true).page(params[:page]).per(30).order(created_at: :desc)
-    @pending_following = @user.followings.where('relationships.approved = ?', false).page(params[:page]).per(30).order(created_at: :desc)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @pending_following = @user.followings.where('relationships.approved = ?', false)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
   end
 
