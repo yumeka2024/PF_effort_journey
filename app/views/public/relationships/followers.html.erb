@@ -1,0 +1,54 @@
+<style>
+.bg-hover:hover{
+  background: #e7e9ea;
+}
+</style>
+
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+        <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+      <div class="row">
+        <div class="col-6 text-center">
+        <%= link_to(user_followers_path(@user), class:"text-dark link-underline link-underline-opacity-0") do %>
+          <div class="row pt-2 rounded-top-4 bg-secondary text-white">
+              <p>フォロワー</p>
+          </div>
+        <% end %>
+        </div>
+        <div class="col-6 text-center">
+        <%= link_to(user_following_path(@user), class:"text-dark link-underline link-underline-opacity-0") do %>
+          <div class="row pt-2 rounded-top-4 bg-hover">
+              <p>フォロー中</p>
+          </div>
+        <% end %>
+        </div>
+      </div>
+      <div class="row bg-secondary pb-2 mb-2">
+      <% if @user == current_user %>
+        <% if @pending_followers.present? %>
+        <h5 class="text-dark py-2 mb-0 text-center text-white">フォローリクエスト</h5>
+        <%= render 'public/users/list', users: @pending_followers %>
+        <% end %>
+      <% end %>
+      </div>
+      <div class="row">
+      <% if @approved_followers.present? %>
+        <%= render 'public/users/list', users: @approved_followers %>
+      <% else %>
+        <h5 class="text-dark bg-light py-4 mb-0 text-center">フォロワーはいません</h5>
+      <% end %>
+      </div>
+    </div>
+    <div class='col-3 border py-5'>
+      <%= render 'public/searches/form' %>
+      <div id="search_results">
+        <% if @search_results.present? %>
+          <%= render 'public/searches/result' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<h2>Users</h2>
+<% if search_results[:users].present? %>
+  <% search_results[:users].each do |user| %>
+    <p><%= link_to user[:name], user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
+  <% end %>
+<% else %>
+  <p>No users found.</p>
+<% end %>
+
+<h2>Posts</h2>
+<% if search_results[:posts].present? %>
+  <% search_results[:posts].each do |post| %>
+    <p><%= link_to post[:body], post_path(post), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
+  <% end %>
+<% else %>
+  <p>No posts found.</p>
+<% end %>
+
+<!--<h2>Labels</h2>-->
+<!--% @search_results[:labels].each do |label| %>-->
+<!--  <p>%= label.name %></p>-->
+<!--% end %>-->

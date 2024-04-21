@@ -3,19 +3,29 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find_by!(custom_identifier: params[:custom_identifier])
-    @posts = @user.posts.all
+    if @user.nil?
+      redirect_to root_path
+      return
+    end
+    @user_identifier = User.find_by!(custom_identifier: params[:custom_identifier])
+    @posts = @user.posts.all.includes(user: {image_attachment: :blob}).page(params[:page]).per(5).order(created_at: :desc)
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def edit
     @user = current_user
+    @user_identifier = User.find(current_user.id)
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def update
-  @user = current_user
+    @user = current_user
     if @user.update(user_params)
-      flash[:center_notice] = 
-      redirect_to users_profile_edit_path, flash: { center_notice: '編集を保存しました' }
+      redirect_to profile_path, flash: { center_notice: '編集を保存しました' }
     else
+      @user_identifier = User.find(current_user.id)
       render :edit
     end
   end
@@ -23,7 +33,7 @@ class Public::UsersController < ApplicationController
   def confirm
   end
 
-  def withdraw
+  def deactivate
     user = current_user
     user.update(deleted: true)
     reset_session

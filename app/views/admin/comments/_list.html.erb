@@ -1,0 +1,34 @@
+<table class="table table-hover text-center">
+  <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>投稿者</th>
+      <th>投稿内容</th>
+      <th>コメント投稿者</th>
+      <th>コメント内容</th>
+      <th>作成日時</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% comments.each do |comment| %>
+    <tr>
+      <td class="px-0"><%= link_to comment.id, admin_post_path(comment.post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to comment.post.user.name.truncate(15), admin_post_path(comment.post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to comment.post.body.truncate(15), admin_post_path(comment.post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0"><%= link_to comment.user.name.truncate(15), admin_post_path(comment.post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0" style="max-width: 400px;"><%= link_to comment.body.truncate(60), admin_post_path(comment.post), class:"d-block py-1 text-dark link-underline link-underline-opacity-0" %></td>
+      <td class="px-0">
+        <%= link_to comment.created_at.strftime('%Y/%m/%d %H:%M'), admin_post_path(comment.post), class:"d-block py-1  text-dark link-underline link-underline-opacity-0" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="row">
+  <div class="col-2 offset-5">
+    <span class="">
+      <%= paginate comments, theme: 'twitter-bootstrap-4' %>
+    </span>
+  </div>
+</div>

@@ -1,28 +1,56 @@
-<div class="card-list-containar">
-  <% posts.order(created_at: :desc).each do |post| %>
-  <div class="card w-100 shadow-sm m-1">
+<style>
+.card:hover{
+  background: #e7e9ea;
+}
+nav.pagination {
+  display: none;
+}
+</style>
+
+<div class="card-list-containar scroll-list jscroll">
+  <% posts.each do |post| %>
+  <div class="card w-100 shadow-sm">
     <div class="card-body">
-      <%= link_to(user_custom_id_path(post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+      <%= link_to(user_path(post.user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
           <%= image_tag post.user.get_image(30,30), class:"rounded-circle";  %>
         </div>
-        <div class="col-11 w-75 text-truncate">
-          <p><%= post.user.name %></p>
+        <div class="col-11 w-75">
+          <p><%= post.user.name.truncate(18) %></p>
         </div>
       </div>
       <% end %>
       <%= link_to(post_path(post), class:"text-dark link-underline link-underline-opacity-0") do %>
       <div class="row">
-        <div class="col-12">
+        <div class="col">
           <p class="card-title">
             <strong><span><%= post.posted_on %>の振り返り</span></strong>
           </p>
-          <p class="card-text"><%= post.body %></p>
+          <p class="card-text"><%= simple_format(h(post.body)) %></p>
         </div>
       </div>
       <% end %>
+      <div class="row">
+        <div class="col d-flex justify-content-evenly">
+          <div>
+            <i class="fa-regular fa-comment" aria-hidden="true"></i> <%= post.comments.count %>
+          </div>
+          <div id="like_btn_<%= post.id %>">
+            <%= render "public/likes/btn", post: post %>
+          </div>
+          <div>
+            <i class="fa-regular fa-eye"></i>12
+          </div>
+          <div>
+            <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: post.user.name+"\n"+post.posted_on.to_s+"の振り返り\n"+request.url+"posts/"+post.id.to_s), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>
+            <i class="fa-brands fa-square-x-twitter fa-lg"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
+  <%= paginate posts %>
 </div>

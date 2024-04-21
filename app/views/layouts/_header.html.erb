@@ -1,5 +1,5 @@
 <style>
-nav {
+header nav {
 background-color:#FFCC99
 }
 .btn-user{
@@ -44,14 +44,30 @@ background-color:#FFCC99
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="offset-md-7 collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <li class='mx-3'>
             <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-block rounded btn-user', method: :delete %>
           </li>
+          <li class='mx-3'>
+            <%= link_to "About", about_path, class: 'btn btn-block rounded btn-user' %>
+          </li>
+        <% elsif admin_signed_in? %>
+          <li class='mx-3'>
+            <%= link_to "ユーザー", admin_users_path, class: 'btn btn-block rounded btn-admin' %>
+          </li>
+          <li class='mx-3'>
+            <%= link_to "投稿", admin_posts_path, class: 'btn btn-block rounded btn-admin' %>
+          </li>
+          <li class='mx-3'>
+            <%= link_to "コメント", admin_comments_path, class: 'btn btn-block rounded btn-admin' %>
+          </li>
+          <li class='mx-3'>
+            <%= link_to "管理者ログアウト", destroy_admin_session_path, class: 'btn btn-block rounded btn-admin', method: :delete %>
+          </li>
         <% else %>
-          <li class='mx-5'>
+          <li class='mx-3'>
             <%= link_to "About", about_path, class: 'btn btn-block rounded btn-user' %>
           </li>
         <% end %>

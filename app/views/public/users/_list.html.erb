@@ -1,0 +1,33 @@
+<!--app/views/public/users/_list.html.erb-->
+<style>
+.card:hover{
+  background: #e7e9ea;
+}
+.custom_id{
+  font-size: smaller;
+}
+</style>
+
+<div class="card-list-containar">
+  <% users.each do |user| %>
+  <div class="card w-100 shadow-sm">
+    <div class="card-body">
+      <%= link_to(user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag user.get_image(60,60), class:"rounded-circle";  %>
+        </div>
+        <div class="col-10 w-75">
+          <p class="m-0"><%= user.name.truncate(30) %></p>
+          <p class="text-secondary custom_id m-0">ID:<%= user.custom_identifier.truncate(20) %></p>
+          <p class="mt-0"><%= user.introduction.truncate(40) %></p>
+        </div>
+      </div>
+      <% end %>
+      <div id="relationship_btn_<%= user.id %>">
+        <%= render "public/relationships/btn", user: user %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

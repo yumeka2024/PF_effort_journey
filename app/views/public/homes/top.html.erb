@@ -2,7 +2,7 @@
   <div class='row'>
     <div class='col-3 border py-5'>
       <% if user_signed_in? %>
-        <%= render 'public/users/info', user: current_user %>
+        <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
       <% else %>
         <div>
           <p>
@@ -22,7 +22,12 @@
       <%= render 'public/posts/list', posts: @posts %>
     </div>
     <div class='col-3 border py-5'>
-      <!--%= render 'shared/search', xxx: @xxx %>-->
+      <%= render 'public/searches/form' %>
+      <div id="search_results">
+        <% if @search_results.present? %>
+          <%= render 'public/searches/result' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
