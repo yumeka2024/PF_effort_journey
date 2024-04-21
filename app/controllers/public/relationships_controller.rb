@@ -25,6 +25,7 @@ class Public::RelationshipsController < ApplicationController
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @pending_followers = @user.followers.where('relationships.approved = ?', false)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @approve_follow = true
   end
 
   def following
@@ -36,6 +37,7 @@ class Public::RelationshipsController < ApplicationController
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @pending_following = @user.followings.where('relationships.approved = ?', false)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approve_follow = false
   end
 
 end
