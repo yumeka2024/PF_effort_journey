@@ -35,11 +35,11 @@
       <% end %>
       </div>
       <div class="row">
-        <% if @approved_following.present? %>
+      <% if @approved_following.present? %>
         <%= render 'public/users/list', users: @approved_following %>
-        <% else %>
+      <% else %>
         <h5 class="text-dark bg-light py-4 mb-0 text-center">フォローはありません</h5>
-        <% end %>
+      <% end %>
       </div>
     </div>
     <div class='col-3 border py-5'>
