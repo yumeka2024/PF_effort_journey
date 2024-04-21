@@ -19,8 +19,9 @@ class Public::CommentsController < ApplicationController
       return
     end
     @post = Post.find_by(id: params[:post_id])
-    @user_identifier = User.find(@post.user_id)
     @user = @post.user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def update

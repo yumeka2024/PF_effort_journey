@@ -3,8 +3,9 @@ class Public::PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @user_identifier = User.find(current_user.id)
     @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def show
@@ -13,10 +14,11 @@ class Public::PostsController < ApplicationController
       redirect_to root_path
       return
     end
-    @user_identifier = User.find(@post.user_id)
     @user = @post.user
     @comment = Comment.new
     @comments = @post.comments.all
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def create
@@ -28,7 +30,7 @@ class Public::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to user_custom_id_path(current_user), flash: { center_notice: '投稿を削除しました' }
+    redirect_to user_path(current_user), flash: { center_notice: '投稿を削除しました' }
   end
 
   def confirm
@@ -37,8 +39,9 @@ class Public::PostsController < ApplicationController
       redirect_to new_post_path, flash: { center_notice: "設定されていない項目があります" }
       return
     end
-    @user_identifier = User.find(current_user.id)
     @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   private

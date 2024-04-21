@@ -7,7 +7,6 @@ class Public::UsersController < ApplicationController
       redirect_to root_path
       return
     end
-    @user_identifier = User.find_by!(custom_identifier: params[:custom_identifier])
     @posts = @user.posts.all.includes(user: {image_attachment: :blob}).page(params[:page]).per(5).order(created_at: :desc)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
