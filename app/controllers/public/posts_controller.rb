@@ -19,6 +19,7 @@ class Public::PostsController < ApplicationController
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    current_user.view_counts.create(post_id: @post.id)
   end
 
   def create
