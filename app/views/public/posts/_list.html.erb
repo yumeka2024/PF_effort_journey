@@ -34,13 +34,13 @@ nav.pagination {
       <div class="row">
         <div class="col d-flex justify-content-evenly">
           <div>
-            <i class="fa-regular fa-comment" aria-hidden="true"></i> <%= post.comments.count %>
+            <i class="fa-regular fa-comment me-1" aria-hidden="true"></i><%= post.comments.count %>
           </div>
           <div id="like_btn_<%= post.id %>">
             <%= render "public/likes/btn", post: post %>
           </div>
           <div>
-            <i class="fa-regular fa-eye"></i>12
+            <i class="fa-regular fa-eye me-1"></i><%= post.view_counts.count %>
           </div>
           <div>
             <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: post.user.name+"\n"+post.posted_on.to_s+"の振り返り\n"+request.url+"posts/"+post.id.to_s), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>

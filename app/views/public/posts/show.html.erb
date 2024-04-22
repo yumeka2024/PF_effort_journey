@@ -23,7 +23,8 @@
       </div>
       <div class="row">
         <div class="col-4 text-center border-end">
-          <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+          <p class="m-0"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
+          <p class="m-0"><%= @post.view_counts.count %>Views</p>
         </div>
         <div class="col-2 text-center mt-2 border-end">
           <i class="fa-regular fa-comment" aria-hidden="true"></i> <%= @post.comments.count %>
