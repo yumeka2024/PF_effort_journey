@@ -9,7 +9,7 @@
   <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= user.name %></h5>
   <p><%= user.custom_identifier %></p>
   <p><%= user.introduction %></p>
-  <p><%= user.birthday %></p>
+  <p><i class="fa-solid fa-cake-candles me-3"></i><%= user.birthday.strftime('%-m月%-d日') %></p>
   <p>
     <%= link_to approved_followers.count.to_s+"フォロワー", user_followers_path(user), class:"btn border mt-5" %>
     <%= link_to approved_following.count.to_s+"フォロー", user_following_path(user), class:"btn border mt-5" %>
