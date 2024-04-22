@@ -1,11 +1,63 @@
+<style>
+  .tab-btn {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 500px;
+  }
+
+  .tab-btn > label {
+      flex: 1 1;
+      order: -1;
+      min-width: 70px;
+      padding: .7em 1em .5em;
+      background-color: #ffffff;
+      color: #999;
+      font-weight: 600;
+      font-size: .9em;
+      text-align: center;
+      cursor: pointer;
+  }
+
+  .tab-btn > label:hover {
+      opacity: .8;
+  }
+
+  .tab-btn input {
+      display: none;
+  }
+
+  .tab-btn > div {
+      display: none;
+      width: 100%;
+      padding: 1.5em 1em;
+      background-color: #fff;
+  }
+
+  .tab-btn label:has(:checked) {
+      border-bottom: 4px solid #ff8000;
+      color: #ff8000;
+  }
+
+  .tab-btn label:has(:checked) + div {
+      display: block;
+  }
+</style>
+
 <div class='container'>
   <div class='row'>
     <div class='col-3 border py-5'>
       <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
     </div>
     <div class='col-6 border py-5'>
-      これはshowViewです
-      <%= render 'public/posts/list', posts: @posts %>
+
+      <div class="tab-btn">
+        <label><input type="radio" name="tab-btn" checked>投稿</label>
+        <div class="mx-auto"><%= render 'public/posts/list', posts: @user_posts %></div>
+
+        <label><input type="radio" name="tab-btn">いいね</label>
+        <div class="mx-auto"><%= render 'public/posts/list', posts: @like_posts %></div>
+      </div>
+
     </div>
     <div class='col-3 border py-5'>
       <!--%= render 'カレンダー&グラフ', xxx: @xxx %>-->
