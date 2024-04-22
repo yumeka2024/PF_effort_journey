@@ -8,11 +8,13 @@
         <div class="col-1">
           <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>
         </div>
-        <div class="col-9">
+        <div class="col-8">
           <p><%= @post.user.name.truncate(18) %></p>
         </div>
-        <div class="col-1 text-end">
-          <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+        <div class="col-2 text-end">
+        <%= link_to :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+          <i class="fa-solid fa-reply me-1"></i>back
+        <% end %>
         </div>
       </div>
       <div class="row">
