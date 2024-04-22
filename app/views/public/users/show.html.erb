@@ -43,21 +43,23 @@
   }
 </style>
 
+<!--app/views/public/users/show.html.erb-->
 <div class='container'>
   <div class='row'>
     <div class='col-3 border py-5'>
       <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
     </div>
     <div class='col-6 border py-5'>
-
+    <% if @user == current_user || current_user.approved_following?(@user) %>
       <div class="tab-btn">
         <label><input type="radio" name="tab-btn" checked>投稿</label>
         <div class="mx-auto"><%= render 'public/posts/list', posts: @user_posts %></div>
-
         <label><input type="radio" name="tab-btn">いいね</label>
         <div class="mx-auto"><%= render 'public/posts/list', posts: @like_posts %></div>
       </div>
-
+    <% else %>
+      <h5 class="text-dark bg-light py-4 mb-0 text-center">非公開アカウントです</h5>
+    <% end %>
     </div>
     <div class='col-3 border py-5'>
       <!--%= render 'カレンダー&グラフ', xxx: @xxx %>-->

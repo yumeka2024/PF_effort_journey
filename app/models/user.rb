@@ -50,19 +50,29 @@ class User < ApplicationRecord
     passive_relationships.find_by(follower_id: user.id).update(approved: true)
   end
 
-  # フォローを解除する（フォロリクを拒否する）
+  # フォローを解除する（フォロリクを拒否する、フォロリクを取り消す）
   def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end
 
-  # フォローしているか判定
+  # フォローしているか判定（フォロリクを含む）
   def following?(user)
     active_relationships.exists?(followed_id: user.id)
   end
 
-  # フォローされているか判定
+  # フォローしているか判定（フォロリクを含まない）
+  def approved_following?(user)
+    active_relationships.exists?(followed_id: user.id, approved: true)
+  end
+
+  # フォローされているか判定（フォロリクを含む）
   def followed?(user)
     passive_relationships.exists?(follower_id: user.id)
+  end
+
+  # フォローされているか判定（フォロリクを含まない）
+  def approved_followed?(user)
+    passive_relationships.exists?(follower_id: user.id, approved: true)
   end
 
 end
