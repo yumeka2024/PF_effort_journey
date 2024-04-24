@@ -2,11 +2,15 @@ class Public::LabelsController < ApplicationController
 
   def index
     @label = Label.new
-    @labels = Label.all
+    @labels = current_user.labels.all
   end
 
   def edit
-    @label = Label.find(params[:id])
+    @label = Label.find_by(id: params[:id])
+    if @label.nil?
+      redirect_to root_path
+      return
+    end
   end
 
   def create
@@ -20,7 +24,11 @@ class Public::LabelsController < ApplicationController
   end
 
   def update
-    @label = Label.find(params[:id])
+    @label = Label.find_by(id: params[:id])
+    if @label.nil?
+      redirect_to root_path
+      return
+    end
     if @label.update(label_params)
       redirect_to labels_path, notice: "保存しました"
     else
@@ -29,7 +37,11 @@ class Public::LabelsController < ApplicationController
   end
 
   def destroy
-    label = Label.find(params[:id])
+    label = Label.find_by(id: params[:id])
+    if label.nil?
+      redirect_to root_path
+      return
+    end
     label.destroy
     redirect_to labels_path, flash: { center_notice: '削除しました' }
   end
