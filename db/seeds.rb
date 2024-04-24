@@ -51,73 +51,99 @@ users.each do |name, id|
   )
 end
 
-for i in 1..20 do
+for i in 1..50 do
   Post.create!(
-    user_id: i,
+    user_id: 20,
     posted_on: "2024-04-01",
-    body: "・良かったこと
-色々なことを調べて、新しいことを学べた
-
-・見直したいこと
-新しいことを調べるのに夢中になりすぎて、課題を進めるのが遅くなった
-
-・次やること
-気持ちを切り替えて、課題を進める"
+    body: i
   )
-end
-
-for i in 1..20 do
   Post.create!(
-    user_id: i,
+    user_id: 21,
     posted_on: "2024-04-02",
-    body: "・良かったこと
-集中して課題に取り組めた、かなり進められたと思う
-
-・見直したいこと
-特になし、この調子でガンガン進めたい！
-
-・次やること
-引き続き課題！明日終わらせる！"
+    body: i
   )
 end
 
-for i in 1..20 do
-  Post.create!(
-    user_id: i,
-    posted_on: "2024-04-03",
-    body: "・良かったこと
-課題はほぼ完了、かなりスピード感を持って取り組めた
-
-・見直したいこと
-課題の終盤で理解不足なところを見つけたので、復習したい
-
-・次やること
-課題は一度提出して、理解不足な部分の復習をする"
+for i in 1..50 do
+  Like.create(
+    user_id: 21,
+    post_id: i
   )
 end
 
-for i in 1..100 do
-  user_id = rand(1..20)
-  post_id = rand(1..60)
+Relationship.create(
+  follower_id: 21,
+  followed_id: 20,
+  approved: "true"
+)
 
-  Comment.create!(
-    user_id: user_id,
-    post_id: post_id,
-    body: "頑張っていてステキです！応援しています！"
-  )
-end
+# for i in 1..20 do
+#   Post.create!(
+#     user_id: i,
+#     posted_on: "2024-04-01",
+#     body: "・良かったこと
+# 色々なことを調べて、新しいことを学べた
 
-for i in 1..100 do
-  user_id = rand(1..20)
-  post_id = rand(1..60)
+# ・見直したいこと
+# 新しいことを調べるのに夢中になりすぎて、課題を進めるのが遅くなった
 
-  begin
-    Like.create(
-      user_id: user_id,
-      post_id: post_id
-    )
-  rescue ActiveRecord::RecordInvalid => e
-    puts "バリデーションエラーが発生しました: #{e.message}"
-    next
-  end
-end
+# ・次やること
+# 気持ちを切り替えて、課題を進める"
+#   )
+# end
+
+# for i in 1..20 do
+#   Post.create!(
+#     user_id: i,
+#     posted_on: "2024-04-02",
+#     body: "・良かったこと
+# 集中して課題に取り組めた、かなり進められたと思う
+
+# ・見直したいこと
+# 特になし、この調子でガンガン進めたい！
+
+# ・次やること
+# 引き続き課題！明日終わらせる！"
+#   )
+# end
+
+# for i in 1..20 do
+#   Post.create!(
+#     user_id: i,
+#     posted_on: "2024-04-03",
+#     body: "・良かったこと
+# 課題はほぼ完了、かなりスピード感を持って取り組めた
+
+# ・見直したいこと
+# 課題の終盤で理解不足なところを見つけたので、復習したい
+
+# ・次やること
+# 課題は一度提出して、理解不足な部分の復習をする"
+#   )
+# end
+
+# for i in 1..100 do
+#   user_id = rand(1..20)
+#   post_id = rand(1..60)
+
+#   Comment.create!(
+#     user_id: user_id,
+#     post_id: post_id,
+#     body: "頑張っていてステキです！応援しています！"
+#   )
+# end
+
+# for i in 1..100 do
+#   user_id = rand(1..20)
+#   post_id = rand(1..60)
+
+#   begin
+#     Like.create(
+#       user_id: user_id,
+#       post_id: post_id
+#     )
+#   rescue ActiveRecord::RecordInvalid => e
+#     puts "バリデーションエラーが発生しました: #{e.message}"
+#     next
+#   end
+# end
