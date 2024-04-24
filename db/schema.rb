@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_22_085711) do
+ActiveRecord::Schema.define(version: 2024_04_24_080831) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(version: 2024_04_22_085711) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "labels", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "genre", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_labels_on_user_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "post_id", null: false
@@ -78,6 +87,30 @@ ActiveRecord::Schema.define(version: 2024_04_22_085711) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "punch_logs", force: :cascade do |t|
+    t.integer "punch_id", null: false
+    t.string "reason"
+    t.string "detail"
+    t.datetime "in", null: false
+    t.datetime "out", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["punch_id"], name: "index_punch_logs_on_punch_id"
+  end
+
+  create_table "punches", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "label_id", null: false
+    t.string "reason"
+    t.string "detail"
+    t.datetime "in", null: false
+    t.datetime "out"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "index_punches_on_label_id"
+    t.index ["user_id"], name: "index_punches_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -120,9 +153,13 @@ ActiveRecord::Schema.define(version: 2024_04_22_085711) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "labels", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "punch_logs", "punches"
+  add_foreign_key "punches", "labels"
+  add_foreign_key "punches", "users"
   add_foreign_key "view_counts", "posts"
   add_foreign_key "view_counts", "users"
 end

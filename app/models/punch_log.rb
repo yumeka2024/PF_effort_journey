@@ -1,0 +1,2 @@
+class PunchLog < ApplicationRecord
+end
