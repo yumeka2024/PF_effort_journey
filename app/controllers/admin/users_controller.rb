@@ -12,6 +12,7 @@ class Admin::UsersController < ApplicationController
     end
     @posts = @user.posts.page(params[:page]).order(created_at: :desc)
     @comments = @user.comments.page(params[:page]).order(created_at: :desc)
+    @likes = Post.joins(:likes).where(likes: { user_id: @user.id }).page(params[:page]).order(created_at: :desc)
   end
 
   def update
