@@ -30,6 +30,14 @@ Rails.application.routes.draw do
       resource :like, only: [:create, :destroy]
       resources :comments, only: [:create, :update, :destroy, :edit]
     end
+
+    resources :labels, only: [:index, :create, :update, :destroy]
+
+    resources :punches do
+      get 'start', on: :collection
+      get 'stop', on: :member
+    end
+
   end
 
 
@@ -48,8 +56,6 @@ Rails.application.routes.draw do
 
   # render後にブラウザリロードした時、Routing Errorにならないように設定
   get 'users' => redirect('/users/sign_up')
-
-  #match '*path', to: redirect('/'), via: :all
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
