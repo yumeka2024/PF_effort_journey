@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
+    get 'favorites' => 'homes#favorites'
+    get 'follow' => 'homes#follow'
     post '/search', to: 'searches#search'
 
     scope :settings do

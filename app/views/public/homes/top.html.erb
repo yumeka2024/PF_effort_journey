@@ -41,6 +41,11 @@
   .tab-btn label:has(:checked) + div {
       display: block;
   }
+  iframe {
+    border: none;
+    height: 70vh;
+  }
+
 </style>
 
 <!--app/views/public/homes/top.html.erb-->
@@ -68,10 +73,31 @@
     <% if user_signed_in? %>
       <div class="tab-btn">
         <label><input type="radio" name="tab-btn" checked>おすすめ</label>
-        <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
+        <!--<div class="mx-auto"><#%= render 'public/posts/list', posts: @posts %></div>-->
+
+<div style="padding-right: 0;">
+<iframe
+  id="inlineFrameExample"
+  title="Inline Frame Example"
+  width="100%"
+  height="100%"
+  src="/favorites">
+</iframe>
+</div>
 
         <label><input type="radio" name="tab-btn">フォロー中</label>
-        <div class="mx-auto"><%= render 'public/posts/list', posts: @follow_posts %></div>
+        <!--<div class="mx-auto"><#%= render 'public/posts/list2', posts: @follow_posts %></div>-->
+
+<div style="padding-right: 0;">
+<iframe
+  id="inlineFrameExample"
+  title="Inline Frame Example"
+  width="100%"
+  height="100%"
+  src="/follow">
+</iframe>
+</div>
+
       </div>
     <% else %>
       <%= render 'public/posts/list', posts: @posts %>
