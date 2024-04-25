@@ -5,7 +5,7 @@ class CreatePunchLogs < ActiveRecord::Migration[6.1]
       t.string :reason
       t.string :detail
       t.datetime :in, null: false
-      t.datetime :out, null: false
+      t.datetime :out
 
       t.timestamps
     end

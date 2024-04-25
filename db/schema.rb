@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2024_04_24_080831) do
     t.string "reason"
     t.string "detail"
     t.datetime "in", null: false
-    t.datetime "out", null: false
+    t.datetime "out"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["punch_id"], name: "index_punch_logs_on_punch_id"

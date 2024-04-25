@@ -14,10 +14,13 @@ class Public::PunchesController < ApplicationController
 
   def show
     @punch = Punch.find_by(id: params[:id])
-    if @punch.nil? || !@punch.out.blank?
+    if @punch.nil? || @punch.out.present?
       redirect_to root_path
       return
     end
+    @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def edit
@@ -31,7 +34,7 @@ class Public::PunchesController < ApplicationController
   def create
     punch = current_user.punches.new(punch_params)
     if punch.save
-      punch_log = punch.build_punch_log(detail: punch.detail, in: punch.in, out: punch.out)
+      punch_log = punch.punch_logs.build(detail: punch.detail, in: punch.in, out: punch.out)
       punch_log.save
       redirect_to punches_path, flash: { center_notice: '保存しました' }
     else
@@ -53,7 +56,7 @@ class Public::PunchesController < ApplicationController
         render :edit
       end
     else
-      punch_log = punch.build_punch_log(punch_params.slice(:reason, :detail, :in, :out))
+      punch_log = punch.punch_logs.build(punch_params.slice(:reason, :detail, :in, :out))
       if punch.update(punch_params) && punch_log.save
         redirect_to punches_path, flash: { center_notice: '編集しました' }
       else
@@ -73,13 +76,13 @@ class Public::PunchesController < ApplicationController
   end
 
   def start
-    prev_punch = Punch.find_by(out: nil)
+    prev_punch = current_user.punches.where(out: nil)
     if prev_punch.present?
-      prev_punch.update(out: DateTime.now)
+      prev_punch.update_all(out: DateTime.now)
     end
-    punch = current_user.punches.new(punch_params.merge(in: DateTime.now))
+    punch = current_user.punches.new(label_params.merge(in: DateTime.now))
     if punch.save
-      punch_log = punch.build_punch_log(in: punch.in)
+      punch_log = punch.punch_logs.build(in: punch.in)
       punch_log.save
       redirect_to punch_path(punch), flash: { center_notice: '開始しました' }
     else
@@ -103,6 +106,10 @@ class Public::PunchesController < ApplicationController
 
   def punch_params
     params.require(:punch).permit(:label_id, :reason, :detail, :in, :out)
+  end
+
+  def label_params
+    params.require(:label).permit(:label_id)
   end
 
 end

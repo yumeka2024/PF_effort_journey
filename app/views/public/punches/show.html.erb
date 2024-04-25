@@ -7,31 +7,31 @@
 
       <div class="row">
         <div class="col">
-          <h5 class="text-dark bg-light py-4 mb-0 text-center"><i class="fa-solid fa-flag fa-flip"></i>活動中<i class="fa-solid fa-flag fa-flip"></i></h5>
+          <h5 class="text-dark bg-light py-4 mb-0 text-center"><i class="fa-solid fa-flag fa-flip"></i>　活動中　<i class="fa-solid fa-flag fa-flip"></i></h5>
         </div>
       </div>
-      <div class="row mx-3 border-bottom">
+      <div class="row my-5 mx-3">
         <div class="col-lg-4 text-center pt-2">
-          <p>現在の活動</p>
+          <p class="h6">現在の活動</p>
         </div>
         <div class="col-lg-2 text-center pt-2">
-          <%= label.genre_i18n %>
+          <%= @punch.label.genre_i18n %>
         </div>
         <div class="col-lg-6 text-center pt-2">
-          <%= label.name %>
+          <%= @punch.label.name %>
         </div>
       </div>
-      <div class="row mx-3 border-bottom">
-        <div class="col">
-          <%= link_to "別の活動を開始する", new_punch_path, class: "btn btn-block border w-100 mx-auto mb-5" %>
+      <div class="row my-5">
+        <div class="col text-center">
+          <%= link_to "別の活動を開始する", new_punch_path, class: "btn btn-block border w-75" %>
         </div>
       </div>
       <%= form_with model: @punch, url: stop_punch_path(@punch), local: true do |f| %>
-      <div class="row form-group mb-5 mx-auto">
-        <div class="col mb-3">
+      <div class="row form-groupmx-auto px-5">
+        <div class="col-lg-10 mb-3">
           <%= f.text_field :detail, class: "form-control ", id: "inputDetail", placeholder: "活動内容（空欄でも可）" %>
         </div>
-        <div class="col text-center">
+        <div class="col-lg-2 text-center">
           <%= f.submit "活動終了", class:"btn btn-block btn-success" %>
         </div>
       </div>
