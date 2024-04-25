@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :update, :destroy, :edit]
     end
 
-    resources :labels, only: [:index, :create, :update, :destroy]
+    resources :labels, only: [:index, :edit, :create, :update, :destroy]
 
     resources :punches do
       get 'start', on: :collection

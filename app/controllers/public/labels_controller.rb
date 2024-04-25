@@ -3,6 +3,9 @@ class Public::LabelsController < ApplicationController
   def index
     @label = Label.new
     @labels = current_user.labels.all
+    @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def edit
@@ -11,14 +14,20 @@ class Public::LabelsController < ApplicationController
       redirect_to root_path
       return
     end
+    @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def create
-    @label = Label.new(label_params)
+    @label = current_user.labels.new(label_params)
     if @label.save
       redirect_to labels_path, notice: "保存しました"
     else
-      @labels = Label.all
+      @labels = current_user.labels.all
+      @user = current_user
+      @approved_followers = @user.followers.where('relationships.approved = ?', true)
+      @approved_following = @user.followings.where('relationships.approved = ?', true)
       render 'index'
     end
   end

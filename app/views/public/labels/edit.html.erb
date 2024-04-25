@@ -1,0 +1,52 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル編集</h5>
+    </div>
+  </div>
+  <%= form_with model: @label, url: label_path, local: true do |f| %>
+  <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
+    <%= render "public/shared/error_messages", resource: @label %>
+  </div>
+  <div class="row form-group my-4 mx-auto">
+    <div class="col-lg-3">
+      <%= f.radio_button :genre, Label.genres.key(0) %>
+      <%= f.label :genre_credit_card, Label.genres_i18n[:study] %>
+    </div>
+    <div class="col-lg-3">
+      <%= f.radio_button :genre, Label.genres.key(1) %>
+      <%= f.label :genre_transfer, Label.genres_i18n[:exercise]%>
+    </div>
+    <div class="col-lg-3">
+      <%= f.radio_button :genre, Label.genres.key(2) %>
+      <%= f.label :genre_transfer, Label.genres_i18n[:hobby]%>
+    </div>
+    <div class="col-lg-3">
+      <%= f.radio_button :genre, Label.genres.key(3) %>
+      <%= f.label :genre_transfer, Label.genres_i18n[:other]%>
+    </div>
+  </div>
+  <div class="row form-group mb-5 mx-auto">
+    <div class="col-lg-8 mb-3">
+      <%= f.text_field :name, class: "form-control ", id: "inputName", placeholder: "ラベル名" %>
+    </div>
+    <div class="col-lg-4 text-center">
+      <%= f.submit "変更を保存", class:"btn btn-block btn-success" %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'public/punch/list', punch: @punch %>-->
+    </div>
+  </div>
+</div>

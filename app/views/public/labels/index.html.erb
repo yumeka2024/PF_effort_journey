@@ -1,2 +1,63 @@
-<h1>Public::Labels#index</h1>
-<p>Find me in app/views/public/labels/index.html.erb</p>
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+
+      <div class="row">
+        <div class="col">
+          <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル一覧・追加</h5>
+        </div>
+      </div>
+      <%= form_with model: @label, url: labels_path, local: true do |f| %>
+      <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
+        <%= render "public/shared/error_messages", resource: @label %>
+      </div>
+      <div class="row form-group my-4 mx-auto">
+        <div class="col-lg-3">
+          <%= f.radio_button :genre, Label.genres.key(0) %>
+          <%= f.label :genre_credit_card, Label.genres_i18n[:study] %>
+        </div>
+        <div class="col-lg-3">
+          <%= f.radio_button :genre, Label.genres.key(1) %>
+          <%= f.label :genre_transfer, Label.genres_i18n[:exercise]%>
+        </div>
+        <div class="col-lg-3">
+          <%= f.radio_button :genre, Label.genres.key(2) %>
+          <%= f.label :genre_transfer, Label.genres_i18n[:hobby]%>
+        </div>
+        <div class="col-lg-3">
+          <%= f.radio_button :genre, Label.genres.key(3) %>
+          <%= f.label :genre_transfer, Label.genres_i18n[:other]%>
+        </div>
+      </div>
+      <div class="row form-group mb-5 mx-auto">
+        <div class="col-lg-8 mb-3">
+          <%= f.text_field :name, class: "form-control ", id: "inputName", placeholder: "ラベル名" %>
+        </div>
+        <div class="col-lg-4 text-center">
+          <%= f.submit "新規登録", class:"btn btn-block btn-success" %>
+        </div>
+      </div>
+      <% end %>
+      <% @labels.each do |label| %>
+      <div class="row mx-3 border-bottom">
+        <div class="col-lg-2 text-center pt-2">
+          <%= label.genre_i18n %>
+        </div>
+        <div class="col-lg-6 text-center pt-2">
+          <%= label.name %>
+        </div>
+        <div class="col-lg-4 text-center my-1">
+          <%= link_to "編集", edit_label_path(label), class: "btn btn-sm btn-block btn-success w-50 mx-auto" %>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+    <div class='col-3 border py-5'>
+      <!--%= render 'public/punch/list', punch: @punch %>-->
+    </div>
+  </div>
+</div>
