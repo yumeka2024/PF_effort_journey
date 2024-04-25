@@ -5,4 +5,6 @@ class Label < ApplicationRecord
 
   validates :name, presence: true
 
+  enum genre: { study: 0, exercise: 1, hobby: 2, other: 3 }
+
 end

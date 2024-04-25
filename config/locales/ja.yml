@@ -1,4 +1,12 @@
 ja:
+    enums:
+      label:
+        genre:
+          study: "学習"
+          exercise: "運動"
+          hobby: "趣味"
+          other: "その他"
+
   activerecord:
     errors:
       messages:
