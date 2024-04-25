@@ -34,8 +34,8 @@ Rails.application.routes.draw do
     resources :labels, only: [:index, :edit, :create, :update, :destroy]
 
     resources :punches do
-      get 'start', on: :collection
-      get 'stop', on: :member
+      post 'start', on: :collection
+      patch 'stop', on: :member
     end
 
   end

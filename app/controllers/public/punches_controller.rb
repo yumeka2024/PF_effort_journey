@@ -1,7 +1,10 @@
 class Public::PunchesController < ApplicationController
 
   def new
-    @labels = current_user.labels.all
+    @labels = current_user.labels.all.order(genre: :asc)
+    @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   def index
@@ -78,7 +81,7 @@ class Public::PunchesController < ApplicationController
     if punch.save
       punch_log = punch.build_punch_log(in: punch.in)
       punch_log.save
-      redirect_to punches_path, flash: { center_notice: '開始しました' }
+      redirect_to punch_path(punch), flash: { center_notice: '開始しました' }
     else
       render :new
     end

@@ -17,19 +17,19 @@
       <div class="row form-group my-4 mx-auto">
         <div class="col-lg-3">
           <%= f.radio_button :genre, Label.genres.key(0) %>
-          <%= f.label :genre_credit_card, Label.genres_i18n[:study] %>
+          <%= f.label :genre_study, Label.genres_i18n[:study] %>
         </div>
         <div class="col-lg-3">
           <%= f.radio_button :genre, Label.genres.key(1) %>
-          <%= f.label :genre_transfer, Label.genres_i18n[:exercise]%>
+          <%= f.label :genre_exercise, Label.genres_i18n[:exercise]%>
         </div>
         <div class="col-lg-3">
           <%= f.radio_button :genre, Label.genres.key(2) %>
-          <%= f.label :genre_transfer, Label.genres_i18n[:hobby]%>
+          <%= f.label :genre_hobby, Label.genres_i18n[:hobby]%>
         </div>
         <div class="col-lg-3">
           <%= f.radio_button :genre, Label.genres.key(3) %>
-          <%= f.label :genre_transfer, Label.genres_i18n[:other]%>
+          <%= f.label :genre_other, Label.genres_i18n[:other]%>
         </div>
       </div>
       <div class="row form-group mb-5 mx-auto">

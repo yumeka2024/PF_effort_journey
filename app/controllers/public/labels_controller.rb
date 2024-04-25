@@ -2,7 +2,7 @@ class Public::LabelsController < ApplicationController
 
   def index
     @label = Label.new
-    @labels = current_user.labels.all
+    @labels = current_user.labels.all.order(genre: :asc)
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
