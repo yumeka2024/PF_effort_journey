@@ -1,0 +1,30 @@
+<h5 class="text-dark bg-light py-4 mb-0 text-center"><%= day.strftime('%-m月%-d日') %>の活動一覧</h5>
+<div class="row border-bottom">
+  <div class="col-lg-4 text-center pt-2 mx-0 px-0">
+    活動<br>内容
+  </div>
+  <div class="col-lg-3 text-center pt-3 mx-0 px-0">
+    開始
+  </div>
+  <div class="col-lg-3 text-center py-3 mx-0 px-0">
+    終了
+  </div>
+</div>
+<% punches.each do |punch| %>
+<div class="row border-bottom">
+  <div class="col-lg-4 text-center mx-0 px-0">
+    <%= punch.label.genre_i18n %><br>
+    <%= punch.label.name %>
+  </div>
+  <div class="col-lg-3 text-center pt-2 mx-0 px-0">
+    <%= punch.in.strftime('%H:%M') %>
+  </div>
+  <div class="col-lg-3 text-center pt-2 mx-0 px-0">
+    <%= punch.out.strftime('%H:%M') %>
+  </div>
+  <div class="col-lg-2 text-center py-2 mx-0 px-0">
+    <%= link_to "詳細", edit_punch_path(punch), class: "btn btn-sm btn-block btn-success" %>
+  </div>
+</div>
+<% end %>
+
