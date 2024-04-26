@@ -4,7 +4,7 @@ class Label < ApplicationRecord
   has_many :punches, dependent: :destroy
 
   validates :genre, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 20 }
 
   enum genre: { study: 0, exercise: 1, hobby: 2, other: 3 }
 
