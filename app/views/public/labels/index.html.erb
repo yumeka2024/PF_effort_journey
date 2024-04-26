@@ -43,14 +43,21 @@
       <% end %>
       <% @labels.each do |label| %>
       <div class="row mx-3 border-bottom">
-        <div class="col-lg-2 text-center pt-2">
+        <div class="col-lg-2 text-center m-0 p-0 pt-2">
           <%= label.genre_i18n %>
         </div>
-        <div class="col-lg-6 text-center pt-2">
+        <div class="col-lg-8 text-center m-0 p-0 pt-2">
           <%= label.name %>
         </div>
-        <div class="col-lg-4 text-center my-1">
-          <%= link_to "編集", edit_label_path(label), class: "btn btn-sm btn-block btn-success w-50 mx-auto" %>
+        <div class="col-lg-1 col-6 text-center m-0 p-0 p-1">
+          <%= link_to edit_label_path(label), class: "btn btn-sm btn-block btn-success w-100 mx-auto" do %>
+          <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+        </div>
+        <div class="col-lg-1 col-6 text-center m-0 p-0 p-1">
+          <%= link_to label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-block btn-danger w-100 mx-auto" do %>
+          <i class="fa-solid fa-trash-can"></i>
+          <% end %>
         </div>
       </div>
       <% end %>
