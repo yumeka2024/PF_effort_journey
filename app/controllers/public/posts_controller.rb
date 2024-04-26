@@ -6,6 +6,8 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = Date.today
+    @punches = current_user.punches.where(in: @day.all_day)
   end
 
   def show
@@ -19,6 +21,8 @@ class Public::PostsController < ApplicationController
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in: @day.all_day)
     current_user.view_counts.create(post_id: @post.id)
   end
 
@@ -47,6 +51,8 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in: @day.all_day)
   end
 
   private

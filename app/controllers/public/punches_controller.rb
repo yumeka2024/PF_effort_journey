@@ -2,12 +2,11 @@ class Public::PunchesController < ApplicationController
 
   def new
     @labels = current_user.labels.all.order(genre: :asc)
-    @day = Date.today
-    @punches = current_user.punches.where(in: @day.all_day)
-
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = Date.today
+    @punches = current_user.punches.where(in: @day.all_day)
   end
 
   def index
@@ -24,6 +23,8 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = Date.today
+    @punches = current_user.punches.where(in: @day.all_day)
   end
 
   def edit
