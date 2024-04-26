@@ -4,10 +4,10 @@
   <div class="col-lg-4 text-center pt-2 mx-0 px-0">
     活動<br>内容
   </div>
-  <div class="col-lg-3 text-center pt-3 mx-0 px-0">
+  <div class="col-lg-3 col-6 text-center pt-3 mx-0 px-0">
     開始
   </div>
-  <div class="col-lg-3 text-center py-3 mx-0 px-0">
+  <div class="col-lg-3 col-6 text-center py-3 mx-0 px-0">
     終了
   </div>
 </div>
@@ -17,14 +17,16 @@
     <%= punch.label.genre_i18n %><br>
     <%= punch.label.name %>
   </div>
-  <div class="col-lg-3 text-center pt-2 mx-0 px-0">
+  <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
     <%= punch.in.strftime('%H:%M') %>
   </div>
-  <div class="col-lg-3 text-center pt-2 mx-0 px-0">
+  <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
     <%= punch.out.strftime('%H:%M') %>
   </div>
   <div class="col-lg-2 text-center py-2 mx-0 px-0">
-    <%= link_to "詳細", edit_punch_path(punch), class: "btn btn-sm btn-block btn-success" %>
+    <%= link_to edit_punch_path(punch), class: "btn btn-sm btn-block btn-success" do %>
+    <i class="fa-solid fa-pen-to-square"></i>
+    <% end %>
   </div>
 </div>
 <div class="row border-bottom">
@@ -58,7 +60,7 @@
 </div>
 <div class="row form-group mt-1">
   <div class="col text-center">
-    <%= f.submit "新規登録", class:"btn btn-block btn-success" %>
+    <%= f.submit "登録", class:"btn btn-block btn-success" %>
   </div>
 </div>
 <% end %>
