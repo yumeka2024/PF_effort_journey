@@ -9,6 +9,7 @@ class Public::PostsController < ApplicationController
     @day = Date.today
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def show
@@ -25,6 +26,7 @@ class Public::PostsController < ApplicationController
     @day = @post.posted_on
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
     current_user.view_counts.create(post_id: @post.id)
   end
 
@@ -56,6 +58,7 @@ class Public::PostsController < ApplicationController
     @day = @post.posted_on
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   private

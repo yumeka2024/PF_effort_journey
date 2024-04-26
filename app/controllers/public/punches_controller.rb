@@ -15,8 +15,8 @@ class Public::PunchesController < ApplicationController
   end
 
   def show
-    @punch = Punch.find_by(id: params[:id])
-    if @punch.nil? || @punch.out.present?
+    @this_punch = Punch.find_by(id: params[:id])
+    if @this_punch.nil? || @this_punch.out.present?
       redirect_to root_path
       return
     end
@@ -26,14 +26,22 @@ class Public::PunchesController < ApplicationController
     @day = Date.today
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def edit
-    @punch = Punch.find_by(id: params[:id])
-    if @punch.nil?
+    @this_punch = Punch.find_by(id: params[:id])
+    if @this_punch.nil?
       redirect_to root_path
       return
     end
+    @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = Date.today
+    @punches = current_user.punches.where(in: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def create
@@ -57,19 +65,23 @@ class Public::PunchesController < ApplicationController
       redirect_to root_path
       return
     end
-    if punch.out.blank?
-      punch_log = PunchLog.find_by(punch_id: punch.id, out: nil)
-      if punch.update(punch_params) && punch_log.update(punch_params.slice(:reason, :detail, :in, :out))
-        redirect_to punches_path, flash: { center_notice: '編集しました' }
-      else
-        render :edit
-      end
+    if punch.in.nil? || punch.out.nil?
+      redirect_to edit_punch_path(punch), flash: { center_notice: '入力内容を確認してください' }
     else
-      punch_log = punch.punch_logs.build(punch_params.slice(:reason, :detail, :in, :out))
-      if punch.update(punch_params) && punch_log.save
-        redirect_to punches_path, flash: { center_notice: '編集しました' }
+      if punch.out.blank?
+        punch_log = PunchLog.find_by(punch_id: punch.id, out: nil)
+        if punch.update(punch_params) && punch_log.update(punch_params.slice(:reason, :detail, :in, :out))
+          redirect_to edit_punch_path(punch), flash: { center_notice: '編集しました' }
+        else
+          render :edit
+        end
       else
-        render :edit
+        punch_log = punch.punch_logs.build(punch_params.slice(:reason, :detail, :in, :out))
+        if punch.update(punch_params) && punch_log.save
+          redirect_to edit_punch_path(punch), flash: { center_notice: '編集しました' }
+        else
+          render :edit
+        end
       end
     end
   end

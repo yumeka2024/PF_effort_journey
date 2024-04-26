@@ -25,6 +25,7 @@ class Public::CommentsController < ApplicationController
     @day = @post.posted_on
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def update

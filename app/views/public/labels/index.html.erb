@@ -4,11 +4,8 @@
       <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
     </div>
     <div class='col-6 border py-5'>
-
       <div class="row">
-        <div class="col">
-          <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル一覧・追加</h5>
-        </div>
+        <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル一覧・追加</h5>
       </div>
       <%= form_with model: @label, url: labels_path, local: true do |f| %>
       <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
@@ -61,7 +58,6 @@
         </div>
       </div>
       <% end %>
-
     </div>
     <div class='col-3 border py-5'>
       <%= render 'public/searches/form' %>

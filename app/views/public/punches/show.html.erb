@@ -15,10 +15,10 @@
           <p class="h6">現在の活動</p>
         </div>
         <div class="col-lg-2 text-center pt-2">
-          <%= @punch.label.genre_i18n %>
+          <%= @this_punch.label.genre_i18n %>
         </div>
         <div class="col-lg-6 text-center pt-2">
-          <%= @punch.label.name %>
+          <%= @this_punch.label.name %>
         </div>
       </div>
       <div class="row my-5">
@@ -26,7 +26,7 @@
           <%= link_to "別の活動を開始する", new_punch_path, class: "btn btn-block border w-75" %>
         </div>
       </div>
-      <%= form_with model: @punch, url: stop_punch_path(@punch), local: true do |f| %>
+      <%= form_with model: @this_punch, url: stop_punch_path(@this_punch), local: true do |f| %>
       <div class="row form-groupmx-auto px-5">
         <div class="col-lg-10 mb-3">
           <%= f.text_field :detail, class: "form-control ", id: "inputDetail", placeholder: "活動内容（空欄でも可）" %>
@@ -39,7 +39,7 @@
 
     </div>
     <div class='col-3 border py-5'>
-      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch %>
+      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
     </div>
   </div>
 </div>
