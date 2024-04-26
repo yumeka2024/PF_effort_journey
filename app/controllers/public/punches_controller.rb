@@ -6,11 +6,11 @@ class Public::PunchesController < ApplicationController
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @day = Date.today
-    @punches = current_user.punches.where(in: @day.all_day)
+    @punches = current_user.punches.where(in: @day.all_day).order(in: :asc)
+    @punch = Punch.new
   end
 
   def index
-    @punch = Punch.new
     @punches = current_user.punches.all
   end
 
@@ -25,6 +25,7 @@ class Public::PunchesController < ApplicationController
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @day = Date.today
     @punches = current_user.punches.where(in: @day.all_day)
+    @punch = Punch.new
   end
 
   def edit
@@ -37,12 +38,16 @@ class Public::PunchesController < ApplicationController
 
   def create
     punch = current_user.punches.new(punch_params)
-    if punch.save
-      punch_log = punch.punch_logs.build(detail: punch.detail, in: punch.in, out: punch.out)
-      punch_log.save
-      redirect_to punches_path, flash: { center_notice: '保存しました' }
+    if punch.label_id.nil? || punch.in.nil? || punch.out.nil?
+      redirect_to new_punch_path, flash: { center_notice: '入力内容を確認してください' }
     else
-      render :index
+      if punch.save
+        punch_log = punch.punch_logs.build(detail: punch.detail, in: punch.in, out: punch.out)
+        punch_log.save
+        redirect_to new_punch_path, flash: { center_notice: '保存しました' }
+      else
+        redirect_to new_punch_path, flash: { center_notice: '入力内容を確認してください' }
+      end
     end
   end
 
@@ -103,7 +108,7 @@ class Public::PunchesController < ApplicationController
     punch.update(punch_params.merge(out: DateTime.now))
     punch_log = punch.punch_logs.find_by(out: nil)
     punch_log&.update(detail: punch.detail, out: punch.out)
-    redirect_to punches_path, flash: { center_notice: '終了しました' }
+    redirect_to new_punch_path, flash: { center_notice: '終了しました' }
   end
 
   private
