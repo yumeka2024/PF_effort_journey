@@ -5,7 +5,7 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
-    @day = Date.today
+    @day = Time.zone.today
     @punches = current_user.punches.where(in: @day.all_day).order(in: :asc)
     @punch = Punch.new
   end
@@ -24,7 +24,7 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
-    @day = Date.today
+    @day = Time.zone.today
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
     @labels = current_user.labels.all.order(genre: :asc)
@@ -39,7 +39,7 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
-    @day = Date.today
+    @day = Time.zone.today
     @punches = current_user.punches.where(in: @day.all_day)
     @punch = Punch.new
     @labels = current_user.labels.all.order(genre: :asc)
@@ -66,7 +66,8 @@ class Public::PunchesController < ApplicationController
       redirect_to root_path
       return
     end
-    if punch.in.nil? || punch.out.nil?
+    #byebug
+    if params[:punch][:in].nil? || params[:punch][:out].nil?
       redirect_to edit_punch_path(punch), flash: { center_notice: '入力内容を確認してください' }
     else
       if punch.out.blank?

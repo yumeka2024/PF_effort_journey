@@ -8,23 +8,27 @@
         <h5 class="text-dark bg-light py-4 mb-0 text-center">活動記録編集</h5>
       </div>
       <div class="row my-3 mx-auto">
-        <div class="col-lg-2">
+        <div class="col-4 text-center">
         <%= @this_punch.label.genre_i18n %>
         </div>
-        <div class="col-lg-10">
+        <div class="col-8 text-center">
         <%= @this_punch.label.name %>
         </div>
       </div>
 
-      <%= form_with model: @this_punch, url: punch_path(@this_punch), local: true do |f| %>
+      <%= form_with model: @this_punch, url: punch_path(@this_punch), method: :PATCH, local: true do |f| %>
       <div class="row form-group my-3 mx-auto">
         <%= f.label :in, "開始", for:"inputIn", class:"form-label col-2 col-form-label pe-0" %>
         <div class="col-4">
-          <%= f.datetime_field :in, class:"form-control", id: "inputIn" %>
+          <%= f.datetime_field :in, value: @this_punch.in.strftime('%Y-%m-%dT%R'), class:"form-control", id: "inputIn" %>
         </div>
         <%= f.label :out, "終了", for:"inputOut", class:"form-label col-2 col-form-label pe-0" %>
         <div class="col-4">
+          <% if @this_punch.out != nil %>
+          <%= f.datetime_field :out, value: @this_punch.out.strftime('%Y-%m-%dT%R'), class:"form-control", id: "inputOut" %>
+          <% else %>
           <%= f.datetime_field :out, class:"form-control", id: "inputOut" %>
+          <% end %>
         </div>
       </div>
       <div class="row form-group my-3 mx-auto">
