@@ -1,0 +1,73 @@
+<%# day = post.posted_on.blank? ? Date.today : post.posted_on %>
+<h5 class="text-dark bg-light py-4 mb-0 text-center"><%= day.strftime('%-m月%-d日') %>の活動一覧</h5>
+<div class="row border-bottom">
+  <div class="col-lg-4 text-center pt-2 mx-0 px-0">
+    活動<br>内容
+  </div>
+  <div class="col-lg-3 col-6 text-center pt-3 mx-0 px-0">
+    開始
+  </div>
+  <div class="col-lg-3 col-6 text-center py-3 mx-0 px-0">
+    終了
+  </div>
+</div>
+<% punches.each do |punch| %>
+<div class="row">
+  <div class="col-lg-4 text-center mx-0 px-0">
+    <%= punch.label.genre_i18n %><br>
+    <%= punch.label.name %>
+  </div>
+  <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
+    <%= punch.in.strftime('%H:%M') %>
+  </div>
+  <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
+    <% if punch.out != nil %>
+    <%= punch.out.strftime('%H:%M') %>
+    <% end %>
+  </div>
+  <div class="col-lg-2 text-center py-2 mx-0 px-0">
+    <%= link_to edit_punch_path(punch), class: "btn btn-sm btn-block btn-success" do %>
+    <i class="fa-solid fa-pen-to-square"></i>
+    <% end %>
+  </div>
+</div>
+<div class="row border-bottom">
+  <div class="col bg-light text-center mb-2 mx-0 px-0">
+    <%= punch.detail %>
+  </div>
+</div>
+<% end %>
+<div class="row m-3">
+  <%= link_to "すべての活動記録", punches_path, class: "btn btn-sm btn-block btn-success" %>
+</div>
+<div class="bg-light m-0 p-0">
+  <%= form_with model: punch, url: punches_path, local: true do |f| %>
+  <div class="row form-group mt-1">
+    <div class="col mt-1">
+      <%= f.collection_select(:label_id, labels, :id, :label_display, {prompt: "選択してください"}, {class: "form-select"}) %>
+    </div>
+  </div>
+  <div class="row form-group mt-1">
+    <div class="col mt-1">
+      <%= f.label :in, "開始", for:"inputIn", class:"form-label m-0 p-0" %>
+      <%= f.datetime_field :in, class:"form-control", id: "inputIn" %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col mt-1">
+      <%= f.label :out, "終了", for:"inputOut", class:"form-label m-0 p-0" %>
+      <%= f.datetime_field :out, class:"form-control", id: "inputOut" %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col mt-1">
+      <%= f.text_field :detail, class:"form-control", id: "inputDetail", placeholder:"活動内容（空欄でも可）" %>
+    </div>
+  </div>
+  <div class="row form-group mt-1">
+    <div class="col text-center">
+      <%= f.submit "新規登録", class:"btn btn-block btn-success" %>
+    </div>
+  </div>
+  <% end %>
+</div>

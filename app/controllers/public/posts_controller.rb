@@ -6,6 +6,10 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = Time.zone.today
+    @punches = current_user.punches.where(in: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def show
@@ -19,6 +23,10 @@ class Public::PostsController < ApplicationController
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
     current_user.view_counts.create(post_id: @post.id)
   end
 
@@ -29,7 +37,11 @@ class Public::PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
+    post = Post.find_by(id: params[:id])
+    if post.nil?
+      redirect_to root_path
+      return
+    end
     post.destroy
     redirect_to user_path(current_user), flash: { center_notice: '投稿を削除しました' }
   end
@@ -43,6 +55,10 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   private

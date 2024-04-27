@@ -64,7 +64,7 @@ for i in 1..50 do
   )
 end
 
-for i in 1..50 do
+for i in 1..100 do
   Like.create(
     user_id: 21,
     post_id: i

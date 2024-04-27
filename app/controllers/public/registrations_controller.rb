@@ -7,13 +7,13 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @posts = Post.includes(user: {image_attachment: :blob}).page(params[:page]).per(5).order(created_at: :desc)
+    @posts = Post.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
     super
   end
 
   # POST /resource
   def create
-    @posts = Post.includes(user: {image_attachment: :blob}).page(params[:page]).per(5).order(created_at: :desc)
+    @posts = Post.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
     super
   end
 

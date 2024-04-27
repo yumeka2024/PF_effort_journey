@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
 
   def index
-    @users = User.page(params[:page]).order(created_at: :desc)
+    @users = User.order(created_at: :desc).page(params[:page])
   end
 
   def show
@@ -10,8 +10,9 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path
       return
     end
-    @posts = @user.posts.page(params[:page]).order(created_at: :desc)
-    @comments = @user.comments.page(params[:page]).order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).page(params[:page])
+    @comments = @user.comments.order(created_at: :desc).page(params[:page])
+    @likes = Post.joins(:likes).where(likes: { user_id: @user.id }).order(created_at: :desc).page(params[:page])
   end
 
   def update

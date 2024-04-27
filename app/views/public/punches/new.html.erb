@@ -1,0 +1,35 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+
+      <div class="row">
+        <div class="col">
+          <%= link_to "ラベル一覧（新規登録、編集もコチラ）", labels_path, class: "btn btn-block border w-100 mx-auto mb-5" %>
+        </div>
+      </div>
+      <% @labels.each do |label| %>
+      <div class="row mx-3 border-bottom">
+        <div class="col-lg-2 text-center pt-2">
+          <%= label.genre_i18n %>
+        </div>
+        <div class="col-lg-6 text-center pt-2">
+          <%= label.name %>
+        </div>
+        <div class="col-lg-4 text-center my-1">
+          <%= form_with model: label, url: start_punches_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :label_id, value: label.id %>
+          <%= f.submit "開始", class:"btn btn-block btn-success" %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+    <div class='col-3 border py-5'>
+      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
+    </div>
+  </div>
+</div>

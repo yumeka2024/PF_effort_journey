@@ -1,0 +1,94 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+      <div class="row">
+        <h5 class="text-dark bg-light py-4 mb-0 text-center">活動記録編集</h5>
+      </div>
+      <div class="row my-3 mx-auto">
+        <div class="col-4 text-center">
+        <%= @this_punch.label.genre_i18n %>
+        </div>
+        <div class="col-8 text-center">
+        <%= @this_punch.label.name %>
+        </div>
+      </div>
+
+      <%= form_with model: @this_punch, url: punch_path(@this_punch), method: :PATCH, local: true do |f| %>
+      <div class="row form-group my-3 mx-auto">
+        <%= f.label :in, "開始", for:"inputIn", class:"form-label col-2 col-form-label pe-0" %>
+        <div class="col-4">
+          <%= f.datetime_field :in, value: @this_punch.in.strftime('%Y-%m-%dT%R'), class:"form-control", id: "inputIn" %>
+        </div>
+        <%= f.label :out, "終了", for:"inputOut", class:"form-label col-2 col-form-label pe-0" %>
+        <div class="col-4">
+          <% if @this_punch.out != nil %>
+          <%= f.datetime_field :out, value: @this_punch.out.strftime('%Y-%m-%dT%R'), class:"form-control", id: "inputOut" %>
+          <% else %>
+          <%= f.datetime_field :out, class:"form-control", id: "inputOut" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row form-group my-3 mx-auto">
+        <%= f.label :detail, "活動内容", for:"inputDetail", class:"form-label col-3 col-form-label pe-0" %>
+        <div class="col-9 mt-1">
+          <%= f.text_field :detail, class:"form-control", id: "inputDetail", placeholder:"活動内容（空欄でも可）" %>
+        </div>
+      </div>
+      <div class="row form-group my-3 mx-auto">
+        <%= f.label :out, "編集理由", for:"inputReason", class:"form-label col-3 col-form-label pe-0" %>
+        <div class="col-9 mt-1">
+          <%= f.text_field :reason, class:"form-control", id: "inputReason", placeholder:"編集理由" %>
+        </div>
+      </div>
+      <div class="row form-group my-3 mx-auto">
+        <div class="col text-center">
+          <%= f.submit "変更を保存", class:"btn btn-block btn-success" %>
+          <%= link_to "この活動を削除する", punch_path(@this_punch), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-block btn-danger link-underline link-underline-opacity-0 mx-2" %>
+        </div>
+      </div>
+      <% end %>
+
+      <div class="row">
+        <h5 class="text-dark bg-light py-4 mb-0 text-center">編集履歴</h5>
+      </div>
+      <div class="row border-bottom my-2">
+        <div class="col-lg-3 col-6 text-center">
+          開始
+        </div>
+        <div class="col-lg-3 col-6 text-center">
+          終了
+        </div>
+        <div class="col-lg-6 text-center">
+          活動内容
+        </div>
+      </div>
+      <% @this_punch.punch_logs.each do |punch_log| %>
+      <div class="row">
+        <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
+          <%= punch_log.in.strftime('%Y年%-m月%-d日%H:%M') %>
+        </div>
+        <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
+          <% if punch_log.out != nil %>
+          <%= punch_log.out.strftime('%Y年%-m月%-d日%H:%M') %>
+          <% end %>
+        </div>
+        <div class="col-lg-6 text-center pt-2 mx-0 px-0">
+          <%= punch_log.detail %>
+        </div>
+      </div>
+      <div class="row border-bottom">
+        <div class="col text-center border rounded m-2">
+          編集理由：<%= punch_log.reason %>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+    <div class='col-3 border py-5'>
+      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
+    </div>
+  </div>
+</div>

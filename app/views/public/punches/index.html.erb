@@ -1,0 +1,58 @@
+<div class='container'>
+  <div class='row'>
+  <%= form_with(scope: :search, url: punches_path, method: :get, local: true) do |f| %>
+    <div class='col mx-5 my-3'>
+
+    <%= f.label :check_in, "活動日" %>
+    <%= f.date_field :in_from, value: @search_params[:in_from] %> ~
+    <%= f.date_field :in_to, value: @search_params[:in_to] %>
+
+    <%= f.collection_check_boxes :genre, Label.genres.keys.map { |k| [I18n.t("enums.label.genre.#{k}"), k] }, :second, :first,include_hidden: false, checked: @search_params[:genre] %>
+
+    <%= submit_tag '検索', class: "button" %>
+    </div>
+  <% end %>
+  </div>
+
+  <% if @search_results.present? %>
+  <div class="row border-bottom">
+    <div class="col-lg-4 text-center pt-2 mx-0 px-0">
+      活動内容
+    </div>
+    <div class="col-lg-3 col-6 text-center pt-3 mx-0 px-0">
+      開始
+    </div>
+    <div class="col-lg-3 col-6 text-center py-3 mx-0 px-0">
+      終了
+    </div>
+  </div>
+  <% @search_results.each do |punch| %>
+  <div class="row">
+    <div class="col-lg-4 text-center mx-0 px-0">
+      <%= punch.label.genre_i18n %><br>
+      <%= punch.label.name %>
+    </div>
+    <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
+      <%= punch.in.strftime('%Y年%-m月%-d日%H:%M') %>
+    </div>
+    <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
+      <% if punch.out != nil %>
+      <%= punch.out.strftime('%Y年%-m月%-d日%H:%M') %>
+      <% end %>
+    </div>
+    <div class="col-lg-2 text-center py-2 mx-0 px-0">
+      <%= link_to edit_punch_path(punch), class: "btn btn-sm btn-block btn-success" do %>
+      <i class="fa-solid fa-pen-to-square"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="row border-bottom">
+    <div class="col bg-light text-center mb-2 mx-0 px-0">
+      <%= punch.detail %>
+    </div>
+  </div>
+  <% end %>
+
+  <% end %>
+  </div>
+</div>
