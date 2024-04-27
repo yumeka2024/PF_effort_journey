@@ -95,7 +95,7 @@ class Public::PunchesController < ApplicationController
       return
     end
     punch.destroy
-    redirect_to punches_path, flash: { center_notice: '削除しました' }
+    redirect_to new_punch_path, flash: { center_notice: '削除しました' }
   end
 
   def start

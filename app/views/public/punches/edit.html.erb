@@ -45,7 +45,8 @@
       </div>
       <div class="row form-group my-3 mx-auto">
         <div class="col text-center">
-          <%= f.submit "保存", class:"btn btn-block btn-success" %>
+          <%= f.submit "変更を保存", class:"btn btn-block btn-success" %>
+          <%= link_to "この活動を削除する", punch_path(@this_punch), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-block btn-danger link-underline link-underline-opacity-0 mx-2" %>
         </div>
       </div>
       <% end %>
