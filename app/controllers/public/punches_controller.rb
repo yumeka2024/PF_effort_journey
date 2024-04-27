@@ -11,7 +11,8 @@ class Public::PunchesController < ApplicationController
   end
 
   def index
-    @punches = current_user.punches.all
+    @search_params = search_params
+    @search_results = Punch.search(@search_params)
   end
 
   def show
@@ -123,6 +124,7 @@ class Public::PunchesController < ApplicationController
     redirect_to new_punch_path, flash: { center_notice: '終了しました' }
   end
 
+
   private
 
   def punch_params
@@ -131,6 +133,10 @@ class Public::PunchesController < ApplicationController
 
   def label_params
     params.require(:label).permit(:label_id)
+  end
+
+  def search_params
+    params.fetch(:search, {}).permit(:in_from, :in_to, genre: [])
   end
 
 end
