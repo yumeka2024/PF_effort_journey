@@ -2,7 +2,8 @@
 <div class="text-center">
   <p>
     <% if user == current_user %>
-    <%= link_to "今日の振り返りを投稿", new_post_path, class:"btn border" %>
+    <%= link_to "記録開始！", new_punch_path, class:"btn border m-1" %><br>
+    <%= link_to "振り返りを投稿", new_post_path, class:"btn border m-1" %>
     <% end %>
   </p>
   <%= image_tag user.get_image(100,100), class:"rounded-circle" %>

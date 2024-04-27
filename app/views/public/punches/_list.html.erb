@@ -37,34 +37,37 @@
   </div>
 </div>
 <% end %>
-
-<h5 class="text-dark bg-light py-4 mb-0 text-center">新規登録</h5>
-<%= form_with model: punch, url: punches_path, local: true do |f| %>
-<div class="row form-group mt-1">
-  <div class="col mt-1">
-    <%= f.collection_select(:label_id, labels, :id, :label_display, {prompt: "選択してください"}, {class: "form-select"}) %>
-  </div>
+<div class="row m-3">
+  <%= link_to "すべての活動記録", punches_path, class: "btn btn-sm btn-block btn-success" %>
 </div>
-<div class="row form-group mt-1">
-  <div class="col mt-1">
-    <%= f.label :in, "開始", for:"inputIn", class:"form-label m-0 p-0" %>
-    <%= f.datetime_field :in, class:"form-control", id: "inputIn" %>
+<div class="bg-light m-0 p-0">
+  <%= form_with model: punch, url: punches_path, local: true do |f| %>
+  <div class="row form-group mt-1">
+    <div class="col mt-1">
+      <%= f.collection_select(:label_id, labels, :id, :label_display, {prompt: "選択してください"}, {class: "form-select"}) %>
+    </div>
   </div>
-</div>
-<div class="row form-group">
-  <div class="col mt-1">
-    <%= f.label :out, "終了", for:"inputOut", class:"form-label m-0 p-0" %>
-    <%= f.datetime_field :out, class:"form-control", id: "inputOut" %>
+  <div class="row form-group mt-1">
+    <div class="col mt-1">
+      <%= f.label :in, "開始", for:"inputIn", class:"form-label m-0 p-0" %>
+      <%= f.datetime_field :in, class:"form-control", id: "inputIn" %>
+    </div>
   </div>
-</div>
-<div class="row form-group">
-  <div class="col mt-1">
-    <%= f.text_field :detail, class:"form-control", id: "inputDetail", placeholder:"活動内容（空欄でも可）" %>
+  <div class="row form-group">
+    <div class="col mt-1">
+      <%= f.label :out, "終了", for:"inputOut", class:"form-label m-0 p-0" %>
+      <%= f.datetime_field :out, class:"form-control", id: "inputOut" %>
+    </div>
   </div>
-</div>
-<div class="row form-group mt-1">
-  <div class="col text-center">
-    <%= f.submit "登録", class:"btn btn-block btn-success" %>
+  <div class="row form-group">
+    <div class="col mt-1">
+      <%= f.text_field :detail, class:"form-control", id: "inputDetail", placeholder:"活動内容（空欄でも可）" %>
+    </div>
   </div>
+  <div class="row form-group mt-1">
+    <div class="col text-center">
+      <%= f.submit "新規登録", class:"btn btn-block btn-success" %>
+    </div>
+  </div>
+  <% end %>
 </div>
-<% end %>
