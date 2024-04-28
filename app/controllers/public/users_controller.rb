@@ -40,12 +40,12 @@ class Public::UsersController < ApplicationController
   end
 
   def likes
-    @user = User.find_by!(custom_identifier: params[:custom_identifier])
+    @user = User.find_by(custom_identifier: params[:user_custom_identifier])
     if @user.nil?
       redirect_to root_path
       return
     end
-    @posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order('likes.created_at DESC').page(params[:page]).per(5)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
   end

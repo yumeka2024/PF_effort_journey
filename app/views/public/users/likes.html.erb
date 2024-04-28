@@ -42,7 +42,7 @@
     </div>
     <div class='col-6 border py-5'>
       <div class="tab-btn">
-        <label><%= link_to "投稿", user_path, class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
+        <label><%= link_to "投稿", user_path(@user), class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
 
         <label class="checked">いいね</label>
         <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
