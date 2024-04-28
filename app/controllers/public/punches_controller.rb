@@ -1,4 +1,5 @@
 class Public::PunchesController < ApplicationController
+  before_action :is_matching_login_user, only: [:show, :edit, :update, :destroy, :stop]
 
   def new
     @labels = current_user.labels.all.order(genre: :asc)
@@ -12,7 +13,7 @@ class Public::PunchesController < ApplicationController
 
   def index
     @search_params = search_params
-    @search_results = Punch.search(@search_params)
+    @search_results = current_user.punches.search(@search_params)
   end
 
   def show
@@ -126,6 +127,13 @@ class Public::PunchesController < ApplicationController
 
 
   private
+
+  def is_matching_login_user
+    comment = Comment.find(params[:id])
+    unless comment.user_id == current_user.id
+      redirect_to notfound_path
+    end
+  end
 
   def punch_params
     params.require(:punch).permit(:label_id, :reason, :detail, :in_time, :out_time)

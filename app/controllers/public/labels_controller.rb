@@ -1,4 +1,5 @@
 class Public::LabelsController < ApplicationController
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
 
   def index
     @label = Label.new
@@ -56,6 +57,13 @@ class Public::LabelsController < ApplicationController
   end
 
   private
+
+  def is_matching_login_user
+    label = Label.find(params[:id])
+    unless label.user_id == current_user.id
+      redirect_to notfound_path
+    end
+  end
 
   def label_params
     params.require(:label).permit(:genre, :name)
