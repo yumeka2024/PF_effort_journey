@@ -23,7 +23,7 @@ class Public::LabelsController < ApplicationController
   def create
     @label = current_user.labels.new(label_params)
     if @label.save
-      redirect_to labels_path, notice: "保存しました"
+      redirect_to labels_path, flash: { center_notice: '保存しました' }
     else
       @labels = current_user.labels.all
       @user = current_user
@@ -40,7 +40,7 @@ class Public::LabelsController < ApplicationController
       return
     end
     if @label.update(label_params)
-      redirect_to labels_path, notice: "保存しました"
+      redirect_to labels_path, flash: { center_notice: '保存しました' }
     else
       render "edit"
     end

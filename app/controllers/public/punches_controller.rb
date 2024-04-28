@@ -49,14 +49,14 @@ class Public::PunchesController < ApplicationController
   def create
     punch = current_user.punches.new(punch_params)
     if punch.label_id.nil? || punch.in_time.nil? || punch.out_time.nil?
-      redirect_to new_punch_path, flash: { center_notice: '入力内容を確認してください' }
+      redirect_to new_punch_path, flash: { right_notice: '入力内容を確認してください' }
     else
       if punch.save
         punch_log = punch.punch_logs.build(detail: punch.detail, in_time: punch.in_time, out_time: punch.out_time)
         punch_log.save
-        redirect_to new_punch_path, flash: { center_notice: '保存しました' }
+        redirect_to new_punch_path, flash: { right_notice: '保存しました' }
       else
-        redirect_to new_punch_path, flash: { center_notice: '入力内容を確認してください' }
+        redirect_to new_punch_path, flash: { right_notice: '入力内容を確認してください' }
       end
     end
   end
