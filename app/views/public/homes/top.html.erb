@@ -44,14 +44,24 @@
         <div>
           <p>
           アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
-          投稿や、記録をするにはアカウントの登録が必要です。<br>
+          投稿や、記録をするにはアカウントの登録が必要です。<br><br>
           気になった方はお気軽にご登録ください！<br>
           </p>
-          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block rounded btn-custommer mb-5' %>
-          <p class='mt-5'>
+          <p class='mt-3 text-center'>
+          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block btn-info rounded btn-custommer mb-5' %>
+          </p>
+          <p class='mt-3'>
             すでにアカウントをお持ちの方はこちらから
           </p>
-          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block rounded btn-custommer' %>
+          <p class='mt-3 text-center'>
+          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block btn-success rounded btn-custommer' %>
+          </p>
+          <p class='mt-5'>
+            ゲストログインはこちらから
+          </p>
+          <p class='mt-3 text-center'>
+          <%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class: 'btn btn-block btn-secondary rounded btn-custommer' %>
+          </p>
         </div>
       <% end %>
     </div>
