@@ -15,7 +15,7 @@ class Public::CommentsController < ApplicationController
   def edit
     @comment = Comment.find_by(id: params[:id])
     if @comment.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @post = Post.find_by(id: params[:post_id])
@@ -50,7 +50,7 @@ class Public::CommentsController < ApplicationController
   def is_matching_login_user
     comment = Comment.find(params[:id])
     unless comment.user_id == current_user.id
-      redirect_to root_path
+      redirect_to notfound_path
     end
   end
 

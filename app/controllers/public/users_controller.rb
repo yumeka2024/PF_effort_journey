@@ -42,7 +42,7 @@ class Public::UsersController < ApplicationController
   def likes
     @user = User.find_by(custom_identifier: params[:user_custom_identifier])
     if @user.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order('likes.created_at DESC').page(params[:page]).per(5)
