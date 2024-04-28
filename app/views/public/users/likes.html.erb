@@ -41,12 +41,16 @@
       <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
     </div>
     <div class='col-6 border py-5'>
+    <% if @user == current_user || @user.private == false || current_user.approved_following?(@user) %>
       <div class="tab-btn">
         <label><%= link_to "投稿", user_path(@user), class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
 
         <label class="checked">いいね</label>
         <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
       </div>
+    <% else %>
+      <h5 class="text-dark bg-light py-4 mb-0 text-center">非公開アカウントです</h5>
+    <% end %>
     </div>
     <div class='col-3 border py-5'>
       <%= render 'public/searches/form' %>

@@ -2,9 +2,9 @@
 class Public::UsersController < ApplicationController
 
   def show
-    @user = User.find_by!(custom_identifier: params[:custom_identifier])
-    if @user.nil?
-      redirect_to root_path
+    @user = User.find_by(custom_identifier: params[:custom_identifier])
+    if @user.nil? || @user.deleted == true
+      redirect_to notfound_path
       return
     end
     @posts = @user.posts.all.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
