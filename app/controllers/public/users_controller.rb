@@ -2,9 +2,9 @@
 class Public::UsersController < ApplicationController
 
   def show
-    @user = User.find_by!(custom_identifier: params[:custom_identifier])
-    if @user.nil?
-      redirect_to root_path
+    @user = User.find_by(custom_identifier: params[:custom_identifier])
+    if @user.nil? || @user.deleted == true
+      redirect_to notfound_path
       return
     end
     @posts = @user.posts.all.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
@@ -34,7 +34,7 @@ class Public::UsersController < ApplicationController
 
   def deactivate
     user = current_user
-    user.update(deleted: true)
+    user.update(deleted: true, private: true)
     reset_session
     redirect_to root_path, flash: { center_notice: '退会が完了しました' }
   end
@@ -42,7 +42,7 @@ class Public::UsersController < ApplicationController
   def likes
     @user = User.find_by(custom_identifier: params[:user_custom_identifier])
     if @user.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order('likes.created_at DESC').page(params[:page]).per(5)

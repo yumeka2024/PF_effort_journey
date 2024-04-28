@@ -11,7 +11,7 @@ class Public::LabelsController < ApplicationController
   def edit
     @label = Label.find_by(id: params[:id])
     if @label.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @user = current_user
@@ -35,7 +35,7 @@ class Public::LabelsController < ApplicationController
   def update
     @label = Label.find_by(id: params[:id])
     if @label.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     if @label.update(label_params)
@@ -48,7 +48,7 @@ class Public::LabelsController < ApplicationController
   def destroy
     label = Label.find_by(id: params[:id])
     if label.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     label.destroy

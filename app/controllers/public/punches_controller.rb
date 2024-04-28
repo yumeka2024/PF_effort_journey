@@ -18,7 +18,7 @@ class Public::PunchesController < ApplicationController
   def show
     @this_punch = Punch.find_by(id: params[:id])
     if @this_punch.nil? || @this_punch.out_time.present?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @user = current_user
@@ -33,7 +33,7 @@ class Public::PunchesController < ApplicationController
   def edit
     @this_punch = Punch.find_by(id: params[:id])
     if @this_punch.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @user = current_user
@@ -63,7 +63,7 @@ class Public::PunchesController < ApplicationController
   def update
     punch = Punch.find_by(id: params[:id])
     if punch.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     if params[:punch][:in_time].nil? || params[:punch][:out_time].nil?
@@ -90,7 +90,7 @@ class Public::PunchesController < ApplicationController
   def destroy
     punch = Punch.find_by(id: params[:id])
     if punch.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     punch.destroy
@@ -115,7 +115,7 @@ class Public::PunchesController < ApplicationController
   def stop
     punch = Punch.find_by(id: params[:id])
     if punch.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     punch.update(punch_params.merge(out_time: DateTime.now))

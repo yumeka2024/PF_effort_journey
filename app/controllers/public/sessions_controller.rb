@@ -6,7 +6,7 @@ class Public::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    @posts = Post.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).order(created_at: :desc).page(params[:page]).per(5)
     super
   end
 

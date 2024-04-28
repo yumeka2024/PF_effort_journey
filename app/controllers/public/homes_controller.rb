@@ -20,4 +20,10 @@ class Public::HomesController < ApplicationController
   def about
   end
 
+  def notfound
+    @user = current_user
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
+  end
+
 end

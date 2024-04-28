@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'about' => 'homes#about'
     get 'followed' => 'homes#followed'
+    get 'notfound' => 'homes#notfound'
     post 'search' => 'searches#search'
 
     scope :settings do

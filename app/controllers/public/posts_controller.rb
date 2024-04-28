@@ -15,7 +15,7 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find_by(id: params[:id])
     if @post.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @user = @post.user
@@ -39,7 +39,7 @@ class Public::PostsController < ApplicationController
   def destroy
     post = Post.find_by(id: params[:id])
     if post.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     post.destroy
@@ -66,7 +66,7 @@ class Public::PostsController < ApplicationController
   def is_matching_login_user
     post = Post.find(params[:id])
     unless post.user_id == current_user.id
-      redirect_to root_path
+      redirect_to notfound_path
     end
   end
 
