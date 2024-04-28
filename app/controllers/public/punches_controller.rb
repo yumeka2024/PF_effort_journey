@@ -3,6 +3,7 @@ class Public::PunchesController < ApplicationController
 
   def new
     @labels = current_user.labels.all.order(genre: :asc)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
@@ -99,9 +100,9 @@ class Public::PunchesController < ApplicationController
   end
 
   def start
-    prev_punch = current_user.punches.where(out_time: nil)
+    prev_punch = current_user.punches.find_by(out_time: nil)
     if prev_punch.present?
-      prev_punch.update_all(out_time: DateTime.now)
+      prev_punch.update(out_time: DateTime.now)
     end
     punch = current_user.punches.new(label_params.merge(in_time: DateTime.now))
     if punch.save
@@ -129,8 +130,8 @@ class Public::PunchesController < ApplicationController
   private
 
   def is_matching_login_user
-    comment = Comment.find(params[:id])
-    unless comment.user_id == current_user.id
+    punch = Punch.find(params[:id])
+    unless punch.user_id == current_user.id
       redirect_to notfound_path
     end
   end
