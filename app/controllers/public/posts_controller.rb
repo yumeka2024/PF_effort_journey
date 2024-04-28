@@ -24,7 +24,7 @@ class Public::PostsController < ApplicationController
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @day = @post.posted_on
-    @punches = current_user.punches.where(in_time: @day.all_day)
+    @punches = @user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
     @labels = current_user.labels.all.order(genre: :asc)
     current_user.view_counts.create(post_id: @post.id)
