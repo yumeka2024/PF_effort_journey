@@ -34,7 +34,7 @@ class Public::UsersController < ApplicationController
 
   def deactivate
     user = current_user
-    user.update(deleted: true)
+    user.update(deleted: true, private: true)
     reset_session
     redirect_to root_path, flash: { center_notice: '退会が完了しました' }
   end
