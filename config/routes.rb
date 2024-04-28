@@ -7,10 +7,16 @@ Rails.application.routes.draw do
   sessions: 'public/sessions'
   }
 
+  devise_scope :user do
+    post "public/guest_sign_in", to: "public/sessions#guest_sign_in"
+  end
+
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
-    post '/search', to: 'searches#search'
+    get 'followed' => 'homes#followed'
+    get 'notfound' => 'homes#notfound'
+    post 'search' => 'searches#search'
 
     scope :settings do
       get 'profile' => 'users#edit'
@@ -21,6 +27,7 @@ Rails.application.routes.draw do
 
     resources :users, only: :show, param: :custom_identifier do
       resource :relationships, only: [:create, :update, :destroy]
+      get "likes" => 'users#likes'
     	get "following" => 'relationships#following'
     	get "followers" => 'relationships#followers'
     end
@@ -30,12 +37,19 @@ Rails.application.routes.draw do
       resource :like, only: [:create, :destroy]
       resources :comments, only: [:create, :update, :destroy, :edit]
     end
+
+    resources :labels, only: [:index, :edit, :create, :update, :destroy]
+
+    resources :punches do
+      post 'start', on: :collection
+      patch 'stop', on: :member
+    end
+
   end
 
 
   # 管理者側
-  devise_for :admin,skip: [:passwords], controllers: {
-  registrations: 'admin/registrations',
+  devise_for :admin,skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
   }
 
@@ -48,8 +62,6 @@ Rails.application.routes.draw do
 
   # render後にブラウザリロードした時、Routing Errorにならないように設定
   get 'users' => redirect('/users/sign_up')
-
-  #match '*path', to: redirect('/'), via: :all
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

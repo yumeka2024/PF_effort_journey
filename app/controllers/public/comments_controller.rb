@@ -1,5 +1,5 @@
 class Public::CommentsController < ApplicationController
-  before_action :is_matching_login_user, only: [:update, :destroy]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
 
   def create
     @post = Post.find(params[:post_id])
@@ -15,13 +15,17 @@ class Public::CommentsController < ApplicationController
   def edit
     @comment = Comment.find_by(id: params[:id])
     if @comment.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @post = Post.find_by(id: params[:post_id])
     @user = @post.user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in_time: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def update
@@ -46,7 +50,7 @@ class Public::CommentsController < ApplicationController
   def is_matching_login_user
     comment = Comment.find(params[:id])
     unless comment.user_id == current_user.id
-      redirect_to root_path
+      redirect_to notfound_path
     end
   end
 

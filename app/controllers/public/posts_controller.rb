@@ -6,12 +6,16 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = Time.zone.today
+    @punches = current_user.punches.where(in_time: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   def show
     @post = Post.find_by(id: params[:id])
     if @post.nil?
-      redirect_to root_path
+      redirect_to notfound_path
       return
     end
     @user = @post.user
@@ -19,6 +23,11 @@ class Public::PostsController < ApplicationController
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in_time: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
+    current_user.view_counts.create(post_id: @post.id)
   end
 
   def create
@@ -28,7 +37,11 @@ class Public::PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
+    post = Post.find_by(id: params[:id])
+    if post.nil?
+      redirect_to notfound_path
+      return
+    end
     post.destroy
     redirect_to user_path(current_user), flash: { center_notice: '投稿を削除しました' }
   end
@@ -42,6 +55,10 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @day = @post.posted_on
+    @punches = current_user.punches.where(in_time: @day.all_day)
+    @punch = Punch.new
+    @labels = current_user.labels.all.order(genre: :asc)
   end
 
   private
@@ -49,7 +66,7 @@ class Public::PostsController < ApplicationController
   def is_matching_login_user
     post = Post.find(params[:id])
     unless post.user_id == current_user.id
-      redirect_to root_path
+      redirect_to notfound_path
     end
   end
 

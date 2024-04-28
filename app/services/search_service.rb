@@ -4,8 +4,8 @@ class SearchService
   end
 
   def perform_search
-    users = User.where('name LIKE ?', "%#{@query}%").to_a
-    posts = Post.where('body LIKE ?', "%#{@query}%").to_a
+    users = User.where('name LIKE ? AND deleted = ?', "%#{@query}%", false).to_a
+    posts = Post.joins(:user).where('posts.body LIKE ? AND users.deleted = ?', "%#{@query}%", false).to_a
 
     {
       users: users,

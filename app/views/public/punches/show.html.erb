@@ -1,0 +1,45 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-3 border py-5'>
+      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+    </div>
+    <div class='col-6 border py-5'>
+
+      <div class="row">
+        <div class="col">
+          <h5 class="text-dark bg-light py-4 mb-0 text-center"><i class="fa-solid fa-flag fa-flip"></i>　活動中　<i class="fa-solid fa-flag fa-flip"></i></h5>
+        </div>
+      </div>
+      <div class="row my-5 mx-3">
+        <div class="col-lg-4 text-center pt-2">
+          <p class="h6">現在の活動</p>
+        </div>
+        <div class="col-lg-2 text-center pt-2">
+          <%= @this_punch.label.genre_i18n %>
+        </div>
+        <div class="col-lg-6 text-center pt-2">
+          <%= @this_punch.label.name %>
+        </div>
+      </div>
+      <div class="row my-5">
+        <div class="col text-center">
+          <%= link_to "別の活動を開始する", new_punch_path, class: "btn btn-block border w-75" %>
+        </div>
+      </div>
+      <%= form_with model: @this_punch, url: stop_punch_path(@this_punch), local: true do |f| %>
+      <div class="row form-groupmx-auto px-5">
+        <div class="col-lg-10 mb-3">
+          <%= f.text_field :detail, class: "form-control ", id: "inputDetail", placeholder: "活動内容（空欄でも可）" %>
+        </div>
+        <div class="col-lg-2 text-center">
+          <%= f.submit "活動終了", class:"btn btn-block btn-success" %>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+    <div class='col-3 border py-5'>
+      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
+    </div>
+  </div>
+</div>

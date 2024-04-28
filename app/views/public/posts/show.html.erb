@@ -17,13 +17,14 @@
       </div>
       <div class="row">
         <div class="col-12 px-4">
-          <h5 class="text-dark bg-light py-4 mb-0 text-center w-75 mx-auto"><%= @post.posted_on %>の振り返り</h5>
+          <h5 class="text-dark bg-light py-4 mb-0 text-center w-75 mx-auto"><%= @post.posted_on.strftime('%-m月%-d日') %>の振り返り</h5>
           <p><%= simple_format(h(@post.body)) %></p>
         </div>
       </div>
       <div class="row">
         <div class="col-4 text-center border-end">
-          <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+          <p class="m-0"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
+          <p class="m-0"><%= @post.view_counts.count %>Views</p>
         </div>
         <div class="col-2 text-center mt-2 border-end">
           <i class="fa-regular fa-comment" aria-hidden="true"></i> <%= @post.comments.count %>
@@ -55,7 +56,7 @@
       </div>
     </div>
     <div class='col-3 border py-5'>
-      <!--%= render 'public/punch/list', punch: @punch %>-->
+      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
     </div>
   </div>
 </div>

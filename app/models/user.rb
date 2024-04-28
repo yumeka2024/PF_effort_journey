@@ -10,10 +10,13 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :view_counts, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :labels, dependent: :destroy
+  has_many :punches, dependent: :destroy
 
 # バリデーション
   validates :name, presence: true, length: { maximum: 30 }
@@ -49,19 +52,29 @@ class User < ApplicationRecord
     passive_relationships.find_by(follower_id: user.id).update(approved: true)
   end
 
-  # フォローを解除する（フォロリクを拒否する）
+  # フォローを解除する（フォロリクを拒否する、フォロリクを取り消す）
   def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end
 
-  # フォローしているか判定
+  # フォローしているか判定（フォロリクを含む）
   def following?(user)
     active_relationships.exists?(followed_id: user.id)
   end
 
-  # フォローされているか判定
+  # フォローしているか判定（フォロリクを含まない）
+  def approved_following?(user)
+    active_relationships.exists?(followed_id: user.id, approved: true)
+  end
+
+  # フォローされているか判定（フォロリクを含む）
   def followed?(user)
     passive_relationships.exists?(follower_id: user.id)
+  end
+
+  # フォローされているか判定（フォロリクを含まない）
+  def approved_followed?(user)
+    passive_relationships.exists?(follower_id: user.id, approved: true)
   end
 
 end

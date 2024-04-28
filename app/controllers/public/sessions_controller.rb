@@ -6,8 +6,14 @@ class Public::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    @posts = Post.includes(user: {image_attachment: :blob}).page(params[:page]).per(5).order(created_at: :desc)
+    @posts = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).order(created_at: :desc).page(params[:page]).per(5)
     super
+  end
+
+  def guest_sign_in
+    user = User.find_by(custom_identifier: "guest")
+    sign_in user
+    redirect_to root_path, flash: { center_notice: 'guestでログインしました' }
   end
 
   # POST /resource/sign_in
