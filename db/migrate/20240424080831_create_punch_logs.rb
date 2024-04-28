@@ -4,8 +4,8 @@ class CreatePunchLogs < ActiveRecord::Migration[6.1]
       t.references :punch, null: false, foreign_key: true
       t.string :reason
       t.string :detail
-      t.datetime :in, null: false
-      t.datetime :out
+      t.datetime :in_time, null: false
+      t.datetime :out_time
 
       t.timestamps
     end

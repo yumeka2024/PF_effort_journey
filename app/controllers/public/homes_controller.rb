@@ -12,7 +12,7 @@ class Public::HomesController < ApplicationController
 
   def followed
     @user = current_user
-    @posts = Post.joins(user: { active_relationships: :follower }).where(relationships: { approved: true, follower_id: @user.id }).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = Post.joins(user: { passive_relationships: :follower }).where(relationships: { approved: true, follower_id: @user.id }).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
   end

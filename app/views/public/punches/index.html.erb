@@ -3,9 +3,9 @@
   <%= form_with(scope: :search, url: punches_path, method: :get, local: true) do |f| %>
     <div class='col mx-5 my-3'>
 
-    <%= f.label :check_in, "活動日" %>
-    <%= f.date_field :in_from, value: @search_params[:in_from] %> ~
-    <%= f.date_field :in_to, value: @search_params[:in_to] %>
+    <%= f.label :check_in_time, "活動日" %>
+    <%= f.date_field :in_time_from, value: @search_params[:in_time_from] %> ~
+    <%= f.date_field :in_time_to, value: @search_params[:in_time_to] %>
 
     <%= f.collection_check_boxes :genre, Label.genres.keys.map { |k| [I18n.t("enums.label.genre.#{k}"), k] }, :second, :first,include_hidden: false, checked: @search_params[:genre] %>
 
@@ -33,11 +33,11 @@
       <%= punch.label.name %>
     </div>
     <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
-      <%= punch.in.strftime('%Y年%-m月%-d日%H:%M') %>
+      <%= punch.in_time.strftime('%Y年%-m月%-d日%H:%M') %>
     </div>
     <div class="col-lg-3 col-6 text-center pt-2 mx-0 px-0">
-      <% if punch.out != nil %>
-      <%= punch.out.strftime('%Y年%-m月%-d日%H:%M') %>
+      <% if punch.out_time != nil %>
+      <%= punch.out_time.strftime('%Y年%-m月%-d日%H:%M') %>
       <% end %>
     </div>
     <div class="col-lg-2 text-center py-2 mx-0 px-0">

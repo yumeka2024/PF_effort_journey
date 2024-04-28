@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 2024_04_24_080831) do
     t.integer "punch_id", null: false
     t.string "reason"
     t.string "detail"
-    t.datetime "in", null: false
-    t.datetime "out"
+    t.datetime "in_time", null: false
+    t.datetime "out_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["punch_id"], name: "index_punch_logs_on_punch_id"
@@ -105,8 +105,8 @@ ActiveRecord::Schema.define(version: 2024_04_24_080831) do
     t.integer "label_id", null: false
     t.string "reason"
     t.string "detail"
-    t.datetime "in", null: false
-    t.datetime "out"
+    t.datetime "in_time", null: false
+    t.datetime "out_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["label_id"], name: "index_punches_on_label_id"
