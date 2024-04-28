@@ -2,7 +2,7 @@
   .tab-btn {
       display: flex;
       flex-wrap: wrap;
-      max-width: 500px;
+      max-width: 100%;
   }
 
   .tab-btn > label {
@@ -22,24 +22,15 @@
       opacity: .8;
   }
 
-  .tab-btn input {
-      display: none;
-  }
-
   .tab-btn > div {
-      display: none;
       width: 100%;
-      padding: 1.5em 1em;
+      padding: 1em 1em;
       background-color: #fff;
   }
 
-  .tab-btn label:has(:checked) {
+  .tab-btn .checked {
       border-bottom: 4px solid #ff8000;
       color: #ff8000;
-  }
-
-  .tab-btn label:has(:checked) + div {
-      display: block;
   }
 </style>
 
@@ -67,11 +58,10 @@
     <div class='col-6 border py-5'>
     <% if user_signed_in? %>
       <div class="tab-btn">
-        <label><input type="radio" name="tab-btn" checked>おすすめ</label>
+        <label class="checked">おすすめ</label>
         <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
 
-        <label><input type="radio" name="tab-btn">フォロー中</label>
-        <div class="mx-auto"><%= render 'public/posts/list', posts: @follow_posts %></div>
+        <label><%= link_to "フォロー中", followed_path, class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
       </div>
     <% else %>
       <%= render 'public/posts/list', posts: @posts %>

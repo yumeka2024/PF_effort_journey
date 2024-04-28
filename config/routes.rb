@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
-    post '/search', to: 'searches#search'
+    get 'followed' => 'homes#followed'
+    post 'search' => 'searches#search'
 
     scope :settings do
       get 'profile' => 'users#edit'
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
 
     resources :users, only: :show, param: :custom_identifier do
       resource :relationships, only: [:create, :update, :destroy]
+      get "likes" => 'users#likes'
     	get "following" => 'relationships#following'
     	get "followers" => 'relationships#followers'
     end

@@ -7,8 +7,7 @@ class Public::UsersController < ApplicationController
       redirect_to root_path
       return
     end
-    @user_posts = @user.posts.all.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
-    @like_posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = @user.posts.all.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
@@ -38,6 +37,17 @@ class Public::UsersController < ApplicationController
     user.update(deleted: true)
     reset_session
     redirect_to root_path, flash: { center_notice: '退会が完了しました' }
+  end
+
+  def likes
+    @user = User.find_by!(custom_identifier: params[:custom_identifier])
+    if @user.nil?
+      redirect_to root_path
+      return
+    end
+    @posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
+    @approved_followers = @user.followers.where('relationships.approved = ?', true)
+    @approved_following = @user.followings.where('relationships.approved = ?', true)
   end
 
   private
