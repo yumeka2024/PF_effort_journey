@@ -33,7 +33,7 @@ class Public::PostsController < ApplicationController
   def create
     post = current_user.posts.new(post_params)
     post.save
-    redirect_to followed_path, flash: { center_notice: '投稿が完了しました' }
+    redirect_to root_path, flash: { center_notice: '投稿が完了しました' }
   end
 
   def destroy
