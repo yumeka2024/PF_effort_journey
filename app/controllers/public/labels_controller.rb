@@ -1,4 +1,5 @@
 class Public::LabelsController < ApplicationController
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
 
   def index
     @label = Label.new
@@ -22,7 +23,7 @@ class Public::LabelsController < ApplicationController
   def create
     @label = current_user.labels.new(label_params)
     if @label.save
-      redirect_to labels_path, notice: "保存しました"
+      redirect_to labels_path, flash: { center_notice: '保存しました' }
     else
       @labels = current_user.labels.all
       @user = current_user
@@ -39,7 +40,7 @@ class Public::LabelsController < ApplicationController
       return
     end
     if @label.update(label_params)
-      redirect_to labels_path, notice: "保存しました"
+      redirect_to labels_path, flash: { center_notice: '保存しました' }
     else
       render "edit"
     end
@@ -56,6 +57,13 @@ class Public::LabelsController < ApplicationController
   end
 
   private
+
+  def is_matching_login_user
+    label = Label.find(params[:id])
+    unless label.user_id == current_user.id
+      redirect_to notfound_path
+    end
+  end
 
   def label_params
     params.require(:label).permit(:genre, :name)

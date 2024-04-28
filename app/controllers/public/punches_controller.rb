@@ -1,7 +1,9 @@
 class Public::PunchesController < ApplicationController
+  before_action :is_matching_login_user, only: [:show, :edit, :update, :destroy, :stop]
 
   def new
     @labels = current_user.labels.all.order(genre: :asc)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
@@ -12,7 +14,7 @@ class Public::PunchesController < ApplicationController
 
   def index
     @search_params = search_params
-    @search_results = Punch.search(@search_params)
+    @search_results = current_user.punches.search(@search_params)
   end
 
   def show
@@ -48,14 +50,14 @@ class Public::PunchesController < ApplicationController
   def create
     punch = current_user.punches.new(punch_params)
     if punch.label_id.nil? || punch.in_time.nil? || punch.out_time.nil?
-      redirect_to new_punch_path, flash: { center_notice: '入力内容を確認してください' }
+      redirect_to new_punch_path, flash: { right_notice: '入力内容を確認してください' }
     else
       if punch.save
         punch_log = punch.punch_logs.build(detail: punch.detail, in_time: punch.in_time, out_time: punch.out_time)
         punch_log.save
-        redirect_to new_punch_path, flash: { center_notice: '保存しました' }
+        redirect_to new_punch_path, flash: { right_notice: '保存しました' }
       else
-        redirect_to new_punch_path, flash: { center_notice: '入力内容を確認してください' }
+        redirect_to new_punch_path, flash: { right_notice: '入力内容を確認してください' }
       end
     end
   end
@@ -98,9 +100,9 @@ class Public::PunchesController < ApplicationController
   end
 
   def start
-    prev_punch = current_user.punches.where(out_time: nil)
+    prev_punch = current_user.punches.find_by(out_time: nil)
     if prev_punch.present?
-      prev_punch.update_all(out_time: DateTime.now)
+      prev_punch.update(out_time: DateTime.now)
     end
     punch = current_user.punches.new(label_params.merge(in_time: DateTime.now))
     if punch.save
@@ -126,6 +128,13 @@ class Public::PunchesController < ApplicationController
 
 
   private
+
+  def is_matching_login_user
+    punch = Punch.find(params[:id])
+    unless punch.user_id == current_user.id
+      redirect_to notfound_path
+    end
+  end
 
   def punch_params
     params.require(:punch).permit(:label_id, :reason, :detail, :in_time, :out_time)

@@ -3,16 +3,28 @@ class Public::RelationshipsController < ApplicationController
 
   def create
     @user = User.find_by(id: params[:user_custom_identifier])
+    if @user.nil?
+      redirect_to notfound_path
+      return
+    end
     current_user.follow(@user)
   end
 
   def update
     @user = User.find_by(custom_identifier: params[:user_custom_identifier])
+    if @user.nil?
+      redirect_to notfound_path
+      return
+    end
     current_user.approved(@user)
   end
 
   def destroy
     @user = User.find_by(id: params[:user_custom_identifier])
+    if @user.nil?
+      redirect_to notfound_path
+      return
+    end
     current_user.unfollow(@user)
   end
 

@@ -19,10 +19,14 @@
           <%= label.name %>
         </div>
         <div class="col-lg-4 text-center my-1">
+        <% if @prev_punch.present? %>
+          <%= link_to "活動中", punch_path(@prev_punch), class: "btn btn-block btn-primary" %>
+        <% else %>
           <%= form_with model: label, url: start_punches_path, method: :post, local: true do |f| %>
           <%= f.hidden_field :label_id, value: label.id %>
           <%= f.submit "開始", class:"btn btn-block btn-success" %>
           <% end %>
+        <% end %>
         </div>
       </div>
       <% end %>

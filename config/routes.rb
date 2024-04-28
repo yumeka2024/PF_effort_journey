@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   sessions: 'public/sessions'
   }
 
+  devise_scope :user do
+    post "public/guest_sign_in", to: "public/sessions#guest_sign_in"
+  end
+
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
@@ -45,8 +49,7 @@ Rails.application.routes.draw do
 
 
   # 管理者側
-  devise_for :admin,skip: [:passwords], controllers: {
-  registrations: 'admin/registrations',
+  devise_for :admin,skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
   }
 

@@ -19,11 +19,11 @@ class Admin::UsersController < ApplicationController
     user = User.find_by!(custom_identifier: params[:id])
     if user.deleted == false
       user.update(deleted: true)
-      redirect_to admin_user_custom_id_path(user)
+      redirect_to admin_user_path(user)
       return
     else
       user.update(deleted: false)
-      redirect_to admin_user_custom_id_path(user)
+      redirect_to admin_user_path(user)
       return
     end
   end

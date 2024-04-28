@@ -45,7 +45,11 @@
         <label><%= link_to "おすすめ", root_path, class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
 
         <label class="checked">フォロー中</label>
-        <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
+        <% if @posts.present? %>
+          <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
+        <% else %>
+          <div class="mx-auto"><h5 class="text-dark bg-light py-4 mb-0 text-center">投稿はありません</h5></div>
+        <% end %>
       </div>
     </div>
     <div class='col-3 border py-5'>
