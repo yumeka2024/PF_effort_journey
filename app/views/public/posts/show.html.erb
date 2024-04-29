@@ -1,62 +1,64 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-3 border py-5'>
-      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+<%= content_for(:left_side) do %>
+  <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+<% end %>
+
+<div class="bg-light rounded py-3">
+  <div class="row">
+    <div class="col-1 ms-2">
+      <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>
     </div>
-    <div class='col-6 border py-5'>
-      <div class="row">
-        <div class="col-1">
-          <%= image_tag @post.user.get_image(30,30), class:"rounded-circle";  %>
-        </div>
-        <div class="col-9">
-          <p><%= @post.user.name.truncate(18) %></p>
-        </div>
-        <div class="col-1 text-end">
-        <%= link_to "back", :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
-      </div>
-      </div>
-      <div class="row">
-        <div class="col-12 px-4">
-          <h5 class="text-dark bg-light py-4 mb-0 text-center w-75 mx-auto"><%= @post.posted_on.strftime('%-m月%-d日') %>の振り返り</h5>
-          <p><%= simple_format(h(@post.body)) %></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-4 text-center border-end">
-          <p class="m-0"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
-          <p class="m-0"><%= @post.view_counts.count %>Views</p>
-        </div>
-        <div class="col-2 text-center mt-2 border-end">
-          <i class="fa-regular fa-comment" aria-hidden="true"></i> <%= @post.comments.count %>
-        </div>
-        <div class="col-2 text-center mt-2 border-end" id="like_btn_<%= @post.id %>">
-          <%= render "public/likes/btn", post: @post %>
-        </div>
-        <div class="col-2 text-center mt-2 border-end">
-          <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: @post.user.name+"\n"+@post.posted_on.to_s+"の振り返り\n"+request.url), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>
-          <i class="fa-brands fa-square-x-twitter fa-lg"></i>
-          <% end %>
-        </div>
-        <div class="col-2 text-center mt-2">
-          <% if @post.user == current_user %>
-            <%= link_to post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline link-underline-opacity-0" do %>
-            <i class="fa-solid fa-trash-can"></i>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <div class="row">
-        <div class='col mt-1' style="height: 0px;">
-          <p class="h5 text-center" id="comment_notice"><%= flash[:comment_notice] %></p>
-        </div>
-        <%= render 'public/comments/form', post: @post, comment: @comment %>
-      </div>
-      <div class="row">
-        <%= render 'public/comments/list', post: @post, comments: @comments %>
-      </div>
+    <div class="col-8">
+      <p><%= @post.user.name.truncate(18) %></p>
     </div>
-    <div class='col-3 border py-5'>
-      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
+    <div class="col-2 text-end">
+    <%= link_to :back, class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+      <i class="fa-solid fa-reply me-1"></i>back
+    <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 px-4">
+      <h5 class="belt-g py-4 mb-0 text-center w-75 mx-auto rounded"><%= @post.posted_on.strftime('%-m月%-d日') %>の振り返り</h5>
+      <p><%= simple_format(h(@post.body)) %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 text-center border-end">
+      <p class="m-0"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
+      <p class="m-0"><%= @post.view_counts.count %>Views</p>
+    </div>
+    <div class="col-2 text-center mt-2 border-end">
+      <i class="fa-regular fa-comment" aria-hidden="true"></i> <%= @post.comments.count %>
+    </div>
+    <div class="col-2 text-center mt-2 border-end" id="like_btn_<%= @post.id %>">
+      <%= render "public/likes/btn", post: @post %>
+    </div>
+    <div class="col-2 text-center mt-2 border-end">
+      <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: @post.user.name+"\n"+@post.posted_on.to_s+"の振り返り\n"+request.url), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>
+      <i class="fa-brands fa-square-x-twitter fa-lg"></i>
+      <% end %>
+    </div>
+    <div class="col-2 text-center mt-2">
+      <% if @post.user == current_user %>
+        <%= link_to post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"text-dark link-underline link-underline-opacity-0" do %>
+        <i class="fa-solid fa-trash-can"></i>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class='col mt-1' style="height: 0px;">
+    <p class="h5 text-center" id="comment_notice"><%= flash[:comment_notice] %></p>
+  </div>
+  <%= render 'public/comments/form', post: @post, comment: @comment %>
+</div>
+<div class="row">
+  <%= render 'public/comments/list', post: @post, comments: @comments %>
+</div>
+
+
+<%= content_for(:right_side) do %>
+  <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
+<% end %>

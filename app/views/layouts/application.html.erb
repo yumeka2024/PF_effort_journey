@@ -1,3 +1,4 @@
+<!--application.html.erb-->
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,6 +7,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <script src="https://kit.fontawesome.com/99724ae1be.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Della+Respira&display=swap" rel="stylesheet">
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -15,32 +19,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
   </head>
 
-
   <body>
     <%= render 'layouts/header' %>
     <main>
 
       <!--通知表示-->
       <div class='container'>
-        <div class='row mt-5'>
+        <div class='row'>
           <div class='col-3' style="height: 0px;">
-            <p class="h5 text-center" id="left_notice"><%= flash[:left_notice] %></p>
+            <p class="h5 text-center text-white" id="left_notice"><%= flash[:left_notice] %></p>
           </div>
           <div class='col-6' style="height: 0px;">
-            <p class="h5 text-center" id="center_notice"><%= flash[:center_notice] %></p>
+            <p class="h5 text-center text-white" id="center_notice"><%= flash[:center_notice] %></p>
           </div>
           <div class='col-3' style="height: 0px;">
-            <p class="h5 text-center" id="right_notice"><%= flash[:right_notice] %></p>
+            <p class="h5 text-center text-white" id="right_notice"><%= flash[:right_notice] %></p>
           </div>
         </div>
       </div>
 
-      <%= yield %>
+      <div class="container">
+        <div class="row pt-3">
+        <% if content_for?(:left_side) %>
+          <div class="col-sm-3 pt-3 rounded d-none d-sm-block sidebar left_side">
+            <%= yield(:left_side) %>
+          </div>
+          <div class="col-sm-6 pt-3">
+            <%= yield %>
+          </div>
+          <div class="col-sm-3 pt-3 rounded d-none d-sm-block sidebar right_side">
+            <%= yield(:right_side) %>
+          </div>
+        <% else %>
+          <%= yield %>
+        <% end %>
+        </div>
+      </div>
+
+      <span id="back">
+        <a href="#">
+          <i class="fa-brands fa-pagelines fa-spin fa-4x" style="color: #485a4b;"></i>
+        </a>
+      </span>
     </main>
 
     <script>
+    $(function() {
+      $('#back a').on('click',function(event){
+        $('body, html').animate({
+          scrollTop:0
+        }, 800);
+        event.preventDefault();
+      });
+    });
+
       var jscrollOption = {
-          loadingHtml: '<div class="d-flex justify-content-evenly m-2"><i class="fa-solid fa-shoe-prints fa-beat"></i><i class="fa-solid fa-shoe-prints fa-beat"></i><i class="fa-solid fa-shoe-prints fa-beat"></i></div>',
+          loadingHtml: '<div class="d-flex justify-content-evenly m-2"><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i></div>',
           autoTrigger: true,
           padding: 100,
           contentSelector: '.jscroll',

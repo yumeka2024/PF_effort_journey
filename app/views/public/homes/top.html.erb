@@ -1,89 +1,51 @@
-<style>
-  .tab-btn {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 100%;
-  }
-
-  .tab-btn > label {
-      flex: 1 1;
-      order: -1;
-      min-width: 70px;
-      padding: .7em 1em .5em;
-      background-color: #ffffff;
-      color: #999;
-      font-weight: 600;
-      font-size: .9em;
-      text-align: center;
-      cursor: pointer;
-  }
-
-  .tab-btn > label:hover {
-      opacity: .8;
-  }
-
-  .tab-btn > div {
-      width: 100%;
-      padding: 1em 1em;
-      background-color: #fff;
-  }
-
-  .tab-btn .checked {
-      border-bottom: 4px solid #ff8000;
-      color: #ff8000;
-  }
-</style>
-
 <!--app/views/public/homes/top.html.erb-->
-<div class='container'>
-  <div class='row'>
-    <div class='col-3 border py-5'>
-      <% if user_signed_in? %>
-        <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
-      <% else %>
-        <div>
-          <p>
-          アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
-          投稿や、記録をするにはアカウントの登録が必要です。<br><br>
-          気になった方はお気軽にご登録ください！<br>
-          </p>
-          <p class='mt-3 text-center'>
-          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block btn-primary rounded btn-custommer mb-5' %>
-          </p>
-          <p class='mt-3'>
-            すでにアカウントをお持ちの方はこちらから
-          </p>
-          <p class='mt-3 text-center'>
-          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block btn-success rounded btn-custommer' %>
-          </p>
-          <p class='mt-5'>
-            ゲストログインはこちらから
-          </p>
-          <p class='mt-3 text-center'>
-          <%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class: 'btn btn-block btn-secondary rounded btn-custommer' %>
-          </p>
-        </div>
-      <% end %>
+<%= content_for(:left_side) do %>
+  <% if user_signed_in? %>
+    <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
+  <% else %>
+    <div>
+      <p>
+      アカウントを登録していなくても、おすすめの投稿を見ることができます！<br>
+      投稿や、記録をするにはアカウントの登録が必要です。<br><br>
+      気になった方はお気軽にご登録ください！<br>
+      </p>
+      <p class='pt-3 text-center'>
+      <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-block btn-primary rounded btn-custommer mb-5' %>
+      </p>
+      <p class='pt-3'>
+        すでにアカウントをお持ちの方はこちらから
+      </p>
+      <p class='pt-3 text-center'>
+      <%= link_to "ログイン", new_user_session_path, class: 'btn btn-block btn-success rounded btn-custommer' %>
+      </p>
+      <p class='pt-5'>
+        ゲストログインはこちらから
+      </p>
+      <p class='pt-3 text-center'>
+      <%= link_to "ゲストログイン", public_guest_sign_in_path, method: :post, class: 'btn btn-block btn-secondary rounded btn-custommer' %>
+      </p>
     </div>
-    <div class='col-6 border py-5'>
-    <% if user_signed_in? %>
-      <div class="tab-btn">
-        <label class="checked">おすすめ</label>
-        <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
+  <% end %>
+<% end %>
 
-        <label><%= link_to "フォロー中", followed_path, class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
-      </div>
-    <% else %>
-      <%= render 'public/posts/list', posts: @posts %>
-    <% end %>
-    </div>
-    <div class='col-3 border py-5'>
-      <%= render 'public/searches/form' %>
-      <div id="search_results">
-        <% if @search_results.present? %>
-          <%= render 'public/searches/result' %>
-        <% end %>
-      </div>
-    </div>
+
+<% if user_signed_in? %>
+  <div class="tab-btn">
+    <label class="checked">おすすめ</label>
+    <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
+
+    <label><%= link_to "フォロー中", followed_path, class: 'text-light link-underline link-underline-opacity-0 d-block' %></label>
   </div>
-</div>
+<% else %>
+  <%= render 'public/posts/list', posts: @posts %>
+<% end %>
+
+
+<%= content_for(:right_side) do %>
+  <%= render 'public/searches/form' %>
+  <div id="search_results">
+    <% if @search_results.present? %>
+      <%= render 'public/searches/result' %>
+    <% end %>
+  </div>
+<% end %>
