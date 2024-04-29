@@ -1,16 +1,7 @@
 <!--app/views/public/users/_list.html.erb-->
-<style>
-.card:hover{
-  background: #e7e9ea;
-}
-.custom_id{
-  font-size: smaller;
-}
-</style>
-
 <div class="card-list-containar">
   <% users.each do |user| %>
-  <div class="card w-100 shadow-sm">
+  <div class="card w-100 shadow-sm mb-1">
     <div class="card-body">
       <%= link_to(user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">

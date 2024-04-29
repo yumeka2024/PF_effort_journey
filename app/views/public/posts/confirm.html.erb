@@ -1,23 +1,24 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-3 border py-5'>
-      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
-    </div>
-    <div class='col-6 border py-5'>
-      <h5 class="text-dark bg-light py-4 mb-0 text-center">下記の内容で投稿します</h5>
-      <p class="px-4 pt-4">対象日</p>
-      <p class="px-4"><%= @post.posted_on %></p>
-      <p class="p-4"><%= simple_format(h(@post.body)) %></p>
-      <div class="text-center">
-        <%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
-          <%= f.hidden_field :posted_on %>
-          <%= f.hidden_field :body %>
-          <%= f.submit "投稿", class: "btn btn-success" %>
-        <% end %>
-      </div>
-    </div>
-    <div class='col-3 border py-5'>
-      <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
-    </div>
+<%= content_for(:left_side) do %>
+  <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+<% end %>
+
+<div class="bg-light rounded">
+  <h5 class="text-dark bg-light py-4 mb-0 text-center rounded">下記の内容で投稿します</h5>
+  <p class="px-4 pt-4">対象日</p>
+  <p class="px-4"><%= @post.posted_on %></p>
+  <div class="mx-5">
+    <p class=""><%= simple_format(h(@post.body)) %></p>
+  </div>
+  <div class="text-center py-3">
+  <%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
+    <%= f.hidden_field :posted_on %>
+    <%= f.hidden_field :body %>
+    <%= f.submit "投稿", class: "btn btn-success" %>
+  <% end %>
   </div>
 </div>
+
+
+<%= content_for(:right_side) do %>
+  <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
+<% end %>

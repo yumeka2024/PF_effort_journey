@@ -1,50 +1,48 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-3 border py-5'>
-      <h5 class="text-dark bg-light py-4 mb-0 text-center">ユーザーログイン</h5>
-      <div class="form-body p-4">
-        <div class="mx-auto text-center">
-          <p>メールアドレスと<br>パスワードを入力してください。</p>
-        </div>
-        <%= form_with model: @user, url: user_session_path, local: true do |f| %>
-        <%= render "public/shared/error_messages", resource: resource %>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
-          </div>
-          <%= f.email_field :email, autofocus: true, class:"form-control", placeholder:"メールアドレス" %>
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>
-          </div>
-          <%= f.password_field :password, autocomplete: "off", class:"form-control", id:"inputPassword", placeholder:"パスワード" %>
-        </div>
-        <%= f.submit "サインイン", class: "btn btn-block btn-info mt-5 w-100" %>
-        <% end %>
-      </div>
-      <div class="mx-auto text-center">
-        <p>
-          アカウントの登録がお済みでない方は<br>
-          <%= link_to "こちら" , new_user_registration_path %> から新規登録を行なってください
-        </p>
-      </div>
-      <div class="mx-auto mt-3 text-center">
-        <p>
-          <!--退会した方への注意-->
-        </p>
-      </div>
+<%= content_for(:left_side) do %>
+  <h5 class="belt py-4 mb-0 text-center rounded">ユーザーログイン</h5>
+  <div class="form-body p-4">
+    <div class="mx-auto text-center">
+      <p>メールアドレスと<br>パスワードを入力してください。</p>
     </div>
-    <div class='col-6 border py-5'>
-      <%= render 'public/posts/list', posts: @posts %>
-    </div>
-    <div class='col-3 border py-5'>
-      <%= render 'public/searches/form' %>
-      <div id="search_results">
-        <% if @search_results.present? %>
-          <%= render 'public/searches/result' %>
-        <% end %>
+    <%= form_with model: @user, url: user_session_path, local: true do |f| %>
+    <%= render "public/shared/error_messages", resource: resource %>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
       </div>
+      <%= f.email_field :email, autofocus: true, class:"form-control", placeholder:"メールアドレス" %>
     </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>
+      </div>
+      <%= f.password_field :password, autocomplete: "off", class:"form-control", id:"inputPassword", placeholder:"パスワード" %>
+    </div>
+    <%= f.submit "サインイン", class: "btn btn-block btn-info mt-5 w-100" %>
+    <% end %>
   </div>
-</div>
+  <div class="mx-auto text-center">
+    <p>
+      アカウントの登録がお済みでない方は<br>
+      <%= link_to "こちら" , new_user_registration_path %> から新規登録を行なってください
+    </p>
+  </div>
+  <div class="mx-auto mt-3 text-center">
+    <p>
+      <!--退会した方への注意-->
+    </p>
+  </div>
+<% end %>
+
+
+<%= render 'public/posts/list', posts: @posts %>
+
+
+<%= content_for(:right_side) do %>
+  <%= render 'public/searches/form' %>
+  <div id="search_results">
+    <% if @search_results.present? %>
+      <%= render 'public/searches/result' %>
+    <% end %>
+  </div>
+<% end %>

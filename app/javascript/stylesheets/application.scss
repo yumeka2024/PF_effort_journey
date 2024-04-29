@@ -1,0 +1,172 @@
+body {
+  background-image: url(../images/backimage2.png);
+  background-size:  cover;
+}
+#back {
+  position: fixed;
+  right: 25px;
+  bottom: 20px;
+  width: 80px;
+}
+.btn-success{
+  border: none;
+  background: #6ead70;
+}
+.btn-danger{
+  border: none;
+  background: #f44336;
+}
+.btn-info{
+  border: none;
+  background: #81C7D4;
+}
+.btn-primary{
+  border: none;
+  background: #58B2DC;
+}
+
+// header
+.della-respira-regular {
+  font-family: "Della Respira", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 45px;
+  color: #ffebda;
+}
+header nav .btn-user{
+  border: none;
+  color: #ca579c;
+  background: #ffebda;
+}
+header nav .btn-user:hover{
+  border: none;
+  color: #FFEbda;
+  background: #bea7bb;
+}
+header nav .btn-user:active{
+  border: none;
+  color: #ca579c;
+  background: #ffebda;
+}
+header nav .btn-admin{
+  border: none;
+  color: #FFEbda;
+  background: #bea7bb;
+}
+header nav .btn-admin:hover{
+  border: none;
+  color: #ca579c;
+  background: #ffebda;
+}
+header nav .btn-admin:active{
+  border: none;
+  color: #ffebda;
+  background: #bea7bb;
+}
+
+header nav .img {
+  width: 50px;
+}
+header nav .img-right {
+  transform: scale(-1, 1);
+}
+
+// header nav {
+// background-color:#FFCC99
+
+//   .btn-user{
+//     border: none;
+//     color: #ab8048;
+//     background: #FFF;
+
+//     &:hover{
+//       border: none;
+//       color: #FFF;
+//       background: #ab8048;
+//     }
+
+//     &:active{
+//       border: none;
+//       color: #ab8048;
+//       background: #FFF;
+//     }
+//   }
+//   .btn-admin{
+//     border: none;
+//     color: #FFF;
+//     background: #ab8048;
+
+//     &:hover{
+//       border: none;
+//       color: #ab8048;
+//       background: #FFF;
+//     }
+//     &:active{
+//       border: none;
+//       color: #FFF;
+//       background: #ab8048;
+//     }
+//   }
+//   .img {
+//     width: 90%;
+//   }
+// }
+
+// side
+.sidebar {
+  background-color: rgba(255,235,218,.5);
+}
+
+// main
+.about {
+  color: #ffebda;
+}
+
+.belt {
+  background-color: rgba(255,235,218,.5);
+}
+.belt-g {
+  background-color: rgba(91,122,95,.5);
+}
+
+.tab-btn {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+.tab-btn > label {
+    flex: 1 1;
+    order: -1;
+    min-width: 70px;
+    padding: .1em 1em .5em;
+    font-weight: 600;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+.tab-btn > label:hover {
+    opacity: .8;
+}
+.tab-btn > div {
+    width: 100%;
+}
+.tab-btn .checked {
+    border-bottom: 4px solid #bea7bb;
+    color: #bea7bb;
+}
+
+.card:hover{
+  background: #e7e9ea;
+}
+nav.pagination {
+  display: none;
+}
+.custom_id{
+  font-size: smaller;
+}
+.followed{
+  font-size: smaller;
+  padding: 5px 8px;
+  margin-bottom: 5px;
+}
