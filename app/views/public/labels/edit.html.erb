@@ -4,13 +4,13 @@
 
 
 <div class="row">
-  <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル編集</h5>
+  <h5 class="belt py-4 mb-0 mx-auto w-75 text-center rounded">ラベル編集</h5>
 </div>
 <%= form_with model: @label, url: label_path, local: true do |f| %>
 <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
   <%= render "public/shared/error_messages", resource: @label %>
 </div>
-<div class="row form-group my-4 mx-auto">
+<div class="row form-group my-4 py-1 mx-auto belt rounded">
   <div class="col-lg-3">
     <%= f.radio_button :genre, Label.genres.key(0) %>
     <%= f.label :genre_study, Label.genres_i18n[:study] %>
