@@ -1,71 +1,68 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-3 border py-5'>
-      <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
-    </div>
-    <div class='col-6 border py-5'>
-      <div class="row">
-        <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル一覧・追加</h5>
-      </div>
-      <%= form_with model: @label, url: labels_path, local: true do |f| %>
-      <div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
-        <%= render "public/shared/error_messages", resource: @label %>
-      </div>
-      <div class="row form-group my-4 mx-auto">
-        <div class="col-lg-3">
-          <%= f.radio_button :genre, Label.genres.key(0) %>
-          <%= f.label :genre_study, Label.genres_i18n[:study] %>
-        </div>
-        <div class="col-lg-3">
-          <%= f.radio_button :genre, Label.genres.key(1) %>
-          <%= f.label :genre_exercise, Label.genres_i18n[:exercise]%>
-        </div>
-        <div class="col-lg-3">
-          <%= f.radio_button :genre, Label.genres.key(2) %>
-          <%= f.label :genre_hobby, Label.genres_i18n[:hobby]%>
-        </div>
-        <div class="col-lg-3">
-          <%= f.radio_button :genre, Label.genres.key(3) %>
-          <%= f.label :genre_other, Label.genres_i18n[:other]%>
-        </div>
-      </div>
-      <div class="row form-group mb-5 mx-auto">
-        <div class="col-lg-8 mb-3">
-          <%= f.text_field :name, class: "form-control ", id: "inputName", placeholder: "ラベル名" %>
-        </div>
-        <div class="col-lg-4 text-center">
-          <%= f.submit "新規登録", class:"btn btn-block btn-success" %>
-        </div>
-      </div>
-      <% end %>
-      <% @labels.each do |label| %>
-      <div class="row mx-3 border-bottom">
-        <div class="col-lg-2 text-center m-0 p-0 pt-2">
-          <%= label.genre_i18n %>
-        </div>
-        <div class="col-lg-8 text-center m-0 p-0 pt-2">
-          <%= label.name %>
-        </div>
-        <div class="col-lg-1 col-6 text-center m-0 p-0 p-1">
-          <%= link_to edit_label_path(label), class: "btn btn-sm btn-block btn-success w-100 mx-auto" do %>
-          <i class="fa-solid fa-pen-to-square"></i>
-          <% end %>
-        </div>
-        <div class="col-lg-1 col-6 text-center m-0 p-0 p-1">
-          <%= link_to label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-block btn-danger w-100 mx-auto" do %>
-          <i class="fa-solid fa-trash-can"></i>
-          <% end %>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class='col-3 border py-5'>
-      <%= render 'public/searches/form' %>
-      <div id="search_results">
-        <% if @search_results.present? %>
-          <%= render 'public/searches/result' %>
-        <% end %>
-      </div>
-    </div>
+<%= content_for(:left_side) do %>
+  <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+<% end %>
+
+
+<div class="row">
+  <h5 class="text-dark bg-light py-4 mb-0 text-center">ラベル一覧・追加</h5>
+</div>
+<%= form_with model: @label, url: labels_path, local: true do |f| %>
+<div class="text-center bg-danger rounded-5 bg-opacity-25 w-75 mx-auto">
+  <%= render "public/shared/error_messages", resource: @label %>
+</div>
+<div class="row form-group my-4 mx-auto">
+  <div class="col-lg-3">
+    <%= f.radio_button :genre, Label.genres.key(0) %>
+    <%= f.label :genre_study, Label.genres_i18n[:study] %>
+  </div>
+  <div class="col-lg-3">
+    <%= f.radio_button :genre, Label.genres.key(1) %>
+    <%= f.label :genre_exercise, Label.genres_i18n[:exercise]%>
+  </div>
+  <div class="col-lg-3">
+    <%= f.radio_button :genre, Label.genres.key(2) %>
+    <%= f.label :genre_hobby, Label.genres_i18n[:hobby]%>
+  </div>
+  <div class="col-lg-3">
+    <%= f.radio_button :genre, Label.genres.key(3) %>
+    <%= f.label :genre_other, Label.genres_i18n[:other]%>
   </div>
 </div>
+<div class="row form-group mb-5 mx-auto">
+  <div class="col-lg-8 mb-3">
+    <%= f.text_field :name, class: "form-control ", id: "inputName", placeholder: "ラベル名" %>
+  </div>
+  <div class="col-lg-4 text-center">
+    <%= f.submit "新規登録", class:"btn btn-block btn-success" %>
+  </div>
+</div>
+<% end %>
+<% @labels.each do |label| %>
+<div class="row mx-3 border-bottom">
+  <div class="col-lg-2 text-center m-0 p-0 pt-2">
+    <%= label.genre_i18n %>
+  </div>
+  <div class="col-lg-8 text-center m-0 p-0 pt-2">
+    <%= label.name %>
+  </div>
+  <div class="col-lg-1 col-6 text-center m-0 p-0 p-1">
+    <%= link_to edit_label_path(label), class: "btn btn-sm btn-block btn-success w-100 mx-auto" do %>
+    <i class="fa-solid fa-pen-to-square"></i>
+    <% end %>
+  </div>
+  <div class="col-lg-1 col-6 text-center m-0 p-0 p-1">
+    <%= link_to label_path(label), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-block btn-danger w-100 mx-auto" do %>
+    <i class="fa-solid fa-trash-can"></i>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
+<%= content_for(:right_side) do %>
+  <%= render 'public/searches/form' %>
+  <div id="search_results">
+    <% if @search_results.present? %>
+      <%= render 'public/searches/result' %>
+    <% end %>
+  </div>
+<% end %>

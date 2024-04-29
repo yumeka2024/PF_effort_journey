@@ -7,7 +7,7 @@
     <% end %>
   </p>
   <%= image_tag user.get_image(100,100), class:"rounded-circle" %>
-  <h5 class="text-dark bg-light py-4 mb-0 text-center"><%= user.name %></h5>
+  <h5 class="belt my-3 py-3 mb-0 text-center rounded"><%= user.name %></h5>
   <p><%= user.custom_identifier %></p>
   <p><%= user.introduction %></p>
   <% unless user.birthday == nil %>

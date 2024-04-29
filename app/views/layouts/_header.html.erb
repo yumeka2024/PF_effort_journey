@@ -1,46 +1,15 @@
 <style>
-header nav {
-background-color:#FFCC99
-}
-.btn-user{
-  border: none;
-  color: #ab8048;
-  background: #FFF;
-}
-.btn-user:hover{
-  border: none;
-  color: #FFF;
-  background: #ab8048;
-}
-.btn-user:active{
-  border: none;
-  color: #ab8048;
-  background: #FFF;
-}
-.btn-admin{
-  border: none;
-  color: #FFF;
-  background: #ab8048;
-}
-.btn-admin:hover{
-  border: none;
-  color: #ab8048;
-  background: #FFF;
-}
-.btn-admin:active{
-  border: none;
-  color: #FFF;
-  background: #ab8048;
-}
-.img {
-  width: 90%;
-}
+
 </style>
 
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="col-3 navbar-brand mt-2" href="/"><%= image_tag('title.png', class: 'img') %></a>
+      <a class="col navbar-brand p-0 m-0" href="/">
+        <div>
+        <%= image_tag('flower.png', class: 'img img-left') %><span class="della-respira-regular ps-1">effort journey</span><%= image_tag('flower.png', class: 'img img-right') %>
+        </div>
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
