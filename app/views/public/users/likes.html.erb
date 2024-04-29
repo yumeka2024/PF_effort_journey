@@ -6,7 +6,7 @@
 
 <% if @user == current_user || @user.private == false || current_user.approved_following?(@user) %>
   <div class="tab-btn">
-    <label><%= link_to "投稿", user_path(@user), class: 'text-muted link-underline link-underline-opacity-0 d-block' %></label>
+    <label><%= link_to "投稿", user_path(@user), class: 'text-light link-underline link-underline-opacity-0 d-block' %></label>
 
     <label class="checked">いいね</label>
     <% if @posts.present? %>
