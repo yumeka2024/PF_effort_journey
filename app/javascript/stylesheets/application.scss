@@ -121,13 +121,13 @@ header nav .img-right {
     font-size: 1em;
     text-align: center;
     cursor: pointer;
+    margin-bottom: 1em;
 }
 .tab-btn > label:hover {
     opacity: .8;
 }
 .tab-btn > div {
     width: 100%;
-    padding: 1em 1em;
 }
 .tab-btn .checked {
     border-bottom: 4px solid #bea7bb;
@@ -139,4 +139,12 @@ header nav .img-right {
 }
 nav.pagination {
   display: none;
+}
+.custom_id{
+  font-size: smaller;
+}
+.followed{
+  font-size: smaller;
+  padding: 5px 8px;
+  margin-bottom: 5px;
 }
