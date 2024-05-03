@@ -29,6 +29,14 @@
             <th>本文</th>
             <td><%= simple_format(h(@post.body)) %></td>
           </tr>
+          <tr>
+            <th>感情スコア</th>
+            <% if @post.score.present? %>
+            <td><%= @post.score %></td>
+            <% else %>
+            <td><p class="text-danger fw-bold">nil</p></td>
+            <% end %>
+          </tr>
         </tbody>
       </table>
     </div>

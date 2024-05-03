@@ -117,6 +117,32 @@ header nav .img-right {
   background-color: rgba(255,235,218,.5);
 }
 
+.balloon{
+  position: relative;
+  padding: 10px;
+  background-color: #555555;
+  border-radius: 10px;
+}
+@media screen and (min-width:992px) {
+  .balloon::before{
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    left: -12px;
+    bottom: 5px;
+    border-right: 15px solid #555555;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+  }
+}
+.balloon p {
+  margin: 0;
+  padding: 0;
+  color: #ffebda;
+}
+
 // main
 .about {
   color: #ffebda;
