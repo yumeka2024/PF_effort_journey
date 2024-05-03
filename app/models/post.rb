@@ -42,4 +42,9 @@ class Post < ApplicationRecord
     end
   end
 
+  # 作成日の降順、作成日が同じ場合はスコア降順、どちらも同じ場合は作成日時降順で並び替える
+  def self.sorted_by_recommendation
+    order(Arel.sql("DATE(created_at) DESC, score DESC, created_at DESC"))
+  end
+
 end
