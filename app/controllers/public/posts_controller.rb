@@ -32,6 +32,7 @@ class Public::PostsController < ApplicationController
 
   def create
     post = current_user.posts.new(post_params)
+    post.score = Language.get_data(post_params[:body])
     post.save
     redirect_to root_path, flash: { center_notice: '投稿が完了しました' }
   end
