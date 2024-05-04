@@ -2,7 +2,7 @@
 class Public::HomesController < ApplicationController
 
   def top
-    @posts = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).order(created_at: :desc, score: :desc).page(params[:page]).per(5)
     if user_signed_in?
       @user = current_user
       @approved_followers = @user.followers.where('relationships.approved = ?', true)
