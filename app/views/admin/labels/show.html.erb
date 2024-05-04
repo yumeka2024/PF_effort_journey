@@ -1,2 +1,53 @@
-<h1>Admin::Labels#show</h1>
-<p>Find me in app/views/admin/labels/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">ラベル詳細</h5>
+    </div>
+  </div>
+
+  <div class="row m-5">
+    <div class="col-8">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th width="150">ID</th>
+            <td><%= @label.id %></td>
+          </tr>
+          <tr>
+            <th>作成者ID</th>
+            <td><%= link_to @label.user.custom_identifier, admin_user_path(@label.user), class:"text-dark link-underline-dark" %></td>
+          </tr>
+          <tr>
+            <th>ジャンル</th></th>
+            <td><%= @label.genres_i18n %></td>
+          </tr>
+          <tr>
+            <th>ラベル名</th>
+            <td><%= @label.name %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-3 offset-1">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>作成日時</th>
+            <td><%= @label.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center">
+              <%= link_to "削除する", admin_label_path(@label), method: :DELETE, data: { confirm: '本当に削除しますか？' }, class:"w-75 btn btn-danger" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">ラベルの活動記録一覧</h5>
+      <%= render 'admin/punches/list', punches: @punches %>
+    </div>
+  </div>
+</div>
