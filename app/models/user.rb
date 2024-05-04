@@ -77,4 +77,29 @@ class User < ApplicationRecord
     passive_relationships.exists?(follower_id: user.id, approved: true)
   end
 
+  # 直近7レコードの平均感情スコアを算出する
+  # scoreカラムがnilのレコードが含まれていた場合、nilは0として計算に含まれる仕様
+  def average_recent_score
+    recent_posts = posts.order(created_at: :desc).limit(7)
+    recent_posts.average(:score).to_f
+  end
+
+  # 上記の平均感情スコアを元に、評価を返す
+  def score_evaluation
+    average_score = average_recent_score
+
+    case average_score
+    when 0.5..1.0
+      "絶好調ですね！\nその調子！"
+    when 0.0...0.5    #0.5を含まない
+      "頑張っていますね！\nすごい！"
+    when -0.5...0.0   #0.0を含まない
+      "今が踏ん張り時！\nファイト！"
+    when -1.0...-0.5  #-0.5を含まない
+      "息抜きが必要かも…\n無理しないで！"
+    else
+      "投稿からスコアが\n計算できません"
+    end
+  end
+
 end
