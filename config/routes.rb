@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :update]
     resources :posts, only: [:index, :show, :destroy]
     resources :comments, only: [:index, :destroy]
+    resources :labels, only: [:index, :show, :destroy]
   end
 
 

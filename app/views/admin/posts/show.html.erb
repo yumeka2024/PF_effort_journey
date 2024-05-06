@@ -29,6 +29,14 @@
             <th>本文</th>
             <td><%= simple_format(h(@post.body)) %></td>
           </tr>
+          <tr>
+            <th>感情スコア</th>
+            <% if @post.score.present? %>
+            <td><%= @post.score %></td>
+            <% else %>
+            <td><p class="text-danger fw-bold">nil</p></td>
+            <% end %>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -41,7 +49,7 @@
           </tr>
           <tr>
             <td colspan="2" class="text-center">
-                <%= link_to "削除する", admin_post_path(@post), method: :DELETE, data: { confirm: '本当に削除しますか？' }, class:"w-75 btn btn-danger" %>
+              <%= link_to "削除する", admin_post_path(@post), method: :DELETE, data: { confirm: '本当に削除しますか？' }, class:"w-75 btn btn-danger" %>
             </td>
           </tr>
         </tbody>
