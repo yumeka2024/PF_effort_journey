@@ -10,7 +10,7 @@ class Admin::LabelsController < ApplicationController
       redirect_to admin_labels_path
       return
     end
-    @punches = @label.punches.page(params[:page])
+    @punches = @label.punches.order(created_at: :desc).page(params[:page])
   end
 
   def destroy
