@@ -1,7 +1,7 @@
 class Punch < ApplicationRecord
 
-  belongs_to :user, optional:true
-  belongs_to :label, optional:true
+  belongs_to :user
+  belongs_to :label
   has_many :punch_logs, dependent: :destroy
 
   scope :search, -> (search_params) do

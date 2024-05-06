@@ -1,5 +1,5 @@
 class PunchLog < ApplicationRecord
 
-  belongs_to :punch, optional:true
+  belongs_to :punch
 
 end

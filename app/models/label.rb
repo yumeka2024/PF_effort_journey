@@ -1,7 +1,7 @@
 # app/models/label.rb
 class Label < ApplicationRecord
 
-  belongs_to :user, optional:true
+  belongs_to :user
   has_many :punches, dependent: :destroy
 
   validates :genre, presence: true
