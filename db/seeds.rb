@@ -78,9 +78,12 @@ end
 # )
 
 for i in 1..20 do
+  score = (i.to_f - 10) / 10
+
   Post.create!(
     user_id: i,
     posted_on: "2024-04-01",
+    score: score,
     body: "・良かったこと
 色々なことを調べて、新しいことを学べた
 最近運動不足だったのでランニングした、つかれた～
@@ -94,9 +97,12 @@ for i in 1..20 do
 end
 
 for i in 1..20 do
+  score = (i.to_f - 10) / 10
+
   Post.create!(
     user_id: i,
-    posted_on: "2024-04-02",
+    posted_on: "2024-04-22",
+    score: score,
     body: "・良かったこと
 集中して課題に取り組めた、かなり進められたと思う
 気晴らしに趣味のお菓子作りをした！ハッピー
@@ -110,9 +116,12 @@ for i in 1..20 do
 end
 
 for i in 1..20 do
+  score = (i.to_f - 10) / 10
+
   Post.create!(
     user_id: i,
-    posted_on: "2024-04-03",
+    posted_on: "2024-05-06",
+    score: score,
     body: "・良かったこと
 課題はほぼ完了、かなりスピード感を持って取り組めた
 溜まっていた洗濯物を片付けた！えらすぎる
@@ -237,8 +246,8 @@ end
 
 for i in 1..20 do
   detail = "課題3"
-  in_time = "2024-04-02 09:00:00"
-  out_time = "2024-04-02 18:00:00"
+  in_time = "2024-04-22 09:00:00"
+  out_time = "2024-04-22 18:00:00"
   punch_id = i + 40
 
   Punch.create!(
@@ -259,8 +268,8 @@ end
 
 for i in 1..20 do
   detail = "パウンドケーキ"
-  in_time = "2024-04-02 19:00:00"
-  out_time = "2024-04-02 21:00:00"
+  in_time = "2024-04-22 19:00:00"
+  out_time = "2024-04-22 21:00:00"
   label_id = i + 40
   punch_id = i + 60
 
@@ -282,8 +291,8 @@ end
 
 for i in 1..20 do
   detail = "課題3"
-  in_time = "2024-04-03 09:00:00"
-  out_time = "2024-04-03 18:00:00"
+  in_time = "2024-05-06 09:00:00"
+  out_time = "2024-05-06 18:00:00"
   punch_id = i + 80
 
   Punch.create!(
@@ -303,8 +312,8 @@ for i in 1..20 do
 end
 
 for i in 1..20 do
-  in_time = "2024-04-03 21:00:00"
-  out_time = "2024-04-03 22:00:00"
+  in_time = "2024-05-06 21:00:00"
+  out_time = "2024-05-06 22:00:00"
   label_id = i + 60
   punch_id = i + 100
 
