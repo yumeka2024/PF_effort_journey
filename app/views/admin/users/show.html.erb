@@ -35,7 +35,7 @@
           </tr>
           <tr>
             <th>平均感情スコア</th>
-            <td><%= @user.posts.average_recent_score.floor(3) %>（表示中：<%= @user.posts.score_evaluation %>）</td>
+            <td><%= @user.average_recent_score.floor(3) %>（表示中：<%= @user.score_evaluation %>）</td>
           </tr>
         </tbody>
       </table>
