@@ -17,6 +17,10 @@
         <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <li class='mx-3'>
+            <%= link_to "通知", notifications_path, class: 'btn btn-block rounded btn-user' %>
+            <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
+          </li>
+          <li class='mx-3'>
             <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-block rounded btn-user', method: :delete %>
           </li>
           <li class='mx-3'>

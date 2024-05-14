@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col">
           <p class="card-title">
-            <strong><span><%= post.posted_on %>の振り返り</span></strong>
+            <strong><span><%= post.posted_on.strftime('%-Y年%-m月%-d日') %>の振り返り</span></strong>
             <%= post.score %>
           </p>
           <p class="card-text"><%= simple_format(h(post.body.truncate(60))) %></p>

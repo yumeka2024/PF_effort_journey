@@ -18,7 +18,7 @@
   </div>
   <div class="row">
     <div class="col-12 px-4">
-      <h5 class="belt-g py-4 mb-0 text-center w-75 mx-auto rounded"><%= @post.posted_on.strftime('%-m月%-d日') %>の振り返り</h5>
+      <h5 class="belt-g py-4 mb-0 text-center w-75 mx-auto rounded"><%= @post.posted_on.strftime('%-Y年%-m月%-d日') %>の振り返り</h5>
       <p><%= simple_format(h(@post.body)) %></p>
     </div>
   </div>

@@ -17,9 +17,12 @@ class Public::SessionsController < Devise::SessionsController
   end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    if admin_signed_in?
+      sign_out :admin
+    end
+    super
+  end
 
   # DELETE /resource/sign_out
   # def destroy
