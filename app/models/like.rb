@@ -1,4 +1,5 @@
 class Like < ApplicationRecord
+  include Notifiable
 
   belongs_to :user
   belongs_to :post
@@ -11,7 +12,7 @@ class Like < ApplicationRecord
   end
 
   def notification_message
-    "#{user.name}さんに、投稿した#{post.posted_on.strftime('%-Y年%-m月%-d日')}の振り返りがいいねされました"
+    "投稿した#{post.body.truncate(30)}が#{user.name}さんにいいねされました"
   end
 
   def notification_path

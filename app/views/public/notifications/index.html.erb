@@ -1,4 +1,11 @@
 <!--app/views/public/notifications/index.html.erb-->
+<%= content_for(:left_side) do %>
+  <% if user_signed_in? %>
+    <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
+  <% end %>
+<% end %>
+
+
 <div class="card-list-containar scroll-list jscroll">
   <% @notifications.each do |notification| %>
   <div class="card w-100 shadow-sm mb-1">
@@ -6,47 +13,39 @@
       <%= link_to(user_path(notification.notifiable.user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
-          <%= image_tag notification.notifiable.user.get_image(30,30), class:"rounded-circle";  %>
+          <%= image_tag notification.notifiable.user.get_image(30,30), class:"rounded-circle"; %>
         </div>
         <div class="col-11 w-75">
           <p><%= notification.notifiable.user.name.truncate(18) %> さんが</p>
         </div>
       </div>
       <% end %>
-      
+
       <% if notification.notifiable_type == Like %>
       <p>あなたの投稿をいいねしました</p>
       <%= link_to(post_path(notification.notifiable.post), class:"text-dark link-underline link-underline-opacity-0") do %>
       <div class="row">
         <div class="col">
           <p class="card-title">
-            <strong><span><%= post.posted_on %>の振り返り</span></strong>
-            <%= post.score %>
+            <span><%= notification.notifiable.post.posted_on %>の振り返り</span>
           </p>
-          <p class="card-text"><%= simple_format(h(post.body.truncate(60))) %></p>
+          <p class="card-text"><%= simple_format(h(notification.notifiable.post.body.truncate(30))) %></p>
         </div>
       </div>
       <% end %>
-      <div class="row">
-        <div class="col d-flex justify-content-evenly">
-          <div>
-            <i class="fa-regular fa-comment me-1" aria-hidden="true"></i><%= post.comments.count %>
-          </div>
-          <div id="like_btn_<%= post.id %>">
-            <%= render "public/likes/btn", post: post %>
-          </div>
-          <div>
-            <i class="fa-regular fa-eye me-1"></i><%= post.view_counts.count %>
-          </div>
-          <div>
-            <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: post.user.name+"\n"+post.posted_on.to_s+"の振り返り\n"+request.url+"posts/"+post.id.to_s), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>
-            <i class="fa-brands fa-square-x-twitter fa-lg"></i>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
   <% end %>
-  <%= paginate posts %>
+  <%= paginate @notifications %>
 </div>
+
+
+<%= content_for(:right_side) do %>
+  <%= render 'public/searches/form' %>
+  <div id="search_results">
+    <% if @search_results.present? %>
+      <%= render 'public/searches/result' %>
+    <% end %>
+  </div>
+<% end %>
