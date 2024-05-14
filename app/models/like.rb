@@ -1,3 +1,4 @@
+# app/models/like.rb
 class Like < ApplicationRecord
   include Notifiable
 
@@ -11,7 +12,7 @@ class Like < ApplicationRecord
     create_notification(user_id: post.user_id)
   end
 
-  def notification_message
+  def notification_message(current_user)
     "#{user.name}さんが　あなたの投稿に　いいね　しました"
   end
 
