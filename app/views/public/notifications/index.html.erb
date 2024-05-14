@@ -2,19 +2,21 @@
 <div class="card-list-containar scroll-list jscroll">
   <% @notifications.each do |notification| %>
   <div class="card w-100 shadow-sm mb-1">
-    <div class="card-body">
-      <
-      <%= link_to(user_path(post.user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+    <div class="card-body"></div>
+      <%= link_to(user_path(notification.notifiable.user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
-          <%= image_tag post.user.get_image(30,30), class:"rounded-circle";  %>
+          <%= image_tag notification.notifiable.user.get_image(30,30), class:"rounded-circle";  %>
         </div>
         <div class="col-11 w-75">
-          <p><%= post.user.name.truncate(18) %></p>
+          <p><%= notification.notifiable.user.name.truncate(18) %> さんが</p>
         </div>
       </div>
       <% end %>
-      <%= link_to(post_path(post), class:"text-dark link-underline link-underline-opacity-0") do %>
+      
+      <% if notification.notifiable_type == Like %>
+      <p>あなたの投稿をいいねしました</p>
+      <%= link_to(post_path(notification.notifiable.post), class:"text-dark link-underline link-underline-opacity-0") do %>
       <div class="row">
         <div class="col">
           <p class="card-title">
