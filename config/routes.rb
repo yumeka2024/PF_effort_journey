@@ -45,6 +45,8 @@ Rails.application.routes.draw do
       patch 'stop', on: :member
     end
 
+    resources :notifications, only: [:index, :update]
+
   end
 
 
