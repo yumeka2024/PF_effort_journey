@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :labels, dependent: :destroy
   has_many :punches, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
 # バリデーション
   validates :name, presence: true, length: { maximum: 30 }

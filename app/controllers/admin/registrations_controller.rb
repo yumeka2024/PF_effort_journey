@@ -10,9 +10,12 @@ class Admin::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    if user_signed_in?
+      sign_out :user
+    end
+    super
+  end
 
   # GET /resource/edit
   # def edit

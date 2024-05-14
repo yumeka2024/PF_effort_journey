@@ -15,10 +15,11 @@ class Admin::UsersController < ApplicationController
     @likes = Post.joins(:likes).where(likes: { user_id: @user.id }).order(created_at: :desc).page(params[:page])
   end
 
+  # 管理者権限でアカウントを復帰させた場合、必ず非公開アカウントとして復帰する仕様
   def update
     user = User.find_by!(custom_identifier: params[:id])
     if user.deleted == false
-      user.update(deleted: true)
+      user.update(deleted: true, private: true)
       redirect_to admin_user_path(user)
       return
     else
