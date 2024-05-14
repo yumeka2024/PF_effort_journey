@@ -12,7 +12,7 @@ class Like < ApplicationRecord
   end
 
   def notification_message
-    "投稿した#{post.body.truncate(30)}が#{user.name}さんにいいねされました"
+    "#{user.name}さんが　あなたの投稿に　いいね　しました"
   end
 
   def notification_path
