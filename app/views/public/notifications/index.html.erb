@@ -9,7 +9,7 @@
 <div class="card-list-containar scroll-list jscroll">
   <% @notifications.each do |notification| %>
   <div class="card w-100 shadow-sm mb-1">
-    <div class="card-body"></div>
+    <div class="card-body">
       <%= link_to(user_path(notification.notifiable.user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
@@ -21,7 +21,7 @@
       </div>
       <% end %>
 
-      <% if notification.notifiable_type == Like %>
+      <% if notification.notifiable_type == "Like" %>
       <p>あなたの投稿をいいねしました</p>
       <%= link_to(post_path(notification.notifiable.post), class:"text-dark link-underline link-underline-opacity-0") do %>
       <div class="row">
@@ -39,7 +39,6 @@
   <% end %>
   <%= paginate @notifications %>
 </div>
-
 
 <%= content_for(:right_side) do %>
   <%= render 'public/searches/form' %>
