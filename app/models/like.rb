@@ -16,7 +16,7 @@ class Like < ApplicationRecord
     "#{user.name}さんが　あなたの投稿に　いいね　しました"
   end
 
-  def notification_path
+  def notification_path(current_user)
     user_path(user)
   end
 

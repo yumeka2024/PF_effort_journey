@@ -8,8 +8,8 @@ class Notification < ApplicationRecord
     notifiable.notification_message(current_user)
   end
 
-  def notifiable_path
-    notifiable.notification_path
+  def notifiable_path(current_user)
+    notifiable.notification_path(current_user)
   end
 
 end

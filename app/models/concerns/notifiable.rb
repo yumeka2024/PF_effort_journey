@@ -9,7 +9,7 @@ module Notifiable
     raise NotImplementedError
   end
 
-  def notification_path
+  def notification_path(current_user)
     raise NotImplementedError
   end
 end

@@ -34,9 +34,16 @@ class Relationship < ApplicationRecord
   end
 
   # このメソッドは特定のnotificationレコードに対して使用される
-  def notification_path
-    user = User.find_by(id: follower_id)
-    user ? "/users/#{user.custom_identifier}" : "#"
+  def notification_path(current_user)
+    if followed_id == current_user.id
+      user = current_user
+      user ? "/users/#{user.custom_identifier}/followers" : "#"
+      # user_followers_path(current_user.custom_identifier)
+    else
+      user = current_user
+      user ? "/users/#{user.custom_identifier}/following" : "#"
+      # user_following_path(current_user.custom_identifier)
+    end
   end
 
 end
