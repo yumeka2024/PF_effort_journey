@@ -1,9 +1,11 @@
 # app/models/relationship.rb
 class Relationship < ApplicationRecord
+  include Notifiable
 
   # followerがfollowedをフォローしている
   belongs_to :follower, class_name: "User"
   belongs_to :followed, class_name: "User"
+  belongs_to :user, class_name: "User", primary_key: 
   has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :follower_id, uniqueness: { scope: :followed_id }
@@ -36,13 +38,13 @@ class Relationship < ApplicationRecord
   # このメソッドは特定のnotificationレコードに対して使用される
   def notification_path(current_user)
     if followed_id == current_user.id
-      user = current_user
-      user ? "/users/#{user.custom_identifier}/followers" : "#"
-      # user_followers_path(current_user.custom_identifier)
+      # user = current_user
+      # user ? "/users/#{user.custom_identifier}/followers" : "#"
+      user_followers_path(current_user.custom_identifier)
     else
-      user = current_user
-      user ? "/users/#{user.custom_identifier}/following" : "#"
-      # user_following_path(current_user.custom_identifier)
+      # user = current_user
+      # user ? "/users/#{user.custom_identifier}/following" : "#"
+      user_following_path(current_user.custom_identifier)
     end
   end
 

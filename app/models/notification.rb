@@ -12,4 +12,6 @@ class Notification < ApplicationRecord
     notifiable.notification_path(current_user)
   end
 
+
+
 end

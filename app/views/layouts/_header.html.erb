@@ -17,7 +17,7 @@
         <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <li class='mx-3'>
-          <%= link_to notifications_path, class: 'btn btn-block rounded btn-user' do %>
+          <%= link_to notifications_path, "data-turbolinks": false, class: 'btn btn-block rounded btn-user' do %>
             通知　<%= current_user.notifications.where(read: false).count %>
           <% end %>
           </li>

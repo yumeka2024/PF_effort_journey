@@ -1,4 +1,5 @@
 <!--app/views/public/notifications/index.html.erb-->
+<%= javascript_pack_tag("notification") %>
 <%= content_for(:left_side) do %>
   <% if user_signed_in? %>
     <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers,approved_following: @approved_following } %>
@@ -9,7 +10,7 @@
 <div class="card-list-containar scroll-list jscroll">
   <% @notifications.each do |notification| %>
   <div class="card w-100 shadow-sm mb-1">
-    <div class="card-body">
+    <div class="card-body notification-id" data-notification-id="<%= notification.id %>">
     <%= link_to(notification.notifiable_path(current_user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
@@ -63,21 +64,6 @@
 <% end %>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // indexアクションから通知データを取得
-    fetch('/public/notifications')
-      .then(response => response.json())
-      .then(notifications => {
-        // 取得した通知データを処理
-        notifications.forEach(notification => {
-          // 各通知のIDを使ってreadカラムを更新するためのリクエストを送信
-          fetch(`/public/notifications/${notification.id}/update`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-        });
-      });
-  });
+addEventListener("scrollend", (event) =>{ onRead() });
 </script>
+
