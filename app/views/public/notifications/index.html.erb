@@ -5,7 +5,7 @@
   <% end %>
 <% end %>
 
-
+<% if @notifications.present? %>
 <div class="card-list-containar scroll-list jscroll">
   <% @notifications.each do |notification| %>
   <div class="card w-100 shadow-sm mb-1">
@@ -13,37 +13,45 @@
     <%= link_to(notification.notifiable_path(current_user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
       <div class="row">
         <div class="col-1">
-          <%= image_tag notification.user.get_image(30,30), class:"rounded-circle"; %>
+          <%= image_tag notification.notifiable.user.get_image(30,30), class:"rounded-circle"; %>
         </div>
         <div class="col-10">
           <%= notification.message(current_user) %>
         </div>
         <div class="col-1">
           <% if notification.notifiable_type == "Like" %>
+            <% if notification.read? %><i class="fa-solid fa-heart fa-xl" style="color: #5b7a5f;"></i>
+            <% else %><i class="fa-solid fa-heart fa-xl" style="color: #ca579c;"></i><% end %>
           <% elsif notification.notifiable_type == "Comment" %>
+            <% if notification.read? %><i class="fa-solid fa-comment fa-xl" style="color: #5b7a5f;"></i></i>
+            <% else %><i class="fa-solid fa-comment fa-xl" style="color: #63E6BE;"></i></i><% end %>
           <% elsif notification.notifiable_type == "Relationship" %>
+            <% if notification.read? %><i class="fa-solid fa-user fa-xl" style="color: #5b7a5f;"></i>
+            <% else %><i class="fa-solid fa-user fa-xl" style="color: #74C0FC;"></i><% end %>
           <% end %>
         </div>
       </div>
     <% end %>
 
-      <div>
       <% if notification.notifiable_type == "Like" %>
-        <%= link_to(post_path(notification.notifiable.post), class:"text-dark link-underline link-underline-opacity-0") do %>
+        <%= link_to(post_path(notification.notifiable.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
         <p class="card-title m-0"><%= notification.notifiable.post.posted_on %>の振り返り</p>
-        <p class="card-text m-0"><%= simple_format(h(notification.notifiable.post.body.truncate(35))) %></p>
+        <p class="card-text m-0"><%= simple_format(h(notification.notifiable.post.body.truncate(25))) %></p>
         <% end %>
       <% elsif notification.notifiable_type == "Comment" %>
-        <%= link_to(post_path(notification.notifiable.comment.post), class:"text-dark link-underline link-underline-opacity-0") do %>
-        <p class="card-text m-0"><%= simple_format(h(notification.notifiable.comment.body.truncate(35))) %></p>
+        <%= link_to(post_path(notification.notifiable.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
+        <p class="card-text m-0"><%= simple_format(h(notification.notifiable.body.truncate(35))) %></p>
         <% end %>
       <% end %>
-      </div>
     </div>
   </div>
   <% end %>
   <%= paginate @notifications %>
 </div>
+
+<% else %>
+<div class="mx-auto"><h5 class="belt py-4 mb-0 text-center rounded">通知はありません</h5></div>
+<% end %>
 
 <%= content_for(:right_side) do %>
   <%= render 'public/searches/form' %>
@@ -53,3 +61,23 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // indexアクションから通知データを取得
+    fetch('/public/notifications')
+      .then(response => response.json())
+      .then(notifications => {
+        // 取得した通知データを処理
+        notifications.forEach(notification => {
+          // 各通知のIDを使ってreadカラムを更新するためのリクエストを送信
+          fetch(`/public/notifications/${notification.id}/update`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+        });
+      });
+  });
+</script>
