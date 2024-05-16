@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path
       return
     end
-    @posts = @user.posts.order(created_at: :desc).page(params[:page])
+    @posts = @user.posts.order(created_at: :desc).page(params[:page_posts]).per(5)
     @comments = @user.comments.order(created_at: :desc).page(params[:page])
     @likes = Post.joins(:likes).where(likes: { user_id: @user.id }).order(created_at: :desc).page(params[:page])
   end

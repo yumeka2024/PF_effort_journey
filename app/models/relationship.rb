@@ -5,7 +5,6 @@ class Relationship < ApplicationRecord
   # followerがfollowedをフォローしている
   belongs_to :follower, class_name: "User"
   belongs_to :followed, class_name: "User"
-  belongs_to :user, class_name: "User", primary_key: 
   has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :follower_id, uniqueness: { scope: :followed_id }
@@ -13,6 +12,7 @@ class Relationship < ApplicationRecord
   # relationshipsレコードが作成されたらnotificationsレコードを作成する
   after_create do
     notifications.create(user_id: followed_id)
+    # notifications.create(user_id: followed_id, sender_id: follower_id, message: 1)
   end
 
   # relationshipレコードのapprovedカラムがfalseからtrueに更新されたらnotificationレコードを作成する
