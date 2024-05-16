@@ -1,6 +1,6 @@
 # app/models/like.rb
 class Like < ApplicationRecord
-  include Notifiable
+  # include Notifiable
 
   belongs_to :user
   belongs_to :post

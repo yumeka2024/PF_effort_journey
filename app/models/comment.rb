@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  include Notifiable
+  # include Notifiable
 
   belongs_to :user
   belongs_to :post

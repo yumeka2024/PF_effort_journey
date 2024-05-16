@@ -1,6 +1,6 @@
 # app/models/relationship.rb
 class Relationship < ApplicationRecord
-  include Notifiable
+  # include Notifiable
 
   # followerがfollowedをフォローしている
   belongs_to :follower, class_name: "User"

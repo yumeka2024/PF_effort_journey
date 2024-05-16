@@ -8,11 +8,11 @@ ja:
         other: "その他"
     notification:
       message:
-        get_followed: "さんがあなたをフォローしました"
-        get_follow_request: "さんがあなたにフォローリクエストを送りました"
-        follow_request_approved: "さんがあなたのフォローリクエストを承認しました"
-        get_like: "さんがあなたの投稿をいいねしました"
-        get_comment: "さんがあなたの投稿にコメントをつけました"
+        get_followed: "さんが あなたを フォローしました"
+        get_follow_request: "さんが あなたに フォローリクエストを送りました"
+        follow_request_approved: "さんが あなたの フォローリクエストを承認しました"
+        get_like: "さんが あなたの投稿を いいねしました"
+        get_comment: "さんが あなたの投稿に コメントをつけました"
   views:
     pagination:
       first: "&laquo;"
