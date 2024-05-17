@@ -1,7 +1,7 @@
 class Admin::PostsController < ApplicationController
 
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page_posts]).per(5)
+    @posts = Post.order(created_at: :desc).page(params[:page_posts])
   end
 
   def show
@@ -10,7 +10,7 @@ class Admin::PostsController < ApplicationController
       redirect_to admin_posts_path
       return
     end
-    @comments = @post.comments.page(params[:page])
+    @comments = @post.comments.page(params[:page_comments])
   end
 
   def destroy

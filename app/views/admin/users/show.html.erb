@@ -85,18 +85,39 @@
     <div class="col">
       <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">ユーザーの投稿一覧</h5>
       <%= render 'admin/posts/list', posts: @posts %>
+      <div class="row">
+        <div class="col-2 offset-5">
+          <span class="">
+            <%= paginate @posts, param_name: :page_posts, theme: 'twitter-bootstrap-4' %>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">ユーザーのコメント一覧</h5>
       <%= render 'admin/comments/list', comments: @comments %>
+      <div class="row">
+        <div class="col-2 offset-5">
+          <span class="">
+            <%= paginate @comments, param_name: :page_comments, theme: 'twitter-bootstrap-4' %>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">ユーザーのいいね一覧</h5>
       <%= render 'admin/posts/list', posts: @likes %>
+      <div class="row">
+        <div class="col-2 offset-5">
+          <span class="">
+            <%= paginate @likes, param_name: :page_likes, theme: 'twitter-bootstrap-4' %>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

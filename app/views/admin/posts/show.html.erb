@@ -60,6 +60,13 @@
     <div class="col">
       <h5 class="text-dark bg-light py-3 mb-3 text-center w-25 mx-auto">投稿のコメント一覧</h5>
       <%= render 'admin/comments/list', comments: @comments %>
+      <div class="row">
+        <div class="col-2 offset-5">
+          <span class="">
+            <%= paginate @comments, param_name: :page_comments, theme: 'twitter-bootstrap-4' %>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
