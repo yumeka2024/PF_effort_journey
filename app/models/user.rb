@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :labels, dependent: :destroy
   has_many :punches, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :sent_notifications, class_name: 'Notification', foreign_key: 'sender_id', dependent: :destroy
 
 # バリデーション
   validates :name, presence: true, length: { maximum: 30 }

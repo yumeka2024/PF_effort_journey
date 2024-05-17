@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :view_counts, dependent: :destroy
+  has_many :notifications, dependent: :nullify
 
 # バリデーション
   validates :posted_on, presence: true
@@ -18,24 +19,16 @@ class Post < ApplicationRecord
   end
 
   # おすすめタイムラインを形成する
-
   def self.sorted_by_recommendation(user_average_recent_score)
     random = Rails.env.development? ? "RANDOM()":"RAND()"
 
     within_weeks = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).where(posted_on: 2.weeks.ago..Time.now)
     outside_weeks = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).where.not(posted_on: 2.weeks.ago..Time.now)
 
-    # SQLite3
     within_weeks_with_score_range = within_weeks.where("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order(random)
     within_weeks_without_score_range = within_weeks.where.not("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order(random)
     outside_weeks_with_score_range = outside_weeks.where("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order(random)
     outside_weeks_without_score_range = outside_weeks.where.not("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order(random)
-
-    # Mysql2
-    # within_weeks_with_score_range = within_weeks.where("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order("RAND()")
-    # within_weeks_without_score_range = within_weeks.where.not("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order("RAND()")
-    # outside_weeks_with_score_range = outside_weeks.where("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order("RAND()")
-    # outside_weeks_without_score_range = outside_weeks.where.not("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order("RAND()")
 
     all_posts = within_weeks_with_score_range + within_weeks_without_score_range + outside_weeks_with_score_range + outside_weeks_without_score_range
   end

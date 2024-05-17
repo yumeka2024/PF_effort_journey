@@ -38,6 +38,20 @@
         </div>
       </div>
 
+<div class="modal" tabindex="-1" id="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><%= flash[:center_notice] %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
       <div class="container">
         <div class="row pt-3">
         <% if content_for?(:left_side) %>
@@ -65,6 +79,9 @@
       <% end %>
     </main>
 
+
+
+
     <script>
     $(function() {
       $('#back a').on('click',function(event){
@@ -84,6 +101,18 @@
       };
       $('.jscroll').jscroll(jscrollOption);
     </script>
+
+  <script>
+    var flushModal = new bootstrap.Modal(document.getElementById('modal'));
+
+    <% if flash[:center_notice].present? %>
+    flushModal.show()
+
+    setTimeout(() => {
+      flushModal.hide();
+    }, "5000");
+    <% end %>
+  </script>
 
   </body>
 </html>
