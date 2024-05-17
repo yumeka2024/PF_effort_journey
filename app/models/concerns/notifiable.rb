@@ -1,43 +1,64 @@
-# app/models/concerns/notifiable.rb
 module Notifiable
   extend ActiveSupport::Concern
 
   included do
-    after_commit :create_notification_on_create, on: :create, if: :notification_needed?
-  end
-
-  def notification_needed?
-    raise NotImplementedError, "You must implement notification_needed? in your model"
+    after_commit :notify_create, on: :create
   end
 
   private
 
-  def create_notification_on_create
-    create_notification(notification_message_type)
+  def notify_create
+    create_notification
+  rescue => e
+    Rails.logger.error "Notification creation failed for #{self.class.name} with ID #{self.id}: #{e.message}"
+    raise ActiveRecord::Rollback
   end
 
-  def create_notification(message_type)
-    Notification.create(
+  def create_notification
+    Notification.create!(
       user_id: notification_user_id,
-      post: notification_post,
-      sender: notification_sender,
-      message: message_type
+      post_id: notification_post_id,
+      sender_id: notification_sender_id,
+      notifiable: self,
+      message: notification_message
     )
   end
 
-  def notification_message_type
-    raise NotImplementedError, "You must implement notification_message_type in your model"
-  end
-
   def notification_user_id
-    raise NotImplementedError, "You must implement notification_user_id in your model"
+    case self
+    when Like, Comment
+      post&.user_id
+    when Relationship
+      followed_id
+    end
   end
 
-  def notification_post
-    raise NotImplementedError, "You must implement notification_post in your model"
+  def notification_post_id
+    case self
+    when Like, Comment
+      post_id
+    when Relationship
+      nil
+    end
   end
 
-  def notification_sender
-    raise NotImplementedError, "You must implement notification_sender in your model"
+  def notification_sender_id
+    case self
+    when Like, Comment
+      user_id
+    when Relationship
+      follower_id
+    end
+  end
+
+  def notification_message
+    case self
+    when Like
+      3
+    when Comment
+      4
+    when Relationship
+      approved? ? 0 : 1
+    end
   end
 end

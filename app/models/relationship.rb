@@ -9,38 +9,15 @@ class Relationship < ApplicationRecord
 
   validates :follower_id, uniqueness: { scope: :followed_id }
 
-  def notification_needed?
-    true
+  # relationshipレコードのapprovedカラムがfalseからtrueに更新されたらnotificationレコードを作成する
+  after_commit on: :update, if: -> { saved_change_to_attribute?(:approved) && approved? } do
+    Notification.create(
+      user_id: follower_id,
+      post: nil,
+      sender_id: followed_id,
+      message: 2
+    )
   end
-
-  def notification_message_type
-    approved? ? :get_followed : :get_follow_request
-  end
-
-  def notification_user_id
-    followed_id
-  end
-
-  def notification_post
-    nil
-  end
-
-  def notification_sender
-    follower
-  end
-
-  after_commit :create_notification_on_update, on: :update, if: :approved_changed_to_true?
-
-  private
-
-  def approved_changed_to_true?
-    saved_change_to_attribute?(:approved) && approved?
-  end
-
-  def create_notification_on_update
-    create_notification(:get_follow_approval)
-  end
-
 
   # relationshipsレコードが作成されたらnotificationsレコードを作成する
   # after_commit :create_notification_on_create, on: :create
