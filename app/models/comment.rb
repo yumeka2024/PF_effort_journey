@@ -3,7 +3,7 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :post
-  has_one :notification, as: :notifiable
+  has_one :notification, as: :notifiable, dependent: :nullify
 
   validates :body, presence: true
 

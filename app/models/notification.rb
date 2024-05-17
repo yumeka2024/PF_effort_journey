@@ -2,6 +2,7 @@
 class Notification < ApplicationRecord
 
   belongs_to :user
+  belongs_to :post
   belongs_to :sender, class_name: "User"
   belongs_to :notifiable, polymorphic: true
 
@@ -9,7 +10,11 @@ class Notification < ApplicationRecord
   { get_followed: 0, get_follow_request: 1, follow_request_approved: 2, get_like: 3, get_comment: 4 }
 
   def notifiable_message
-    "#{sender.name}#{message_i18n}"
+    if sender.deleted?
+      "退会済みのユーザー#{message_i18n}"
+    else
+      "#{sender.name}#{message_i18n}"
+    end
   end
 
   def notifiable_icon
@@ -36,11 +41,11 @@ class Notification < ApplicationRecord
 
   def notifiable_path
     if get_followed? || get_follow_request?
-      user_followers_path(sender.custom_identifier)
+      user_followers_path(user)
     elsif follow_request_approved?
-      user_following_path(sender.custom_identifier)
+      user_following_path(user)
     else
-      user_path(sender.user)
+      user_path(sender)
     end
   end
 

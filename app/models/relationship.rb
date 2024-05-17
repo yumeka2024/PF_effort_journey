@@ -5,7 +5,7 @@ class Relationship < ApplicationRecord
   # followerがfollowedをフォローしている
   belongs_to :follower, class_name: "User"
   belongs_to :followed, class_name: "User"
-  has_many :notifications, as: :notifiable
+  has_many :notifications, as: :notifiable, dependent: :nullify
 
   validates :follower_id, uniqueness: { scope: :followed_id }
 

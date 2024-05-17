@@ -26,13 +26,22 @@
     <% end %>
 
       <% if notification.get_like? %>
-        <%= link_to(post_path(notification.notifiable.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
-        <p class="card-title m-0"><%= notification.notifiable.post.posted_on %>の振り返り</p>
-        <p class="card-text m-0"><%= simple_format(h(notification.notifiable.post.body.truncate(25))) %></p>
+        <% if notification.post_id.present? %>
+          <%= link_to(post_path(notification.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
+          <p class="card-title m-0"><%= notification.post.posted_on %>の振り返り</p>
+          <p class="card-text m-0"><%= simple_format(h(notification.post.body.truncate(25))) %></p>
+          <% end %>
+        <% else %>
+          <p class="card-text m-0">投稿は削除されました</p>
         <% end %>
       <% elsif notification.get_comment? %>
-        <%= link_to(post_path(notification.notifiable.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
-        <p class="card-text m-0"><%= simple_format(h(notification.notifiable.body.truncate(35))) %></p>
+        <% if notification.post_id.present? && notification.notifiable_id.present? %>
+          <%= link_to(post_path(notification.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
+          <p class="card-text m-0"><%= simple_format(h(notification.notifiable.body.truncate(35))) %></p>
+        <% elsif notification.post_id.present? %>
+          <p class="card-text m-0">コメントは削除されました</p>
+        <% else %>
+          <p class="card-text m-0">投稿は削除されました</p>
         <% end %>
       <% end %>
     </div>

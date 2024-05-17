@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :view_counts, dependent: :destroy
+  has_many :notifications, dependent: :nullify
 
 # バリデーション
   validates :posted_on, presence: true
