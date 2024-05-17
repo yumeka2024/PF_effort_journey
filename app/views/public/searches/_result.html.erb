@@ -1,22 +1,60 @@
-<h2>Users</h2>
-<% if search_results[:users].present? %>
-  <% search_results[:users].each do |user| %>
-    <p><%= link_to user[:name], user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
+<div class="serch-tab">
+  <label><input type="radio" name="serch-tab" checked>Users</label>
+  <div class="mx-auto">
+  <% if search_results[:users].present? %>
+    <div class="card-list-containar">
+      <% search_results[:users].each do |user| %>
+      <div class="card w-100 shadow-sm mb-1">
+        <div class="card-body">
+          <%= link_to(user_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+          <div class="row">
+            <div class="col-2">
+              <%= image_tag user.get_image(30,30), class:"rounded-circle";  %>
+            </div>
+            <div class="col-10">
+              <p class="m-0"><%= user.name.truncate(18) %></p>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">No users found.</p>
   <% end %>
-<% else %>
-  <p>No users found.</p>
-<% end %>
+  </div>
 
-<h2>Posts</h2>
-<% if search_results[:posts].present? %>
-  <% search_results[:posts].each do |post| %>
-    <p><%= link_to post[:body], post_path(post), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %></p>
+  <label><input type="radio" name="serch-tab">Posts</label>
+  <div class="mx-auto">
+  <% if search_results[:posts].present? %>
+    <div class="card-list-containar">
+      <% search_results[:posts].each do |post| %>
+      <div class="card w-100 shadow-sm mb-1">
+        <div class="card-body">
+          <%= link_to(user_path(post.user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+          <div class="row">
+            <p class="mb-2"><%= post.user.name.truncate(18) %></p>
+          </div>
+          <% end %>
+          <%= link_to(post_path(post), class:"text-dark link-underline link-underline-opacity-0") do %>
+          <div class="row">
+            <div class="col">
+              <p class="card-title m-0">
+                <strong><span><%= post.posted_on.strftime('%-Y年%-m月%-d日') %>の振り返り</span></strong>
+              </p>
+              <p class="card-text m-0"><%= simple_format(h(post.body.truncate(40))) %></p>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">No posts found.</p>
   <% end %>
-<% else %>
-  <p>No posts found.</p>
-<% end %>
+  </div>
+</div>
 
-<!--<h2>Labels</h2>-->
-<!--% @search_results[:labels].each do |label| %>-->
-<!--  <p>%= label.name %></p>-->
-<!--% end %>-->
+
