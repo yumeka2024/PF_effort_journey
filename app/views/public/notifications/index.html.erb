@@ -38,6 +38,7 @@
         <% if notification.post_id.present? && notification.notifiable_id.present? %>
           <%= link_to(post_path(notification.post), class:"text-secondary link-underline link-underline-opacity-0") do %>
           <p class="card-text m-0"><%= simple_format(h(notification.notifiable.body.truncate(35))) %></p>
+          <% end %>
         <% elsif notification.post_id.present? %>
           <p class="card-text m-0">コメントは削除されました</p>
         <% else %>

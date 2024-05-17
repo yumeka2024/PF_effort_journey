@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  # include Notifiable
+  include Notifiable
 
   belongs_to :user
   belongs_to :post
@@ -7,16 +7,28 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
-  after_create do
-    create_notification(user_id: post.user_id, post_id: post_id, sender_id: user_id, message: 4)
+  # after_commit on: :create do
+  #   create_notification(user_id: post.user_id, post_id: post_id, sender_id: user_id, message: 4)
+  # end
+
+  def notification_needed?
+    true
   end
 
-  # def notification_message(current_user)
-  #   "#{user.name}さんが　あなたの投稿に　コメント　しました"
-  # end
+  def notification_message_type
+    4
+  end
 
-  # def notification_path(current_user)
-  #   user_path(user)
-  # end
+  def notification_user_id
+    post.user_id
+  end
+
+  def notification_post
+    post
+  end
+
+  def notification_sender
+    user
+  end
 
 end

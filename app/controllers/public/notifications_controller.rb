@@ -3,7 +3,6 @@ class Public::NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications.order(created_at: :desc).page(params[:page]).per(10)
-    # render json: @notifications
 
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)

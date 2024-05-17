@@ -1,6 +1,6 @@
 # app/models/relationship.rb
 class Relationship < ApplicationRecord
-  # include Notifiable
+  include Notifiable
 
   # followerがfollowedをフォローしている
   belongs_to :follower, class_name: "User"
@@ -9,46 +9,76 @@ class Relationship < ApplicationRecord
 
   validates :follower_id, uniqueness: { scope: :followed_id }
 
-  # relationshipsレコードが作成されたらnotificationsレコードを作成する
-  after_create do
-    if approved?
-      notifications.create(user_id: followed_id, sender_id: follower_id, message: 0)
-    else
-      notifications.create(user_id: followed_id, sender_id: follower_id, message: 1)
-    end
+  def notification_needed?
+    true
   end
+
+  def notification_message_type
+    approved? ? :get_followed : :get_follow_request
+  end
+
+  def notification_user_id
+    followed_id
+  end
+
+  def notification_post
+    nil
+  end
+
+  def notification_sender
+    follower
+  end
+
+  after_commit :create_notification_on_update, on: :update, if: :approved_changed_to_true?
+
+  private
+
+  def approved_changed_to_true?
+    saved_change_to_attribute?(:approved) && approved?
+  end
+
+  def create_notification_on_update
+    create_notification(:get_follow_approval)
+  end
+
+
+  # relationshipsレコードが作成されたらnotificationsレコードを作成する
+  # after_commit :create_notification_on_create, on: :create
+  # after_commit on: :create do
+    # if approved
+    #   Rails.logger.debug("Notification creation: Relationship approved")
+    #   notifications.create(user_id: followed_id, post: nil, sender: follower, message: 0)
+    # else
+    #   Rails.logger.debug("Notification creation: Relationship not approved")
+    #   notifications.create(user_id: followed_id, post: nil, sender: follower, message: 1)
+    # end
+  # end
 
   # relationshipレコードのapprovedカラムがfalseからtrueに更新されたらnotificationレコードを作成する
-  after_update do
-    if saved_change_to_attribute?(:approved) && approved?
-      notifications.create(user_id: follower_id, sender_id: followed_id, message: 2)
-    end
-  end
-
-  # # このメソッドは特定のnotificationレコードに対して使用される
-  # def notification_message(current_user)
-  #   if followed_id == current_user.id
-  #     if approved?
-  #       "#{follower.name}さんが　あなたを　フォロー　しました"
-  #     else
-  #       "#{follower.name}さんが　あなたに　フォローリクエストを送りました"
-  #     end
-  #   else
-  #     "#{followed.name}さんが　あなたのフォローリクエストを　承認しました"
+  # after_commit on: :update do
+  #   if saved_change_to_attribute?(:approved) && approved?
+  #     Rails.logger.debug("Notification creation: Relationship approval updated")
+  #     notifications.create(user_id: follower_id, post: nil, sender_id: followed_id, message: 2)
   #   end
   # end
 
-  # # このメソッドは特定のnotificationレコードに対して使用される
-  # def notification_path(current_user)
-  #   if followed_id == current_user.id
-  #     # user = current_user
-  #     # user ? "/users/#{user.custom_identifier}/followers" : "#"
-  #     user_followers_path(current_user.custom_identifier)
+  # private
+
+  # def create_notification_on_create
+  #   if approved?
+  #     create_notification(:get_followed)
   #   else
-  #     # user = current_user
-  #     # user ? "/users/#{user.custom_identifier}/following" : "#"
-  #     user_following_path(current_user.custom_identifier)
+  #     create_notification(:get_follow_request)
   #   end
+  # end
+
+  # def create_notification(message_type)
+  #   Notification.create(
+  #     user_id: followed_id,
+  #     post: nil,
+  #     sender: follower,
+  #     message: message_type
+  #   )
   # end
 
 end
