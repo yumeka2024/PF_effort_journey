@@ -9,7 +9,7 @@ class Like < ApplicationRecord
   validates :user_id, uniqueness: {scope: :post_id}
 
   after_create do
-    create_notification(user_id: post.user_id, sender_id: id, message: 3)
+    create_notification(user_id: post.user_id, post_id: post_id, sender_id: user_id, message: 3)
   end
 
   # def notification_message(current_user)

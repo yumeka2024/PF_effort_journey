@@ -8,7 +8,7 @@ class Comment < ApplicationRecord
   validates :body, presence: true
 
   after_create do
-    create_notification(user_id: post.user_id, sender_id: id, message: 4)
+    create_notification(user_id: post.user_id, post_id: post_id, sender_id: user_id, message: 4)
   end
 
   # def notification_message(current_user)
