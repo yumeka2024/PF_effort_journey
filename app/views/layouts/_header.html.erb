@@ -1,55 +1,79 @@
-<style>
-
-</style>
-
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="col navbar-brand p-0 m-0" href="/">
+  <nav class="navbar navbar-expand-md" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="col-lg-3 navbar-brand p-0 m-0 text-center" href="/">
         <div>
         <%= image_tag('flower.png', class: 'img img-left') %><span class="della-respira-regular ps-1">effort journey</span><%= image_tag('flower.png', class: 'img img-right') %>
         </div>
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto me-3">
         <% if user_signed_in? %>
-          <li class='mx-3'>
-          <%= link_to notifications_path, "data-turbolinks": false, class: 'btn btn-block rounded btn-user' do %>
-            通知　<%= current_user.notifications.where(read: false).count %>
+          <li class='mx-3 text-center'>
+            <%= link_to "About", about_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+          </li>
+          <li class='mx-3 text-center'>
+          <%= link_to notifications_path, "data-turbolinks": false, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+            通知 <span class="bg-light rounded text-dark px-1 m-0"><%= current_user.notifications.where(read: false).count %></span>
           <% end %>
           </li>
-          <li class='mx-3'>
-            <%= link_to "ログアウト", destroy_user_session_path, class: 'btn btn-block rounded btn-user', method: :delete %>
-          </li>
-          <li class='mx-3'>
-            <%= link_to "About", about_path, class: 'btn btn-block rounded btn-user' %>
+          <li class='mx-3 text-center'>
+            <%= link_to "ログアウト", destroy_user_session_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover", method: :delete %>
           </li>
         <% elsif admin_signed_in? %>
-          <li class='mx-3'>
-            <%= link_to "ユーザー", admin_users_path, class: 'btn btn-block rounded btn-admin' %>
+          <li class='mx-3 text-center'>
+            <%= link_to "ユーザー", admin_users_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
           </li>
-          <li class='mx-3'>
-            <%= link_to "投稿", admin_posts_path, class: 'btn btn-block rounded btn-admin' %>
+          <li class='mx-3 text-center'>
+            <%= link_to "投稿", admin_posts_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
           </li>
-          <li class='mx-3'>
-            <%= link_to "コメント", admin_comments_path, class: 'btn btn-block rounded btn-admin' %>
+          <li class='mx-3 text-center'>
+            <%= link_to "コメント", admin_comments_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
           </li>
-          <li class='mx-3'>
-            <%= link_to "ラベル", admin_labels_path, class: 'btn btn-block rounded btn-admin' %>
+          <li class='mx-3 text-center'>
+            <%= link_to "ラベル", admin_labels_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
           </li>
-          <li class='mx-3'>
-            <%= link_to "管理者ログアウト", destroy_admin_session_path, class: 'btn btn-block rounded btn-admin', method: :delete %>
+          <li class='mx-3 text-center'>
+            <%= link_to "管理者ログアウト", destroy_admin_session_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover", method: :delete %>
           </li>
         <% else %>
-          <li class='mx-3'>
-            <%= link_to "About", about_path, class: 'btn btn-block rounded btn-user' %>
+          <li class='mx-3 text-center'>
+            <%= link_to "About", about_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+          </li>
+          <li class='mx-3 text-center'>
+            <%= link_to "新規登録", new_user_registration_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+          </li>
+          <li class='mx-3 text-center'>
+            <%= link_to "ログイン", new_user_session_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
           </li>
         <% end %>
         </ul>
       </div>
     </div>
   </nav>
+
+  <% if user_signed_in? %>
+  <div class='container'>
+    <div class='row border border-light rounded p-2 text-center'>
+      <div class='col-md-4'>
+        <%= link_to "活動を開始する", new_punch_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+      </div>
+      <div class='col-md-4'>
+        <% if prev_punch.present? %>
+          <%= link_to punch_path(prev_punch), class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+          <i class="fa-solid fa-flag fa-flip"></i>　<%= prev_punch.label.name %>　活動中　<i class="fa-solid fa-flag fa-flip"></i>
+          <% end %>
+        <% else %>
+          <%= link_to "活動していません", new_punch_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+        <% end %>
+      </div>
+      <div class='col-md-4'>
+        <%= link_to "振り返りを投稿", new_post_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
 </header>

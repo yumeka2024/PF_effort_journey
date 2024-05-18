@@ -38,6 +38,7 @@ class Public::RelationshipsController < ApplicationController
     @pending_followers = @user.followers.where('relationships.approved = ?', false)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @approve_follow = true
+    @prev_punch = current_user.punches.find_by(out_time: nil)
   end
 
   def following
@@ -50,6 +51,7 @@ class Public::RelationshipsController < ApplicationController
     @pending_following = @user.followings.where('relationships.approved = ?', false)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approve_follow = false
+    @prev_punch = current_user.punches.find_by(out_time: nil)
   end
 
 end

@@ -13,7 +13,7 @@ class Public::SessionsController < Devise::SessionsController
   def guest_sign_in
     user = User.find_by(custom_identifier: "guest")
     sign_in user
-    redirect_to root_path, flash: { center_notice: 'guestでログインしました' }
+    redirect_to root_path, flash: { info: 'guestでログインしました' }
   end
 
   # POST /resource/sign_in

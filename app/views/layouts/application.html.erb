@@ -20,48 +20,50 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+    <%= render 'layouts/header', prev_punch: @prev_punch %>
     <main>
 
       <!--通知表示-->
-      <div class='container'>
-        <div class='row'>
-          <div class='col-3' style="height: 0px;">
-            <p class="h5 text-center text-white" id="left_notice"><%= flash[:left_notice] %></p>
-          </div>
-          <div class='col-6' style="height: 0px;">
-            <p class="h5 text-center text-white" id="center_notice"><%= flash[:center_notice] %></p>
-          </div>
-          <div class='col-3' style="height: 0px;">
-            <p class="h5 text-center text-white" id="right_notice"><%= flash[:right_notice] %></p>
-          </div>
-        </div>
-      </div>
+      <!--<div class='container'>-->
+      <!--  <div class='row'>-->
+      <!--    <div class='col-3' style="height: 0px;">-->
+      <!--      <p class="h5 text-center text-white" id="left_notice"><#%= flash[:left_notice] %></p>-->
+      <!--    </div>-->
+      <!--    <div class='col-6' style="height: 0px;">-->
+      <!--      <p class="h5 text-center text-white" id="center_notice"><#%= flash[:center_notice] %></p>-->
+      <!--    </div>-->
+      <!--    <div class='col-3' style="height: 0px;">-->
+      <!--      <p class="h5 text-center text-white" id="right_notice"><#%= flash[:right_notice] %></p>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
 
-<div class="modal" tabindex="-1" id="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p><%= flash[:center_notice] %></p>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="modal" tabindex="-1" id="modal">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <p><#%= flash[:center_notice] %></p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
+<div id="liveAlertPlaceholder"></div>
+<button type="button" class="btn btn-primary" id="liveAlertBtn">アラートを表示</button>
 
       <div class="container">
         <div class="row pt-3">
         <% if content_for?(:left_side) %>
-          <div class="col-sm-3 pt-3 rounded d-none d-sm-block sidebar left_side">
+          <div class="col-md-3 pt-3 rounded d-none d-md-block sidebar left_side">
             <%= yield(:left_side) %>
           </div>
-          <div class="col-sm-6 pt-3">
+          <div class="col-md-6 pt-3">
             <%= yield %>
           </div>
-          <div class="col-sm-3 pt-3 rounded d-none d-sm-block sidebar right_side">
+          <div class="col-md-3 pt-3 rounded d-none d-md-block sidebar right_side">
             <%= yield(:right_side) %>
           </div>
         <% else %>
@@ -80,17 +82,16 @@
     </main>
 
 
-
-
     <script>
-    $(function() {
-      $('#back a').on('click',function(event){
-        $('body, html').animate({
-          scrollTop:0
-        }, 800);
-        event.preventDefault();
+      // 無限スクロール
+      $(function() {
+        $('#back a').on('click',function(event){
+          $('body, html').animate({
+            scrollTop:0
+          }, 800);
+          event.preventDefault();
+        });
       });
-    });
 
       var jscrollOption = {
           loadingHtml: '<div class="d-flex justify-content-evenly m-2"><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i></div>',
@@ -100,19 +101,50 @@
           nextSelector: 'span.next a'
       };
       $('.jscroll').jscroll(jscrollOption);
-    </script>
 
-  <script>
-    var flushModal = new bootstrap.Modal(document.getElementById('modal'));
+      // アラート
+      // var flushModal = new bootstrap.Modal(document.getElementById('modal'));
 
-    <% if flash[:center_notice].present? %>
-    flushModal.show()
+      // <#% if flash[:center_notice].present? %>
+      // flushModal.show()
 
+      // setTimeout(() => {
+      //   flushModal.hide();
+      // }, "5000");
+      // <#% end %>
+
+var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+var appendAlert = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div class="text-center"><i class="fa-regular fa-circle-check"></i>　${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>',
+    '</div>'
+  ].join('')
+
+  alertPlaceholder.append(wrapper)
+}
+
+<% if flash[:success].present? %>
+  appendAlert('<%= flash[:success] %>', 'success')
     setTimeout(() => {
-      flushModal.hide();
+      alertPlaceholder.style.display="none";
+    }, "3000");
+<% end %>
+<% if flash[:danger].present? %>
+  appendAlert('<%= flash[:danger] %>', 'danger')
+    setTimeout(() => {
+      alertPlaceholder.style.display="none";
     }, "5000");
-    <% end %>
-  </script>
+<% end %>
+<% if flash[:info].present? %>
+  appendAlert('<%= flash[:info] %>', 'info')
+    setTimeout(() => {
+      alertPlaceholder.style.display="none";
+    }, "3000");
+<% end %>
+    </script>
 
   </body>
 </html>
