@@ -54,14 +54,14 @@ class Public::PunchesController < ApplicationController
   def create
     punch = current_user.punches.new(punch_params)
     if punch.label_id.nil? || punch.in_time.nil? || punch.out_time.nil?
-      redirect_to new_punch_path, flash: { right_notice: '入力内容を確認してください' }
+      redirect_to new_punch_path, flash: { danger: '入力内容を確認してください' }
     else
       if punch.save
         punch_log = punch.punch_logs.build(detail: punch.detail, in_time: punch.in_time, out_time: punch.out_time)
         punch_log.save
-        redirect_to new_punch_path, flash: { right_notice: '保存しました' }
+        redirect_to new_punch_path, flash: { success: '保存しました' }
       else
-        redirect_to new_punch_path, flash: { right_notice: '入力内容を確認してください' }
+        redirect_to new_punch_path, flash: { danger: '入力内容を確認してください' }
       end
     end
   end
@@ -73,19 +73,19 @@ class Public::PunchesController < ApplicationController
       return
     end
     if params[:punch][:in_time].nil? || params[:punch][:out_time].nil?
-      redirect_to edit_punch_path(punch), flash: { center_notice: '入力内容を確認してください' }
+      redirect_to edit_punch_path(punch), flash: { danger: '入力内容を確認してください' }
     else
       if punch.out_time.blank?
         punch_log = PunchLog.find_by(punch_id: punch.id, out_time: nil)
         if punch.update(punch_params) && punch_log.update(punch_params.slice(:reason, :detail, :in_time, :out_time))
-          redirect_to edit_punch_path(punch), flash: { center_notice: '編集しました' }
+          redirect_to edit_punch_path(punch), flash: { success: '編集しました' }
         else
           render :edit
         end
       else
         punch_log = punch.punch_logs.build(punch_params.slice(:reason, :detail, :in_time, :out_time))
         if punch.update(punch_params) && punch_log.save
-          redirect_to edit_punch_path(punch), flash: { center_notice: '編集しました' }
+          redirect_to edit_punch_path(punch), flash: { success: '編集しました' }
         else
           render :edit
         end

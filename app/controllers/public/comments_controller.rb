@@ -6,7 +6,7 @@ class Public::CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     @comment.post_id = @post.id
     if @comment.save
-      redirect_to post_path(@post), flash: { comment_notice: 'コメントを投稿しました' }
+      redirect_to post_path(@post), flash: { success: 'コメントを投稿しました' }
     else
       render template: "public/posts/show"
     end
@@ -33,7 +33,7 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
-      redirect_to post_path(@post), flash: { comment_notice: 'コメントを編集しました' }
+      redirect_to post_path(@post), flash: { success: 'コメントを編集しました' }
     else
       render template: "public/posts/show"
     end
@@ -43,7 +43,7 @@ class Public::CommentsController < ApplicationController
     post = Post.find(params[:post_id])
     comment = Comment.find(params[:id])
     comment.destroy
-    redirect_to post_path(post), flash: { comment_notice: 'コメントを削除しました' }
+    redirect_to post_path(post), flash: { success: 'コメントを削除しました' }
   end
 
   private
