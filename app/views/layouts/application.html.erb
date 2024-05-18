@@ -24,19 +24,19 @@
     <main>
 
       <!--通知表示-->
-      <div class='container'>
-        <div class='row'>
-          <div class='col-3' style="height: 0px;">
-            <p class="h5 text-center text-white" id="left_notice"><%= flash[:left_notice] %></p>
-          </div>
-          <div class='col-6' style="height: 0px;">
-            <p class="h5 text-center text-white" id="center_notice"><%= flash[:center_notice] %></p>
-          </div>
-          <div class='col-3' style="height: 0px;">
-            <p class="h5 text-center text-white" id="right_notice"><%= flash[:right_notice] %></p>
-          </div>
-        </div>
-      </div>
+      <!--<div class='container'>-->
+      <!--  <div class='row'>-->
+      <!--    <div class='col-3' style="height: 0px;">-->
+      <!--      <p class="h5 text-center text-white" id="left_notice"><#%= flash[:left_notice] %></p>-->
+      <!--    </div>-->
+      <!--    <div class='col-6' style="height: 0px;">-->
+      <!--      <p class="h5 text-center text-white" id="center_notice"><#%= flash[:center_notice] %></p>-->
+      <!--    </div>-->
+      <!--    <div class='col-3' style="height: 0px;">-->
+      <!--      <p class="h5 text-center text-white" id="right_notice"><#%= flash[:right_notice] %></p>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
 
 <!--<div class="modal" tabindex="-1" id="modal">-->
 <!--  <div class="modal-dialog">-->
@@ -129,7 +129,7 @@ const appendAlert = (message, type) => {
 const alertTrigger = document.getElementById('liveAlertBtn')
 if (alertTrigger) {
   alertTrigger.addEventListener('click', () => {
-    appendAlert('<%= flash[:center_notice] %>', 'success')
+    appendAlert('<%= flash[:success] %>', 'success')
   })
 }
     </script>
