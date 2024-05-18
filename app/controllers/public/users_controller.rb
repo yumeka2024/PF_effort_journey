@@ -10,6 +10,7 @@ class Public::UsersController < ApplicationController
     @posts = @user.posts.all.includes(user: {image_attachment: :blob}).order(created_at: :desc).page(params[:page]).per(5)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
   end
 
   def edit
@@ -17,6 +18,7 @@ class Public::UsersController < ApplicationController
     @user_identifier = User.find(current_user.id)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
   end
 
   def update
@@ -48,6 +50,7 @@ class Public::UsersController < ApplicationController
     @posts = Post.joins(:likes).where(likes: { user_id: @user.id }).includes(user: { image_attachment: :blob }).order('likes.created_at DESC').page(params[:page]).per(5)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
   end
 
   private

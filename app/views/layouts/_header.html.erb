@@ -58,10 +58,10 @@
   <% if user_signed_in? %>
   <div class='container'>
     <div class='row border border-light rounded p-2 text-center'>
-      <div class='col-4'>
+      <div class='col-md-4'>
         <%= link_to "活動を開始する", new_punch_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
       </div>
-      <div class='col-4'>
+      <div class='col-md-4'>
         <% if prev_punch.present? %>
           <%= link_to punch_path(prev_punch), class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
           <i class="fa-solid fa-flag fa-flip"></i>　<%= prev_punch.label.name %>　活動中　<i class="fa-solid fa-flag fa-flip"></i>
@@ -70,7 +70,7 @@
           <%= link_to "活動を開始しよう！", new_punch_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
         <% end %>
       </div>
-      <div class='col-4'>
+      <div class='col-md-4'>
         <%= link_to "振り返りを投稿", new_post_path, class:"text-light link-underline-light link-offset-3-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
       </div>
     </div>

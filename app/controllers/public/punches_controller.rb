@@ -7,6 +7,7 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = Time.zone.today
     @punches = current_user.punches.where(in_time: @day.all_day).order(in_time: :asc)
     @punch = Punch.new
@@ -15,6 +16,7 @@ class Public::PunchesController < ApplicationController
   def index
     @search_params = search_params
     @search_results = current_user.punches.search(@search_params)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
   end
 
   def show
@@ -26,6 +28,7 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = Time.zone.today
     @punches = current_user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
@@ -41,6 +44,7 @@ class Public::PunchesController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = Time.zone.today
     @punches = current_user.punches.where(in_time: @day.all_day)
     @punch = Punch.new

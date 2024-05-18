@@ -6,6 +6,7 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = Time.zone.today
     @punches = current_user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
@@ -23,6 +24,7 @@ class Public::PostsController < ApplicationController
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = @post.posted_on
     @punches = @user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
@@ -56,6 +58,7 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = @post.posted_on
     @punches = current_user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
