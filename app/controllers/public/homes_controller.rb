@@ -9,6 +9,7 @@ class Public::HomesController < ApplicationController
       @approved_followers = @user.followers.where('relationships.approved = ?', true)
       @approved_following = @user.followings.where('relationships.approved = ?', true)
       @posts = Kaminari.paginate_array(Post.sorted_by_recommendation(@user.average_recent_score)).page(params[:page]).per(5)
+      @prev_punch = @user.punches.find_by(out_time: nil)
     end
   end
 
