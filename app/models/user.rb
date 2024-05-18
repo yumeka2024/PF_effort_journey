@@ -13,8 +13,13 @@ class User < ApplicationRecord
   has_many :view_counts, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+
+  has_many :approved_followings, lambda { joins(:active_relationships).where( active_relationships: { approved: true } ) }, through: :active_relationships, source: :followed
+  has_many :approved_followers, lambda { joins(:passive_relationships).where( passive_relationships: { approved: true } ) }, through: :passive_relationships, source: :follower
+
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+
   has_many :labels, dependent: :destroy
   has_many :punches, dependent: :destroy
   has_many :notifications, dependent: :destroy
