@@ -100,7 +100,7 @@ class Public::PunchesController < ApplicationController
       return
     end
     punch.destroy
-    redirect_to new_punch_path, flash: { center_notice: '削除しました' }
+    redirect_to new_punch_path, flash: { success: '削除しました' }
   end
 
   def start
@@ -112,7 +112,7 @@ class Public::PunchesController < ApplicationController
     if punch.save
       punch_log = punch.punch_logs.build(in_time: punch.in_time)
       punch_log.save
-      redirect_to punch_path(punch), flash: { center_notice: '開始しました' }
+      redirect_to punch_path(punch), flash: { success: '開始しました' }
     else
       render :new
     end
@@ -127,7 +127,7 @@ class Public::PunchesController < ApplicationController
     punch.update(punch_params.merge(out_time: DateTime.now))
     punch_log = punch.punch_logs.find_by(out_time: nil)
     punch_log&.update(detail: punch.detail, out_time: punch.out_time)
-    redirect_to new_punch_path, flash: { center_notice: '終了しました' }
+    redirect_to new_punch_path, flash: { success: '終了しました' }
   end
 
 

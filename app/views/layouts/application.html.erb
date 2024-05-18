@@ -52,7 +52,7 @@
 <!--</div>-->
 
 <div id="liveAlertPlaceholder"></div>
-<button type="button" class="btn btn-primary" id="liveAlertBtn">ライブでアラートを表示</button>
+<button type="button" class="btn btn-primary" id="liveAlertBtn">アラートを表示</button>
 
       <div class="container">
         <div class="row pt-3">
@@ -113,8 +113,8 @@
       // }, "5000");
       // <#% end %>
 
-const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-const appendAlert = (message, type) => {
+var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+var appendAlert = (message, type) => {
   const wrapper = document.createElement('div')
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
@@ -126,12 +126,24 @@ const appendAlert = (message, type) => {
   alertPlaceholder.append(wrapper)
 }
 
-const alertTrigger = document.getElementById('liveAlertBtn')
-if (alertTrigger) {
-  alertTrigger.addEventListener('click', () => {
-    appendAlert('<%= flash[:success] %>', 'success')
-  })
-}
+<% if flash[:success].present? %>
+  appendAlert('<%= flash[:success] %>', 'success')
+    setTimeout(() => {
+      alertPlaceholder.style.display="none";
+    }, "3000");
+<% end %>
+<% if flash[:danger].present? %>
+  appendAlert('<%= flash[:danger] %>', 'danger')
+    setTimeout(() => {
+      alertPlaceholder.style.display="none";
+    }, "5000");
+<% end %>
+<% if flash[:info].present? %>
+  appendAlert('<%= flash[:info] %>', 'info')
+    setTimeout(() => {
+      alertPlaceholder.style.display="none";
+    }, "3000");
+<% end %>
     </script>
 
   </body>
