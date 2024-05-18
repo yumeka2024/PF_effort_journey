@@ -6,12 +6,19 @@ ja:
         exercise: "運動"
         hobby: "趣味"
         other: "その他"
+    notification:
+      message:
+        get_followed: "さんが あなたを フォローしました"
+        get_follow_request: "さんが あなたに フォローリクエストを送りました"
+        follow_request_approved: "さんが あなたの フォローリクエストを承認しました"
+        get_like: "さんが あなたの投稿を いいねしました"
+        get_comment: "さんが あなたの投稿に コメントをつけました"
   views:
     pagination:
-      first: "&laquo; 最初"
-      last: "最後 &raquo;"
-      previous: "&lsaquo; 前"
-      next: "次 &rsaquo;"
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
       truncate: "..."
 
   activerecord:

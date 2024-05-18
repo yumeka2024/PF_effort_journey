@@ -24,93 +24,36 @@ body {
   border: none;
   background: #58B2DC;
 }
+.text-dark{
+  color: #555555;
+}
+.text-light{
+  color: #ffebda;
+}
+.bg-light{
+  background: #ffebda;
+}
+
 
 // header
 .della-respira-regular {
   font-family: "Della Respira", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 45px;
+  font-size: 130%;
   color: #ffebda;
 }
-header nav .btn-user{
-  border: none;
-  color: #ca579c;
-  background: #ffebda;
-}
-header nav .btn-user:hover{
-  border: none;
-  color: #FFEbda;
-  background: #bea7bb;
-}
-header nav .btn-user:active{
-  border: none;
-  color: #ca579c;
-  background: #ffebda;
-}
-header nav .btn-admin{
-  border: none;
-  color: #FFEbda;
-  background: #bea7bb;
-}
-header nav .btn-admin:hover{
-  border: none;
-  color: #ca579c;
-  background: #ffebda;
-}
-header nav .btn-admin:active{
-  border: none;
-  color: #ffebda;
-  background: #bea7bb;
+.navbar-brand:hover {
+  opacity: 0.8;
 }
 
 header nav .img {
-  width: 50px;
+  width: 12%;
 }
 header nav .img-right {
   transform: scale(-1, 1);
 }
 
-// header nav {
-// background-color:#FFCC99
-
-//   .btn-user{
-//     border: none;
-//     color: #ab8048;
-//     background: #FFF;
-
-//     &:hover{
-//       border: none;
-//       color: #FFF;
-//       background: #ab8048;
-//     }
-
-//     &:active{
-//       border: none;
-//       color: #ab8048;
-//       background: #FFF;
-//     }
-//   }
-//   .btn-admin{
-//     border: none;
-//     color: #FFF;
-//     background: #ab8048;
-
-//     &:hover{
-//       border: none;
-//       color: #ab8048;
-//       background: #FFF;
-//     }
-//     &:active{
-//       border: none;
-//       color: #FFF;
-//       background: #ab8048;
-//     }
-//   }
-//   .img {
-//     width: 90%;
-//   }
-// }
 
 // side
 .sidebar {
@@ -141,6 +84,73 @@ header nav .img-right {
   margin: 0;
   padding: 0;
   color: #ffebda;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: none;
+  background-color: #E8F0FE;
+  border-radius: 24px;
+}
+.search-form:hover {
+  box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+}
+.search-form::before {
+  width: 45px;
+  height: 15px;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%20%3Cpath%20d%3D%22M23.7%2020.8%2019%2016.1c-.2-.2-.5-.3-.8-.3h-.8c1.3-1.7%202-3.7%202-6C19.5%204.4%2015.1%200%209.7%200S0%204.4%200%209.7s4.4%209.7%209.7%209.7c2.3%200%204.3-.8%206-2v.8c0%20.3.1.6.3.8l4.7%204.7c.4.4%201.2.4%201.6%200l1.3-1.3c.5-.5.5-1.2.1-1.6zm-14-5.1c-3.3%200-6-2.7-6-6s2.7-6%206-6%206%202.7%206%206-2.6%206-6%206z%22%20fill%3D%22%239aa0a6%22%3E%3C%2Fpath%3E%20%3C%2Fsvg%3E');
+  background-position: center;
+  background-repeat: no-repeat;
+  content: '';
+}
+.search-form input {
+  width: 250px;
+  height: 40px;
+  padding: 5px 25px 5px 0;
+  border: none;
+  background-color: #E8F0FE;
+  box-sizing: border-box;
+  outline: none;
+}
+.search-form-submit {
+  display: none;
+}
+
+.serch-tab {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+}
+.serch-tab > label {
+  flex: 1 1;
+  order: -1;
+  min-width: 70px;
+  padding: .7em 1em .5em;
+  color: #555;
+  font-weight: 600;
+  font-size: .9em;
+  text-align: center;
+  cursor: pointer;
+}
+.serch-tab > label:hover {
+  opacity: .8;
+}
+.serch-tab input {
+  display: none;
+}
+.serch-tab > div {
+  display: none;
+  width: 100%;
+  padding: 1.5em 1em;
+}
+.serch-tab label:has(:checked) {
+  border-bottom: 4px solid #5b7a5f;
+  color: #5b7a5f;
+}
+.serch-tab label:has(:checked) + div {
+  display: block;
 }
 
 // main

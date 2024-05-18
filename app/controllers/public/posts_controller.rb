@@ -6,6 +6,7 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = Time.zone.today
     @punches = current_user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
@@ -23,6 +24,7 @@ class Public::PostsController < ApplicationController
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = @post.posted_on
     @punches = @user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
@@ -34,7 +36,7 @@ class Public::PostsController < ApplicationController
     post = current_user.posts.new(post_params)
     post.score = Language.get_data(post_params[:body])
     post.save
-    redirect_to root_path, flash: { center_notice: '投稿が完了しました' }
+    redirect_to followed_path, flash: { success: '投稿が完了しました' }
   end
 
   def destroy
@@ -44,18 +46,19 @@ class Public::PostsController < ApplicationController
       return
     end
     post.destroy
-    redirect_to user_path(current_user), flash: { center_notice: '投稿を削除しました' }
+    redirect_to user_path(current_user), flash: { success: '投稿を削除しました' }
   end
 
   def confirm
     @post = Post.new(post_params)
     if @post.posted_on.blank?||@post.body.blank?
-      redirect_to new_post_path, flash: { center_notice: "設定されていない項目があります" }
+      redirect_to new_post_path, flash: { danger: "設定されていない項目があります" }
       return
     end
     @user = current_user
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
+    @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = @post.posted_on
     @punches = current_user.punches.where(in_time: @day.all_day)
     @punch = Punch.new

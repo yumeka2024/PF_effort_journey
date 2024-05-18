@@ -1,0 +1,21 @@
+<%= link_to(user_path(notification.notifiable.user.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover") do %>
+<div class="row">
+  <div class="col-1">
+    <%= image_tag notification.notifiable.user.get_image(30,30), class:"rounded-circle"; %>
+  </div>
+  <div class="col-11 w-75">
+    <p class="m-0"><%= notification.notifiable.user.name.truncate(18) %> さんが あなたの 投稿を いいね しました</p>
+  </div>
+</div>
+<% end %>
+
+<%= link_to(post_path(notification.notifiable.post), class:"text-dark link-underline link-underline-opacity-0") do %>
+<div class="row">
+  <div class="col">
+    <p class="card-title m-0">
+      <span><%= notification.notifiable.post.posted_on %>の振り返り</span>
+    </p>
+    <p class="card-text m-0"><%= simple_format(h(notification.notifiable.post.body.truncate(30))) %></p>
+  </div>
+</div>
+<% end %>

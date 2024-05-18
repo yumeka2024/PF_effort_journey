@@ -1,5 +1,9 @@
 <%= content_for(:left_side) do %>
-  <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+  <% if @user == current_user %>
+    <%= render 'public/users/info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+  <% else %>
+    <%= render 'public/users/other_info', { user: @user, user_identifier: @user, approved_followers: @approved_followers, approved_following: @approved_following } %>
+  <% end %>
 <% end %>
 
 <div class="bg-light rounded py-3">
