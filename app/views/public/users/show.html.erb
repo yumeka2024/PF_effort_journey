@@ -8,10 +8,10 @@
 <% end %>
 
 
-<% if @user == current_user || @user.private == false || current_user.approved_following?(@user) %>
+<% unless @posts.nil? %>
   <div class="tab-btn">
     <label class="checked">投稿</label>
-    <% if @posts.present? %>
+    <% if @posts.any? %>
       <div class="mx-auto"><%= render 'public/posts/list', posts: @posts %></div>
     <% else %>
       <div class="mx-auto"><h5 class="belt py-4 mb-0 text-center rounded">投稿はありません</h5></div>

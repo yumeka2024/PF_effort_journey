@@ -18,12 +18,15 @@ class Post < ApplicationRecord
     likes.exists?(user_id: user.id)
   end
 
+  scope :with_user_image, -> { includes(user: { image_attachment: :blob }) }
+  
+
   # おすすめタイムラインを形成する
   def self.sorted_by_recommendation(user_average_recent_score)
     random = Rails.env.development? ? "RANDOM()":"RAND()"
 
-    within_weeks = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).where(posted_on: 2.weeks.ago..Time.now)
-    outside_weeks = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).where.not(posted_on: 2.weeks.ago..Time.now)
+    within_weeks = Post.with_user_image.where(users: { private: false }).where(posted_on: 2.weeks.ago..Time.now)
+    outside_weeks = Post.with_user_image.where(users: { private: false }).where.not(posted_on: 2.weeks.ago..Time.now)
 
     within_weeks_with_score_range = within_weeks.where("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order(random)
     within_weeks_without_score_range = within_weeks.where.not("score >= ? AND score <= ?", user_average_recent_score - 0.2, user_average_recent_score + 0.2).order(random)
