@@ -1,22 +1,16 @@
-<!--app/views/public/users/_info.html.erb-->
-<% if user == current_user %>
-<div class="row text-center my-3">
-  <div class="col-lg-2 p-0 m-0 ps-1 d-flex align-items-end">
-    <i class="fa-solid fa-crow fa-2x" style="color: #555555;"></i>
+<!--app/views/public/users/_otyer_info.html.erb-->
+<div class="row mt-2 mb-4">
+  <div class="col d-flex justify-content-evenly mb-1">
+  <% if current_user.approved_followed?(user) %>
+    <p class="border border-success rounded text-success followed">フォローされています</p>
+  <% else %>
+    <p class="border border-secondary rounded text-secondary followed">フォローされていません</p>
+  <% end %>
   </div>
-  <div class="col-lg-10">
-    <div class="balloon"><p><%= simple_format(h(user.score_evaluation)) %></p></div>
-  </div>
-</div>
-<div class="row text-center my-3">
-  <div class="col-lg-6">
-  <%= link_to "記録開始！", new_punch_path, class:"btn border m-1" %>
-  </div>
-  <div class="col-lg-6">
-  <%= link_to "振り返りを投稿", new_post_path, class:"btn border m-1" %>
+  <div id="relationship_btn_<%= user.id %>">
+    <%= render "public/relationships/btn", user: user %>
   </div>
 </div>
-<% end %>
 
 <div class="row text-center">
   <div class="col-6 mx-auto">
@@ -32,22 +26,20 @@
   <% end %>
 </div>
 <div class="row text-center mt-3">
-  <div class="col-lg-6">
-  <%= link_to approved_followers.count.to_s+"フォロワー", user_followers_path(user), class:"btn border m-1" %>
+  <div class="col-md-6">
+  <%= link_to approved_followers.count.to_s+"フォロワー", user_followers_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
   </div>
-  <div class="col-lg-6">
-  <%= link_to approved_following.count.to_s+"フォロー", user_following_path(user), class:"btn border m-1" %>
+  <div class="col-md-6">
+  <%= link_to approved_following.count.to_s+"フォロー", user_following_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
   </div>
 </div>
-<div class="row text-center mt-5 px-3">
-  <%= link_to "投稿/いいね", user_path(custom_identifier: user_identifier.custom_identifier), class:"btn border" %>
+<div class="row text-center mt-5">
+  <%= link_to user_path(custom_identifier: user_identifier.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+  投稿一覧 <i class="fa-solid fa-arrow-right"></i>
+  <% end %>
 </div>
-<div class="row text-center mt-3 px-3">
-  <% if user == current_user %>
-    <%= link_to "プロフィール編集", profile_path, class:"btn border" %>
-  <% else %>
-    <div id="relationship_btn_<%= user.id %>">
-    <%= render "public/relationships/btn", user: user %>
-    </div>
+<div class="row text-center mt-3">
+  <%= link_to user_likes_path(user_custom_identifier: user_identifier.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+  いいね一覧 <i class="fa-solid fa-arrow-right"></i>
   <% end %>
 </div>

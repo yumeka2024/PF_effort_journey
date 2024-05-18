@@ -34,13 +34,6 @@ class Public::UsersController < ApplicationController
   def confirm
   end
 
-  def deactivate
-    user = current_user
-    user.update(deleted: true, private: true)
-    reset_session
-    redirect_to root_path, flash: { center_notice: '退会が完了しました' }
-  end
-
   def likes
     @user = User.find_by(custom_identifier: params[:user_custom_identifier])
     if @user.nil?
@@ -51,6 +44,13 @@ class Public::UsersController < ApplicationController
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @prev_punch = current_user.punches.find_by(out_time: nil)
+  end
+
+  def deactivate
+    user = current_user
+    user.update(deleted: true, private: true)
+    reset_session
+    redirect_to root_path, flash: { center_notice: '退会が完了しました' }
   end
 
   private
