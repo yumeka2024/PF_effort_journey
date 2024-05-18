@@ -25,10 +25,10 @@
 </div>
 <div class="row text-center mt-3">
   <div class="col-md-6">
-  <%= link_to approved_followers.count.to_s+"フォロワー", user_followers_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+  <%= link_to approved_followers.count.to_s+"フォロワー", user_followers_path(user_custom_identifier: user_identifier.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
   </div>
   <div class="col-md-6">
-  <%= link_to approved_following.count.to_s+"フォロー", user_following_path(user), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
+  <%= link_to approved_following.count.to_s+"フォロー", user_following_path(user_custom_identifier: user_identifier.custom_identifier), class:"text-dark link-underline-dark link-offset-2-hover link-underline-opacity-0 link-underline-opacity-100-hover" %>
   </div>
 </div>
 <div class="row text-center mt-5">

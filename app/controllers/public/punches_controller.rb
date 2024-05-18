@@ -72,7 +72,7 @@ class Public::PunchesController < ApplicationController
       redirect_to notfound_path
       return
     end
-    if params[:punch][:in_time].nil? || params[:punch][:out_time].nil?
+    if params[:punch][:in_time].blank? || params[:punch][:out_time].blank?
       redirect_to edit_punch_path(punch), flash: { danger: '入力内容を確認してください' }
       return
     end
