@@ -15,7 +15,7 @@ class Public::HomesController < ApplicationController
 
   def followed
     @user = current_user
-    @posts = Post.where(user_id:Relationship.where(follower_id:@user.id).where(approved: true).pluck(:followed_id).push(@user.id)).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
+    @posts = Post.with_user_image.where(user_id:Relationship.where(follower_id:@user.id).where(approved: true).pluck(:followed_id).push(@user.id)).includes(user: { image_attachment: :blob }).order(created_at: :desc).page(params[:page]).per(5)
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @prev_punch = current_user.punches.find_by(out_time: nil)

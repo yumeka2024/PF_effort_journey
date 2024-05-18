@@ -74,21 +74,21 @@ class Public::PunchesController < ApplicationController
     end
     if params[:punch][:in_time].nil? || params[:punch][:out_time].nil?
       redirect_to edit_punch_path(punch), flash: { danger: '入力内容を確認してください' }
-    else
-      if punch.out_time.blank?
-        punch_log = PunchLog.find_by(punch_id: punch.id, out_time: nil)
-        if punch.update(punch_params) && punch_log.update(punch_params.slice(:reason, :detail, :in_time, :out_time))
-          redirect_to edit_punch_path(punch), flash: { success: '編集しました' }
-        else
-          render :edit
-        end
+      return
+    end
+    if punch.out_time.blank?
+      punch_log = PunchLog.find_by(punch_id: punch.id, out_time: nil)
+      if punch.update(punch_params) && punch_log.update(punch_params.slice(:reason, :detail, :in_time, :out_time))
+        redirect_to edit_punch_path(punch), flash: { success: '編集しました' }
       else
-        punch_log = punch.punch_logs.build(punch_params.slice(:reason, :detail, :in_time, :out_time))
-        if punch.update(punch_params) && punch_log.save
-          redirect_to edit_punch_path(punch), flash: { success: '編集しました' }
-        else
-          render :edit
-        end
+        render :edit
+      end
+    else
+      punch_log = punch.punch_logs.build(punch_params.slice(:reason, :detail, :in_time, :out_time))
+      if punch.update(punch_params) && punch_log.save
+        redirect_to edit_punch_path(punch), flash: { success: '編集しました' }
+      else
+        render :edit
       end
     end
   end
