@@ -38,19 +38,21 @@
         </div>
       </div>
 
-<div class="modal" tabindex="-1" id="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p><%= flash[:center_notice] %></p>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="modal" tabindex="-1" id="modal">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <p><#%= flash[:center_notice] %></p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
+<div id="liveAlertPlaceholder"></div>
+<button type="button" class="btn btn-primary" id="liveAlertBtn">ライブでアラートを表示</button>
 
       <div class="container">
         <div class="row pt-3">
@@ -80,17 +82,16 @@
     </main>
 
 
-
-
     <script>
-    $(function() {
-      $('#back a').on('click',function(event){
-        $('body, html').animate({
-          scrollTop:0
-        }, 800);
-        event.preventDefault();
+      // 無限スクロール
+      $(function() {
+        $('#back a').on('click',function(event){
+          $('body, html').animate({
+            scrollTop:0
+          }, 800);
+          event.preventDefault();
+        });
       });
-    });
 
       var jscrollOption = {
           loadingHtml: '<div class="d-flex justify-content-evenly m-2"><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i><i class="fa-solid fa-shoe-prints" style="color: #ffebda;"></i></div>',
@@ -100,19 +101,38 @@
           nextSelector: 'span.next a'
       };
       $('.jscroll').jscroll(jscrollOption);
+
+      // アラート
+      // var flushModal = new bootstrap.Modal(document.getElementById('modal'));
+
+      // <#% if flash[:center_notice].present? %>
+      // flushModal.show()
+
+      // setTimeout(() => {
+      //   flushModal.hide();
+      // }, "5000");
+      // <#% end %>
+
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+const appendAlert = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div class="text-center"><i class="fa-regular fa-circle-check"></i>　${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>',
+    '</div>'
+  ].join('')
+
+  alertPlaceholder.append(wrapper)
+}
+
+const alertTrigger = document.getElementById('liveAlertBtn')
+if (alertTrigger) {
+  alertTrigger.addEventListener('click', () => {
+    appendAlert('<%= flash[:center_notice] %>', 'success')
+  })
+}
     </script>
-
-  <script>
-    var flushModal = new bootstrap.Modal(document.getElementById('modal'));
-
-    <% if flash[:center_notice].present? %>
-    flushModal.show()
-
-    setTimeout(() => {
-      flushModal.hide();
-    }, "5000");
-    <% end %>
-  </script>
 
   </body>
 </html>
