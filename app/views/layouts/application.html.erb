@@ -40,9 +40,15 @@
             <div class="col-md-6 pt-3">
               <%= yield %>
             </div>
-            <div class="col-md-3 pt-3 rounded d-none d-md-block sidebar right_side">
-              <%= yield(:right_side) %>
-            </div>
+            <% if content_for?(:right_side) %>
+              <div class="col-md-3 pt-3 rounded d-none d-md-block sidebar right_side">
+                <%= yield(:right_side) %>
+              </div>
+            <% else %>
+              <div class="col-md-3 pt-3 rounded d-none d-md-block sidebar right_side">
+                <%= yield(:right_side) %>
+              </div>
+            <% end %>
           <% else %>
             <%= yield %>
           <% end %>
@@ -60,9 +66,52 @@
       </main>
 
       <footer>
-        <div class="bg-primary p-5">
-        フッターだよ
+      <% if content_for?(:left_side) %>
+        <div class="row p-1 text-center d-md-none sidebar">
+          <div class='col-6 p-0'>
+            <button class="navbar-toggler px-2 bg-light rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+              <i class="fa-solid fa-user"></i> ユーザー
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+              <div class="offcanvas-header sidebar">
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body sidebar">
+                <%= yield(:left_side) %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <% if content_for?(:right_side) %>
+        <div class='col-6 p-0'>
+          <button class="navbar-toggler px-2 bg-light rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="fa-solid fa-magnifying-glass"></i> 検索
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header sidebar">
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body sidebar">
+              <%= yield(:right_side) %>
+            </div>
+          </div>
         </div>
+      <% end %>
+      <% if content_for?(:right_side_punch) %>
+        <div class='col-6 p-0'>
+          <button class="navbar-toggler px-2 bg-light rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="fa-regular fa-clock"></i> 活動時間
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header sidebar">
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body sidebar">
+              <%= yield(:right_side_punch) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
       </footer>
 
       <script>

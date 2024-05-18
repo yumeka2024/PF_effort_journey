@@ -36,6 +36,6 @@
   <% end %>
 </div>
 
-<%= content_for(:right_side) do %>
+<%= content_for(:right_side_punch) do %>
   <%= render 'public/punches/list', punches: @punches, day: @day, punch: @punch, labels: @labels %>
 <% end %>

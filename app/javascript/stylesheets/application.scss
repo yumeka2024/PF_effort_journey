@@ -7,8 +7,13 @@ body {
 #back {
   position: fixed;
   right: 25px;
-  bottom: 20px;
+  bottom: 35px;
   width: 70px;
+}
+footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
 }
 .btn-success{
   border: none;
