@@ -31,6 +31,9 @@ class Public::UsersController < ApplicationController
       redirect_to profile_path, flash: { success: '編集を保存しました' }
     else
       @user_identifier = User.find(current_user.id)
+      @approved_followers = @user.followers.where('relationships.approved = ?', true)
+      @approved_following = @user.followings.where('relationships.approved = ?', true)
+      @prev_punch = current_user.punches.find_by(out_time: nil)
       render :edit
     end
   end
