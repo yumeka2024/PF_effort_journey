@@ -44,6 +44,10 @@ class Public::LabelsController < ApplicationController
     if @label.update(label_params)
       redirect_to labels_path, flash: { success: '保存しました' }
     else
+      @user = current_user
+      @approved_followers = @user.followers.where('relationships.approved = ?', true)
+      @approved_following = @user.followings.where('relationships.approved = ?', true)
+      @prev_punch = current_user.punches.find_by(out_time: nil)
       render "edit"
     end
   end
