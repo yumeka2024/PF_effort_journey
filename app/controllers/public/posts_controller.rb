@@ -20,6 +20,11 @@ class Public::PostsController < ApplicationController
       return
     end
     @user = @post.user
+    unless @user == current_user || @user.private == false || current_user.approved_following?(@user)
+      redirect_to notfound_path
+      return
+    end
+
     @comment = Comment.new
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
