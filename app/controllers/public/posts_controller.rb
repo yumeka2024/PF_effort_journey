@@ -20,6 +20,11 @@ class Public::PostsController < ApplicationController
       return
     end
     @user = @post.user
+    unless @user == current_user || @user.private == false || current_user.approved_following?(@user)
+      redirect_to notfound_path
+      return
+    end
+
     @comment = Comment.new
     @comments = @post.comments.all
     @approved_followers = @user.followers.where('relationships.approved = ?', true)
@@ -30,6 +35,8 @@ class Public::PostsController < ApplicationController
     @punch = Punch.new
     @labels = current_user.labels.all.order(genre: :asc)
     current_user.view_counts.create(post_id: @post.id)
+
+    NoticeMailer.greeting(@user).deliver_now
   end
 
   def create
