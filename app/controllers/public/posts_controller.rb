@@ -31,7 +31,7 @@ class Public::PostsController < ApplicationController
     @labels = current_user.labels.all.order(genre: :asc)
     current_user.view_counts.create(post_id: @post.id)
 
-    NoticeMailer.greeting.deliver_now
+    NoticeMailer.greeting(@user).deliver_now
   end
 
   def create

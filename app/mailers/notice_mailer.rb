@@ -5,9 +5,10 @@ class NoticeMailer < ApplicationMailer
   #
   #   en.notice_mailer.greeting.subject
   #
-  def greeting
+  def greeting(user)
     @greeting = "Hi"
 
-    mail to: ENV['MAILER_TEST_TO']
+    # mail to: ENV['MAILER_TEST_TO']
+    mail to: user.email
   end
 end

@@ -22,6 +22,9 @@ module Notifiable
       notifiable: self,
       message: notification_message
     )
+
+    user = User.find(notification_user_id)
+    NoticeMailer.greeting(user).deliver_now
   end
 
   def notification_user_id
