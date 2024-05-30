@@ -30,6 +30,8 @@ class Public::PostsController < ApplicationController
     @punch = Punch.new
     @labels = current_user.labels.all.order(genre: :asc)
     current_user.view_counts.create(post_id: @post.id)
+
+    NoticeMailer.greeting.deliver_now
   end
 
   def create
