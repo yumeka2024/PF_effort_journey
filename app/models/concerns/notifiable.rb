@@ -15,7 +15,7 @@ module Notifiable
   end
 
   def create_notification
-    Notification.create!(
+    notice = Notification.create!(
       user_id: notification_user_id,
       post_id: notification_post_id,
       sender_id: notification_sender_id,
@@ -23,8 +23,7 @@ module Notifiable
       message: notification_message
     )
 
-    user = User.find(notification_user_id)
-    NoticeMailer.greeting(user).deliver_now
+    NoticeMailer.notice(notice).deliver_now
   end
 
   def notification_user_id

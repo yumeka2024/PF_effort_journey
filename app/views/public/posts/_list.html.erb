@@ -35,7 +35,7 @@
             <i class="fa-regular fa-eye me-1"></i><%= post.view_counts.count %>
           </div>
           <div>
-            <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: post.user.name+"\n"+post.posted_on.to_s+"の振り返り\n"+request.url+"posts/"+post.id.to_s), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>
+            <%= link_to("https://twitter.com/intent/tweet?"+URI.encode_www_form(text: post.user.name+"\n"+post.posted_on.to_s+"の振り返り\n"+request.url+"posts/"+post.id.to_s+"\n#effortjourney"), target: :_blank, class:"text-dark link-underline link-underline-opacity-0") do %>
             <i class="fa-brands fa-square-x-twitter fa-lg"></i>
             <% end %>
           </div>
