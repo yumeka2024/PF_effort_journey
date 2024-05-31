@@ -14,6 +14,8 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @posts = Post.includes(user: { image_attachment: :blob }).where(users: { private: false }).order(created_at: :desc).page(params[:page]).per(5)
+    # アカウント作成時のメール送信アクション作成したが、リスク回避のため実装せず（実装時は引数確認）
+    # NoticeMailer.greeting(@user).deliver_now
     if admin_signed_in?
       sign_out :admin
     end

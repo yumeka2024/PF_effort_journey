@@ -56,6 +56,8 @@ class Public::UsersController < ApplicationController
   def deactivate
     user = current_user
     user.update(deleted: true, private: true)
+    NoticeMailer.farewell(user).deliver_now
+
     reset_session
     redirect_to root_path, flash: { info: '退会が完了しました' }
   end
