@@ -47,10 +47,10 @@
 ## 設計書
 
 ### ER図
-![effort_journey_ER図](https://github.com/yumeka2024/PF_effort_journey/assets/154503350/3ddc27fa-f4c6-4b05-aeac-a4dad9c07f44)
+![effort_journey_ER図ver2](https://github.com/yumeka2024/PF_effort_journey/assets/154503350/6f8e24ee-d732-41b9-894b-bb72ca5ce648)
 
 ### 画面遷移図
-![effort_journey_UIFlows](https://github.com/yumeka2024/PF_effort_journey/assets/154503350/b98f0f03-c0fa-4907-93fe-2e403efd5d95)
+![effort_journey_UIFlowsver2](https://github.com/yumeka2024/PF_effort_journey/assets/154503350/dd186062-0427-498a-80c8-73022e5fbf37)
 
 ### テーブル定義書
 https://docs.google.com/spreadsheets/d/1b-snL9J43WG0Ow1AD9XCV6rVFgQCxou7aTKOE-XFA3A/edit?usp=sharing
