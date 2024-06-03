@@ -55,6 +55,23 @@
 ### テーブル定義書
 https://docs.google.com/spreadsheets/d/1b-snL9J43WG0Ow1AD9XCV6rVFgQCxou7aTKOE-XFA3A/edit?usp=sharing
 
+### 実装機能一覧
+- ユーザー認証機能(devise、ID以外のカラムでのルーティング、公開/非公開設定)
+- 管理者機能(devise)
+- 画像アップロード機能(Active Storage)
+- ホーム機能(無限スクロール化、NotFoundビュー、アラートの表示/自動非表示機能)
+- 投稿機能(CRUD機能)
+- コメント機能(CRUD機能)
+- いいね機能(非同期通信(Ajax))
+- 閲覧数カウント機能
+- フォロー機能(非同期通信(Ajax)、リクエスト承認機能)
+- 検索機能(非同期通信(Ajax)、複数テーブル検索)
+- 活動記録機能(CRUD機能、ラベル機能、打刻機能、打刻編集ログ保存機能、絞り込み一覧表示機能)
+- 通知機能(非同期通信(Ajax)、一覧表示時の既読処理、通知対象削除時の情報保持機能)
+- AIによるスコアリング機能(Google Natural Language API、アドバイス生成機能)
+- おすすめタイムライン生成機能(投稿日時/スコアを元にユーザーに合わせた投稿をランダム表示する機能)
+- メール送信機能(Action Mailer)
+
 ## 開発環境
 
 - OS：Linux(CentOS)
