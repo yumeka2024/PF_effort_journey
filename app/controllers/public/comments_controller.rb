@@ -24,7 +24,7 @@ class Public::CommentsController < ApplicationController
     @approved_following = @user.followings.where('relationships.approved = ?', true)
     @prev_punch = current_user.punches.find_by(out_time: nil)
     @day = @post.posted_on
-    @punches = current_user.punches.where(in_time: @day.all_day)
+    @punches = @user.punches.where(in_time: @day.all_day)
     @punch = Punch.new
     @labels = current_user.labels.all.order(genre: :asc)
   end
