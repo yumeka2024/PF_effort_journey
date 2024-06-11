@@ -25,11 +25,13 @@
     <%= punch.out_time.strftime('%H:%M') %>
     <% end %>
   </div>
+<% if user == current_user %>
   <div class="col-lg-2 text-center py-2 mx-0 px-0">
     <%= link_to edit_punch_path(punch), class: "btn btn-sm btn-block btn-success" do %>
     <i class="fa-solid fa-pen-to-square"></i>
     <% end %>
   </div>
+<% end %>
 </div>
 <div class="row border-bottom">
   <div class="col bg-light text-center mb-2 mx-1 px-0 rounded">
@@ -37,6 +39,8 @@
   </div>
 </div>
 <% end %>
+
+<% if user == current_user %>
 <div class="row m-3">
   <%= link_to "すべての活動記録", punches_path, class: "btn btn-sm btn-block border" %>
 </div>
@@ -71,3 +75,4 @@
   </div>
   <% end %>
 </div>
+<% end %>
