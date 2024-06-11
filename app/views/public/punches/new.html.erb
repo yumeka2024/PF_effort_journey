@@ -17,7 +17,7 @@
     <%= label.name %>
   </div>
   <div class="col-lg-4 text-center my-1">
-  <% if label.id == @prev_punch.label_id %>
+  <% if @prev_punch.present? && label.id == @prev_punch.label_id %>
     <%= link_to "活動中", punch_path(@prev_punch), class: "btn btn-block btn-primary" %>
   <% else %>
     <%= form_with model: label, url: start_punches_path, method: :post, local: true do |f| %>
